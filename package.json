@@ -89,7 +89,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "postcss": "^8",
-    "react-email": "3.0.6",
+    "react-email": "4.0.15",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "wrangler": "^4.16.1"
