@@ -86,7 +86,7 @@
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "drizzle-kit": "^0.31.1",
-    "eslint": "^9.27.0",
+    "eslint": "^9.28.0",
     "eslint-config-next": "15.3.2",
     "postcss": "^8",
     "react-email": "3.0.6",
