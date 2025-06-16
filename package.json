@@ -88,7 +88,7 @@
     "drizzle-kit": "^0.31.1",
     "eslint": "^9.28.0",
     "eslint-config-next": "15.3.3",
-    "postcss": "^8.5.5",
+    "postcss": "^8.5.6",
     "react-email": "3.0.6",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.8.3",
