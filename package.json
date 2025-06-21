@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@heroui/react": "^2.7.10",
+    "@heroui/react": "^2.7.11",
     "@hookform/resolvers": "^5.1.1",
     "@icons-pack/react-simple-icons": "^13.1.0",
     "@marsidev/react-turnstile": "^1.1.0",
