@@ -90,7 +90,7 @@
     "eslint-config-next": "15.3.4",
     "postcss": "^8.5.6",
     "react-email": "4.0.17",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "wrangler": "^4.22.0"
   },
