@@ -144,8 +144,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       stripe:
-        specifier: ^18.2.1
-        version: 18.2.1(@types/node@20.17.57)
+        specifier: ^18.3.0
+        version: 18.3.0(@types/node@20.17.57)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -5625,8 +5625,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  shell-quote@1.8.2:
-    resolution: {integrity: sha512-AzqKpGKjrj7EM6rKVQEPpB288oCfnrEIuyoT9cyF4nmGa7V8Zk6f7RRqYisX8X9m+Q7bd632aZW4ky7EhbQztA==}
+  shell-quote@1.8.3:
+    resolution: {integrity: sha512-ObmnIF4hXNg1BqhnHmgbDETF8dLPCggZWBjkQfhZpbszZnYur5DUljTcCHii5LC3J5E0yeO/1LIMyH+UvHQgyw==}
     engines: {node: '>= 0.4'}
 
   side-channel-list@1.0.0:
@@ -5768,8 +5768,8 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  stripe@18.2.1:
-    resolution: {integrity: sha512-GwB1B7WSwEBzW4dilgyJruUYhbGMscrwuyHsPUmSRKrGHZ5poSh2oU9XKdii5BFVJzXHn35geRvGJ6R8bYcp8w==}
+  stripe@18.3.0:
+    resolution: {integrity: sha512-FkxrTUUcWB4CVN2yzgsfF/YHD6WgYHduaa7VmokCy5TLCgl5UNJkwortxcedrxSavQ8Qfa4Ir4JxcbIYiBsyLg==}
     engines: {node: '>=12.*'}
     peerDependencies:
       '@types/node': '>=12.x.x'
@@ -12129,7 +12129,7 @@ snapshots:
       debug: 4.4.1
       env-paths: 3.0.0
       semver: 7.7.2
-      shell-quote: 1.8.2
+      shell-quote: 1.8.3
       which: 4.0.0
     transitivePeerDependencies:
       - supports-color
@@ -13297,7 +13297,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shell-quote@1.8.2:
+  shell-quote@1.8.3:
     optional: true
 
   side-channel-list@1.0.0:
@@ -13485,7 +13485,7 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  stripe@18.2.1(@types/node@20.17.57):
+  stripe@18.3.0(@types/node@20.17.57):
     dependencies:
       qs: 6.14.0
     optionalDependencies:
