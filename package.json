@@ -71,7 +71,7 @@
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "^2.0.4",
     "usehooks-ts": "^3.1.1",
-    "zod": "^3.25.74",
+    "zod": "^4.0.5",
     "zsa": "^0.6.0",
     "zsa-react": "^0.2.3",
     "zustand": "^5.0.6"
@@ -81,7 +81,7 @@
     "@next/bundle-analyzer": "^15.4.1",
     "@simplewebauthn/types": "^12.0.0",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/ms": "^0.7.34",
+    "@types/ms": "^2.1.0",
     "@types/node": "^20.17.57",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
@@ -89,7 +89,7 @@
     "eslint": "^9.31.0",
     "eslint-config-next": "15.4.1",
     "postcss": "^8.5.6",
-    "react-email": "4.2.1",
+    "react-email": "4.2.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.8.3",
     "wrangler": "^4.25.0"
