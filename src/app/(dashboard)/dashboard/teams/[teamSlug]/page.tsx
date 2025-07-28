@@ -6,6 +6,7 @@ import { hasTeamMembership, hasTeamPermission } from "@/utils/team-auth";
 import { TEAM_PERMISSIONS } from "@/db/schema";
 import { PageHeader } from "@/components/page-header";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getSessionFromCookie } from "@/utils/auth";
 import { InviteMemberModal } from "@/components/teams/invite-member-modal";
@@ -145,10 +146,12 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
 
             {team.avatarUrl ? (
               <div className="h-16 w-16 rounded-md overflow-hidden">
-                <img
+                <Image
                   src={team.avatarUrl || ""}
                   alt={`${team.name} avatar`}
                   className="h-full w-full object-cover"
+                  width={64}
+                  height={64}
                 />
               </div>
             ) : null}

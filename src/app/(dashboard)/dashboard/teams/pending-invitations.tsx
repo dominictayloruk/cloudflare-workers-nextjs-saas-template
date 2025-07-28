@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, CheckCircle } from "lucide-react";
@@ -103,10 +104,12 @@ export function PendingInvitations() {
             <div className="flex items-center gap-3">
               {invitation.team.avatarUrl ? (
                 <div className="h-10 w-10 rounded-md overflow-hidden">
-                  <img
+                  <Image
                     src={invitation.team.avatarUrl}
                     alt={`${invitation.team.name} logo`}
                     className="h-full w-full object-cover"
+                    width={40}
+                    height={40}
                   />
                 </div>
               ) : (

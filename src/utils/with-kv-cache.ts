@@ -2,6 +2,9 @@ import "server-only";
 
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import ms from "ms";
+
+// Type assertion for ms function to handle string input
+const parseMs = ms as (str: string) => number;
 import isProd from "./is-prod";
 
 interface CacheOptions {
@@ -35,8 +38,9 @@ export async function withKVCache<T>(
   const result = await fn();
 
   // Cache the result with the specified TTL
+  const ttlMs = parseMs(ttl);
   await kv.put(key, JSON.stringify(result), {
-    expirationTtl: Math.floor(ms(ttl) / 1000), // Convert ms to seconds for KV
+    expirationTtl: Math.floor(ttlMs / 1000), // Convert ms to seconds for KV
   });
 
   return result;

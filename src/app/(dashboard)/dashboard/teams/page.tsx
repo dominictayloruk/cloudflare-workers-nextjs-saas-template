@@ -2,6 +2,7 @@ import { getSessionFromCookie } from "@/utils/auth";
 import { getUserTeamsAction } from "@/actions/team-actions";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlusIcon, Users } from "lucide-react";
@@ -104,10 +105,12 @@ export default async function TeamsIndexPage() {
                   <CardHeader className="flex flex-row items-start gap-4">
                     {team.avatarUrl ? (
                       <div className="h-12 w-12 rounded-md overflow-hidden">
-                        <img
+                        <Image
                           src={team.avatarUrl}
                           alt={`${team.name} logo`}
                           className="h-full w-full object-cover"
+                          width={48}
+                          height={48}
                         />
                       </div>
                     ) : (

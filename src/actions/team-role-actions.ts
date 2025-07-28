@@ -10,7 +10,7 @@ const createRoleSchema = z.object({
   name: z.string().min(1, "Name is required").max(255, "Name is too long"),
   description: z.string().max(1000, "Description is too long").optional(),
   permissions: z.array(z.string()).min(1, "At least one permission is required"),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 // Update role schema
@@ -21,7 +21,7 @@ const updateRoleSchema = z.object({
     name: z.string().min(1, "Name is required").max(255, "Name is too long").optional(),
     description: z.string().max(1000, "Description is too long").optional(),
     permissions: z.array(z.string()).min(1, "At least one permission is required").optional(),
-    metadata: z.record(z.unknown()).optional(),
+    metadata: z.record(z.string(), z.unknown()).optional(),
   }),
 });
 
