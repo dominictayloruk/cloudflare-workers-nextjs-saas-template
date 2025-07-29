@@ -159,14 +159,14 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.1.0)
       zod:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
       zsa:
         specifier: ^0.6.0
-        version: 0.6.0(zod@4.0.10)
+        version: 0.6.0(zod@4.0.11)
       zsa-react:
         specifier: ^0.2.3
-        version: 0.2.3(react@19.1.0)(zod@4.0.10)
+        version: 0.2.3(react@19.1.0)(zod@4.0.11)
       zustand:
         specifier: ^5.0.6
         version: 5.0.6(@types/react@19.1.8)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0))
@@ -6455,8 +6455,8 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
-  zod@4.0.10:
-    resolution: {integrity: sha512-3vB+UU3/VmLL2lvwcY/4RV2i9z/YU0DTV/tDuYjrwmx5WeJ7hwy+rGEEx8glHp6Yxw7ibRbKSaIFBgReRPe5KA==}
+  zod@4.0.11:
+    resolution: {integrity: sha512-LVrgstTaQJek72n6ZGxhAhH/Q24PhGx4lIAcgBmjtvjRq0qYjiH9U0o3hfuC2vfExsnpoHElc4XOJjMKQjUQxg==}
 
   zsa-react@0.2.3:
     resolution: {integrity: sha512-THCoIIhtEU3jXTrNBM/PBc0PyHCekizSGEc+fg0LGo1NM1J02LFQN7ICR948X25IjtkZdvxUZmT0+M73GG8eEw==}
@@ -14429,17 +14429,17 @@ snapshots:
 
   zod@3.22.3: {}
 
-  zod@4.0.10: {}
+  zod@4.0.11: {}
 
-  zsa-react@0.2.3(react@19.1.0)(zod@4.0.10):
+  zsa-react@0.2.3(react@19.1.0)(zod@4.0.11):
     dependencies:
       react: 19.1.0
-      zod: 4.0.10
-      zsa: 0.6.0(zod@4.0.10)
+      zod: 4.0.11
+      zsa: 0.6.0(zod@4.0.11)
 
-  zsa@0.6.0(zod@4.0.10):
+  zsa@0.6.0(zod@4.0.11):
     dependencies:
-      zod: 4.0.10
+      zod: 4.0.11
 
   zustand@5.0.6(@types/react@19.1.8)(react@19.1.0)(use-sync-external-store@1.5.0(react@19.1.0)):
     optionalDependencies:
