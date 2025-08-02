@@ -16,16 +16,16 @@ importers:
         version: 2.8.2(@types/react@19.1.9)(framer-motion@12.23.12(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)
       '@hookform/resolvers':
         specifier: ^5.2.1
-        version: 5.2.1(react-hook-form@7.61.1(react@19.1.1))
+        version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
       '@icons-pack/react-simple-icons':
         specifier: ^13.7.0
         version: 13.7.0(react@19.1.1)
       '@marsidev/react-turnstile':
-        specifier: ^1.1.0
-        version: 1.1.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: ^1.2.0
+        version: 1.2.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@opennextjs/cloudflare':
-        specifier: ^1.6.2
-        version: 1.6.2(wrangler@4.27.0)
+        specifier: ^1.6.3
+        version: 1.6.3(wrangler@4.27.0)
       '@oslojs/crypto':
         specifier: ^1.0.1
         version: 1.0.1
@@ -78,11 +78,11 @@ importers:
         specifier: ^13.1.2
         version: 13.1.2
       '@stripe/react-stripe-js':
-        specifier: ^3.8.1
-        version: 3.8.1(@stripe/stripe-js@7.7.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: ^3.9.0
+        version: 3.9.0(@stripe/stripe-js@7.8.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@stripe/stripe-js':
-        specifier: ^7.7.0
-        version: 7.7.0
+        specifier: ^7.8.0
+        version: 7.8.0
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -129,14 +129,14 @@ importers:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
       react-hook-form:
-        specifier: ^7.61.1
-        version: 7.61.1(react@19.1.1)
+        specifier: ^7.62.0
+        version: 7.62.0(react@19.1.1)
       react-turnstile:
         specifier: ^1.1.4
         version: 1.1.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       remeda:
-        specifier: ^2.27.0
-        version: 2.27.0
+        specifier: ^2.27.2
+        version: 2.27.2
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
@@ -208,8 +208,8 @@ importers:
         specifier: ^8.5.6
         version: 8.5.6
       react-email:
-        specifier: 4.2.6
-        version: 4.2.6
+        specifier: 4.2.7
+        version: 4.2.7
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.17
@@ -2057,8 +2057,8 @@ packages:
   '@levischuck/tiny-cbor@0.2.11':
     resolution: {integrity: sha512-llBRm4dT4Z89aRsm6u2oEZ8tfwL/2l6BwpZ7JcyieouniDECM5AqNgr/y08zalEIvW3RSK4upYyybDcmjXqAow==}
 
-  '@marsidev/react-turnstile@1.1.0':
-    resolution: {integrity: sha512-X7bP9ZYutDd+E+klPYF+/BJHqEyyVkN4KKmZcNRr84zs3DcMoftlMAuoKqNSnqg0HE7NQ1844+TLFSJoztCdSA==}
+  '@marsidev/react-turnstile@1.2.0':
+    resolution: {integrity: sha512-UQ8AF7RFSq2zaoEjC9rcMtF8WOEQW2wDDg+QcMojci/pM37oUaX8n+xIJ9kTXfAOkrEYGvmlnFr/JkREKeA2Yw==}
     peerDependencies:
       react: ^17.0.2 || ^18.0.0 || ^19.0
       react-dom: ^17.0.2 || ^18.0.0 || ^19.0
@@ -2163,12 +2163,12 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@opennextjs/aws@3.7.1':
-    resolution: {integrity: sha512-ryV5cQucSJDU0TF3+Jzqn9g0/+zhUZgjNopSnchPvH0SxSAbKkNaNH7SlnWBhykjusqHaFzQ8dfEjcjAq7TJSQ==}
+  '@opennextjs/aws@3.7.2':
+    resolution: {integrity: sha512-OITG/97+ugbVI3G36/iYLKbRSyR5rG+Y99dsghSzei08tX2qQoNZ/WXlcPcF3yfKItsNOoRfDLOejeDK0XIPMw==}
     hasBin: true
 
-  '@opennextjs/cloudflare@1.6.2':
-    resolution: {integrity: sha512-N96OTbp1970NwLP6dNkAzBDrxjthLQ3VXHcjKl8edqNbJ/iT75H60ZYHU/ZZ7gSZQeJluPvPb1n0ZPQ08EooCQ==}
+  '@opennextjs/cloudflare@1.6.3':
+    resolution: {integrity: sha512-njP3Dt+RflECy59QaixkQHWhQ2LgNlbv/TC40HmKULo5pRxG1U018ufId61VbE0anxeGFLL7zCsoKojhl7VuqA==}
     hasBin: true
     peerDependencies:
       wrangler: ^4.24.4
@@ -3595,15 +3595,15 @@ packages:
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
 
-  '@stripe/react-stripe-js@3.8.1':
-    resolution: {integrity: sha512-BExESIwXDwZgUqFmWj046BGpsqK4vNaBCdcmRvagQzOovjO2aBAt8rofW47K1TJRnt3iTH5dciBdHJ7ZA958ng==}
+  '@stripe/react-stripe-js@3.9.0':
+    resolution: {integrity: sha512-pN1Re7zUc3m61FFQROok685g3zsBQRzCmZDmTzO8iPU6zhLvu2JnC0LrG0FCzSp6kgGa8AQSzq4rpFSgyhkjKg==}
     peerDependencies:
       '@stripe/stripe-js': '>=1.44.1 <8.0.0'
       react: '>=16.8.0 <20.0.0'
       react-dom: '>=16.8.0 <20.0.0'
 
-  '@stripe/stripe-js@7.7.0':
-    resolution: {integrity: sha512-SXuhqhuR5FXaYgKTXzZJeqtVA6JKb9IZWaGeEUxHHiOcFy2p51wccO72bYpXwoK4D5pzQOIYLTuAc7etxyMmwg==}
+  '@stripe/stripe-js@7.8.0':
+    resolution: {integrity: sha512-DNXRfYUgkZlrniQORbA/wH8CdFRhiBSE0R56gYU0V5vvpJ9WZwvGrz9tBAZmfq2aTgw6SK7mNpmTizGzLWVezw==}
     engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.15':
@@ -5708,13 +5708,13 @@ packages:
     peerDependencies:
       react: ^19.1.1
 
-  react-email@4.2.6:
-    resolution: {integrity: sha512-bNickXnwCz2Yr60+kZdB8GDZEMlbeFfyWigYgSTiygyju/u2Et2jo6OuQk25yRDf0/28LGwzEm1XDVVngDT2Rw==}
+  react-email@4.2.7:
+    resolution: {integrity: sha512-zF1dIGTnG10Xls+6ViJydYEYbqqGTq0BWYwTqsp70sPG2eRME79MSq82akFBfdaM/XhLwh6PuNjeohso3aJowA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  react-hook-form@7.61.1:
-    resolution: {integrity: sha512-2vbXUFDYgqEgM2RcXcAT2PwDW/80QARi+PKmHy5q2KhuKvOlG8iIYgf7eIlIANR5trW9fJbP4r5aub3a4egsew==}
+  react-hook-form@7.62.0:
+    resolution: {integrity: sha512-7KWFejc98xqG/F4bAxpL41NB3o1nnvQO1RWZT3TqRZYL8RryQETGfEdVnJN2fy1crCiBLLjkRBVK05j24FxJGA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -5790,8 +5790,8 @@ packages:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
     engines: {node: '>= 0.4'}
 
-  remeda@2.27.0:
-    resolution: {integrity: sha512-KWG2qPzprmCGUoWSUSEJPLhczFRXlxh5YJTvQWZoN4hw5EG+nVase5lCVwEsidA7jDV2K5nibr9jpK4eNaOMdw==}
+  remeda@2.27.2:
+    resolution: {integrity: sha512-y9rv/JnY1FnQu/BNhYIHgfcIiqx9jX1ohP/vQdME1DRBejRJIxcv5hY0MBPPjKN7za89Xzo8XZPynUszfvr/QQ==}
 
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
@@ -8960,10 +8960,10 @@ snapshots:
 
   '@hexagon/base64@1.1.28': {}
 
-  '@hookform/resolvers@5.2.1(react-hook-form@7.61.1(react@19.1.1))':
+  '@hookform/resolvers@5.2.1(react-hook-form@7.62.0(react@19.1.1))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.61.1(react@19.1.1)
+      react-hook-form: 7.62.0(react@19.1.1)
 
   '@humanfs/core@0.19.1': {}
 
@@ -9201,7 +9201,7 @@ snapshots:
 
   '@levischuck/tiny-cbor@0.2.11': {}
 
-  '@marsidev/react-turnstile@1.1.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@marsidev/react-turnstile@1.2.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
@@ -9287,7 +9287,7 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@opennextjs/aws@3.7.1':
+  '@opennextjs/aws@3.7.2':
     dependencies:
       '@ast-grep/napi': 0.35.0
       '@aws-sdk/client-cloudfront': 3.398.0
@@ -9310,10 +9310,10 @@ snapshots:
       - aws-crt
       - supports-color
 
-  '@opennextjs/cloudflare@1.6.2(wrangler@4.27.0)':
+  '@opennextjs/cloudflare@1.6.3(wrangler@4.27.0)':
     dependencies:
       '@dotenvx/dotenvx': 1.31.0
-      '@opennextjs/aws': 3.7.1
+      '@opennextjs/aws': 3.7.2
       cloudflare: 4.5.0
       enquirer: 2.4.1
       glob: 11.0.3
@@ -11291,14 +11291,14 @@ snapshots:
 
   '@standard-schema/utils@0.3.0': {}
 
-  '@stripe/react-stripe-js@3.8.1(@stripe/stripe-js@7.7.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@stripe/react-stripe-js@3.9.0(@stripe/stripe-js@7.8.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@stripe/stripe-js': 7.7.0
+      '@stripe/stripe-js': 7.8.0
       prop-types: 15.8.1
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
 
-  '@stripe/stripe-js@7.7.0': {}
+  '@stripe/stripe-js@7.8.0': {}
 
   '@swc/helpers@0.5.15':
     dependencies:
@@ -13494,7 +13494,7 @@ snapshots:
       react: 19.1.1
       scheduler: 0.26.0
 
-  react-email@4.2.6:
+  react-email@4.2.7:
     dependencies:
       '@babel/parser': 7.28.0
       '@babel/traverse': 7.28.0
@@ -13518,7 +13518,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  react-hook-form@7.61.1(react@19.1.1):
+  react-hook-form@7.62.0(react@19.1.1):
     dependencies:
       react: 19.1.1
 
@@ -13601,7 +13601,7 @@ snapshots:
       gopd: 1.2.0
       set-function-name: 2.0.2
 
-  remeda@2.27.0:
+  remeda@2.27.2:
     dependencies:
       type-fest: 4.41.0
 
