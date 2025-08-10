@@ -3,13 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ScrollShadow } from '@heroui/react'
-import {
-  User,
-  Smartphone,
-  Lock,
-  LogOut
-} from "lucide-react";
+import { ScrollShadow } from "@heroui/react";
+import { User, Smartphone, Lock, LogOut } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   Dialog,
@@ -57,7 +52,7 @@ const sidebarNavItems: SidebarNavItem[] = [
 
 export function SettingsSidebar() {
   const pathname = usePathname();
-  const isLgAndSmaller = useMediaQuery('LG_AND_SMALLER')
+  const isLgAndSmaller = useMediaQuery("LG_AND_SMALLER");
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
   const { signOut } = useSignOut();
 
@@ -77,7 +72,7 @@ export function SettingsSidebar() {
               pathname === item.href
                 ? "bg-muted hover:bg-muted dark:text-foreground dark:hover:text-foreground/70"
                 : "hover:bg-transparent",
-              "justify-start hover:no-underline whitespace-nowrap"
+              "justify-start hover:no-underline whitespace-nowrap",
             )}
           >
             <item.icon className="mr-2 h-4 w-4" />
@@ -90,7 +85,7 @@ export function SettingsSidebar() {
             <button
               className={cn(
                 buttonVariants({ variant: "destructive" }),
-                "justify-start hover:no-underline whitespace-nowrap lg:mt-4 bg-red-700/25 hover:bg-red-600/40"
+                "justify-start hover:no-underline whitespace-nowrap lg:mt-4 bg-red-700/25 hover:bg-red-600/40",
               )}
             >
               <LogOut className="mr-2 h-4 w-4" />

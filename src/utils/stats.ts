@@ -14,7 +14,7 @@ export async function getTotalUsers() {
     {
       key: CACHE_KEYS.TOTAL_USERS,
       ttl: "1 hour",
-    }
+    },
   );
 }
 
@@ -24,7 +24,9 @@ export async function getGithubStars() {
   }
 
   // Extract owner and repo from GitHub URL
-  const match = (GITHUB_REPO_URL as string)?.match(/github\.com\/([^/]+)\/([^/]+)/);
+  const match = (GITHUB_REPO_URL as string)?.match(
+    /github\.com\/([^/]+)\/([^/]+)/,
+  );
   if (!match) return null;
 
   const [, owner, repo] = match;
@@ -33,7 +35,9 @@ export async function getGithubStars() {
 
   return withKVCache(
     async () => {
-      const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+      const response = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}`,
+      );
       if (!response.ok) return null;
 
       const data = (await response.json()) as {
@@ -45,7 +49,6 @@ export async function getGithubStars() {
     {
       key: `${CACHE_KEYS.GITHUB_STARS}:${owner}/${repo}`,
       ttl: "1 hour",
-    }
+    },
   );
 }
-

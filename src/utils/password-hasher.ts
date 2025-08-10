@@ -5,27 +5,34 @@ interface HashPasswordParams {
 
 async function hashPassword({ password, providedSalt }: HashPasswordParams) {
   const encoder = new TextEncoder();
-  const salt = providedSalt || crypto.getRandomValues(new Uint8Array(16));
+  let salt: Uint8Array;
+  if (providedSalt) {
+    salt = providedSalt;
+  } else {
+    const randomBytes = new Uint8Array(16);
+    crypto.getRandomValues(randomBytes);
+    salt = randomBytes;
+  }
 
   const keyMaterial = await crypto.subtle.importKey(
     "raw",
     encoder.encode(password),
     { name: "PBKDF2" },
     false,
-    ["deriveBits", "deriveKey"]
+    ["deriveBits", "deriveKey"],
   );
 
   const key = await crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
-      salt: salt,
+      salt: salt as BufferSource,
       iterations: 100000,
       hash: "SHA-256",
     },
     keyMaterial,
     { name: "AES-GCM", length: 256 },
     true,
-    ["encrypt", "decrypt"]
+    ["encrypt", "decrypt"],
   );
 
   const exportedKey = await crypto.subtle.exportKey("raw", key);
@@ -46,13 +53,18 @@ interface VerifyPasswordParams {
   passwordAttempt: string;
 }
 
-async function verifyPassword({ storedHash, passwordAttempt }: VerifyPasswordParams) {
+async function verifyPassword({
+  storedHash,
+  passwordAttempt,
+}: VerifyPasswordParams) {
   const [saltHex, originalHash] = storedHash.split(":");
-  const salt = new Uint8Array(saltHex.match(/.{1,2}/g)!.map((byte: string) => parseInt(byte, 16)));
+  const salt = new Uint8Array(
+    saltHex.match(/.{1,2}/g)!.map((byte: string) => parseInt(byte, 16)),
+  );
 
   const attemptHashWithSalt = await hashPassword({
     password: passwordAttempt,
-    providedSalt: salt
+    providedSalt: salt,
   });
   const [, attemptHash] = attemptHashWithSalt.split(":");
 

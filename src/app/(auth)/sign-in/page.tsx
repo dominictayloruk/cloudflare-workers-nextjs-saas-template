@@ -16,15 +16,14 @@ const SignInPage = async ({
 }) => {
   const { redirect: redirectParam } = await searchParams;
   const session = await getSessionFromCookie();
-  const redirectPath = redirectParam ?? REDIRECT_AFTER_SIGN_IN as unknown as string;
+  const redirectPath =
+    redirectParam ?? (REDIRECT_AFTER_SIGN_IN as unknown as string);
 
   if (session) {
     return redirect(redirectPath);
   }
 
-  return (
-    <SignInClientPage redirectPath={redirectPath} />
-  )
-}
+  return <SignInClientPage redirectPath={redirectPath} />;
+};
 
 export default SignInPage;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 import { startRegistration } from "@simplewebauthn/browser";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -9,10 +9,24 @@ import {
   verifyRegistrationAction,
   deletePasskeyAction,
 } from "./passkey-settings.actions";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow } from "date-fns";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
 import { useServerAction } from "zsa-react";
 import { PASSKEY_AUTHENTICATOR_IDS } from "@/utils/passkey-authenticator-ids";
@@ -25,7 +39,11 @@ interface PasskeyRegistrationButtonProps {
   onSuccess?: () => void;
 }
 
-function PasskeyRegistrationButton({ email, className, onSuccess }: PasskeyRegistrationButtonProps) {
+function PasskeyRegistrationButton({
+  email,
+  className,
+  onSuccess,
+}: PasskeyRegistrationButtonProps) {
   const [isRegistering, setIsRegistering] = useState(false);
   const router = useRouter();
 
@@ -90,7 +108,11 @@ interface PasskeysListProps {
   email: string | null;
 }
 
-export function PasskeysList({ passkeys, currentPasskeyId, email }: PasskeysListProps) {
+export function PasskeysList({
+  passkeys,
+  currentPasskeyId,
+  email,
+}: PasskeysListProps) {
   const router = useRouter();
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
   const { execute: deletePasskey } = useServerAction(deletePasskeyAction, {
@@ -98,7 +120,7 @@ export function PasskeysList({ passkeys, currentPasskeyId, email }: PasskeysList
       toast.success("Passkey deleted");
       dialogCloseRef.current?.click();
       router.refresh();
-    }
+    },
   });
 
   const isCurrentPasskey = (passkey: Passkey) =>
@@ -123,14 +145,27 @@ export function PasskeysList({ passkeys, currentPasskeyId, email }: PasskeysList
 
       <div className="space-y-4">
         {passkeys.map((passkey) => (
-          <Card key={passkey.id} className={cn(!isCurrentPasskey(passkey) ? "bg-card/40" : "border-3 border-primary/20 shadow-lg bg-secondary/30")}>
+          <Card
+            key={passkey.id}
+            className={cn(
+              !isCurrentPasskey(passkey)
+                ? "bg-card/40"
+                : "border-3 border-primary/20 shadow-lg bg-secondary/30",
+            )}
+          >
             <CardHeader>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="space-y-2">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
                     <CardTitle className="flex flex-wrap items-center gap-2 text-base">
-                      {passkey.aaguid && (PASSKEY_AUTHENTICATOR_IDS as Record<string, string>)[passkey.aaguid] || "Unknown Authenticator App"}
-                      {isCurrentPasskey(passkey) && <Badge>Current Passkey</Badge>}
+                      {(passkey.aaguid &&
+                        (PASSKEY_AUTHENTICATOR_IDS as Record<string, string>)[
+                          passkey.aaguid
+                        ]) ||
+                        "Unknown Authenticator App"}
+                      {isCurrentPasskey(passkey) && (
+                        <Badge>Current Passkey</Badge>
+                      )}
                     </CardTitle>
                     <div className="text-sm text-muted-foreground whitespace-nowrap">
                       · {formatDistanceToNow(passkey.createdAt)} ago
@@ -138,7 +173,17 @@ export function PasskeysList({ passkeys, currentPasskeyId, email }: PasskeysList
                   </div>
                   {passkey.parsedUserAgent && (
                     <CardDescription className="text-sm">
-                      {passkey.parsedUserAgent.browser.name ?? "Unknown browser"} {passkey.parsedUserAgent.browser.major ?? "Unknown version"} on {passkey.parsedUserAgent.device.vendor ?? "Unknown device"} {passkey.parsedUserAgent.device.model ?? "Unknown model"} {passkey.parsedUserAgent.device.type ?? "Unknown type"} ({passkey.parsedUserAgent.os.name ?? "Unknown OS"} {passkey.parsedUserAgent.os.version ?? "Unknown version"})
+                      {passkey.parsedUserAgent.browser.name ??
+                        "Unknown browser"}{" "}
+                      {passkey.parsedUserAgent.browser.major ??
+                        "Unknown version"}{" "}
+                      on{" "}
+                      {passkey.parsedUserAgent.device.vendor ??
+                        "Unknown device"}{" "}
+                      {passkey.parsedUserAgent.device.model ?? "Unknown model"}{" "}
+                      {passkey.parsedUserAgent.device.type ?? "Unknown type"} (
+                      {passkey.parsedUserAgent.os.name ?? "Unknown OS"}{" "}
+                      {passkey.parsedUserAgent.os.version ?? "Unknown version"})
                     </CardDescription>
                   )}
                 </div>
@@ -146,13 +191,20 @@ export function PasskeysList({ passkeys, currentPasskeyId, email }: PasskeysList
                   {!isCurrentPasskey(passkey) && (
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button size="sm" variant="destructive" className="w-full sm:w-auto">Delete passkey</Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          className="w-full sm:w-auto"
+                        >
+                          Delete passkey
+                        </Button>
                       </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
                           <DialogTitle>Delete passkey?</DialogTitle>
                           <DialogDescription>
-                            This will remove this passkey from your account. This action cannot be undone.
+                            This will remove this passkey from your account.
+                            This action cannot be undone.
                           </DialogDescription>
                         </DialogHeader>
                         <DialogFooter className="mt-6 sm:mt-0">
@@ -162,7 +214,11 @@ export function PasskeysList({ passkeys, currentPasskeyId, email }: PasskeysList
                           <Button
                             variant="destructive"
                             className="mb-4 sm:mb-0"
-                            onClick={() => deletePasskey({ credentialId: passkey.credentialId })}
+                            onClick={() =>
+                              deletePasskey({
+                                credentialId: passkey.credentialId,
+                              })
+                            }
                           >
                             Delete passkey
                           </Button>
@@ -178,7 +234,8 @@ export function PasskeysList({ passkeys, currentPasskeyId, email }: PasskeysList
 
         {passkeys.length === 0 && (
           <div className="text-center text-muted-foreground">
-            No passkeys found. Add a passkey to enable passwordless authentication.
+            No passkeys found. Add a passkey to enable passwordless
+            authentication.
           </div>
         )}
       </div>

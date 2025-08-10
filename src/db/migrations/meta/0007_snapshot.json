@@ -97,37 +97,27 @@
       "indexes": {
         "credit_transaction_user_id_idx": {
           "name": "credit_transaction_user_id_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         },
         "credit_transaction_type_idx": {
           "name": "credit_transaction_type_idx",
-          "columns": [
-            "type"
-          ],
+          "columns": ["type"],
           "isUnique": false
         },
         "credit_transaction_created_at_idx": {
           "name": "credit_transaction_created_at_idx",
-          "columns": [
-            "createdAt"
-          ],
+          "columns": ["createdAt"],
           "isUnique": false
         },
         "credit_transaction_expiration_date_idx": {
           "name": "credit_transaction_expiration_date_idx",
-          "columns": [
-            "expirationDate"
-          ],
+          "columns": ["expirationDate"],
           "isUnique": false
         },
         "credit_transaction_payment_intent_id_idx": {
           "name": "credit_transaction_payment_intent_id_idx",
-          "columns": [
-            "paymentIntentId"
-          ],
+          "columns": ["paymentIntentId"],
           "isUnique": false
         }
       },
@@ -136,12 +126,8 @@
           "name": "credit_transaction_userId_user_id_fk",
           "tableFrom": "credit_transaction",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -242,23 +228,17 @@
       "indexes": {
         "passkey_credential_credentialId_unique": {
           "name": "passkey_credential_credentialId_unique",
-          "columns": [
-            "credentialId"
-          ],
+          "columns": ["credentialId"],
           "isUnique": true
         },
         "user_id_idx": {
           "name": "user_id_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         },
         "credential_id_idx": {
           "name": "credential_id_idx",
-          "columns": [
-            "credentialId"
-          ],
+          "columns": ["credentialId"],
           "isUnique": false
         }
       },
@@ -267,12 +247,8 @@
           "name": "passkey_credential_userId_user_id_fk",
           "tableFrom": "passkey_credential",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -345,25 +321,17 @@
       "indexes": {
         "purchased_item_user_id_idx": {
           "name": "purchased_item_user_id_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         },
         "purchased_item_type_idx": {
           "name": "purchased_item_type_idx",
-          "columns": [
-            "itemType"
-          ],
+          "columns": ["itemType"],
           "isUnique": false
         },
         "purchased_item_user_item_idx": {
           "name": "purchased_item_user_item_idx",
-          "columns": [
-            "userId",
-            "itemType",
-            "itemId"
-          ],
+          "columns": ["userId", "itemType", "itemId"],
           "isUnique": false
         }
       },
@@ -372,12 +340,8 @@
           "name": "purchased_item_userId_user_id_fk",
           "tableFrom": "purchased_item",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -501,30 +465,22 @@
       "indexes": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "email_idx": {
           "name": "email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         },
         "google_account_id_idx": {
           "name": "google_account_id_idx",
-          "columns": [
-            "googleAccountId"
-          ],
+          "columns": ["googleAccountId"],
           "isUnique": false
         },
         "role_idx": {
           "name": "role_idx",
-          "columns": [
-            "role"
-          ],
+          "columns": ["role"],
           "isUnique": false
         }
       },

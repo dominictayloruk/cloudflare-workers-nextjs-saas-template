@@ -4,7 +4,13 @@ import { signInAction } from "./sign-in.actions";
 import { type SignInSchema, signInSchema } from "@/schemas/signin.schema";
 import { type ReactNode, useState } from "react";
 
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import SeparatorWithText from "@/components/separator-with-text";
@@ -16,7 +22,10 @@ import { useServerAction } from "zsa-react";
 import Link from "next/link";
 import SSOButtons from "../_components/sso-buttons";
 import { KeyIcon } from "lucide-react";
-import { generateAuthenticationOptionsAction, verifyAuthenticationAction } from "@/app/(settings)/settings/security/passkey-settings.actions";
+import {
+  generateAuthenticationOptionsAction,
+  verifyAuthenticationAction,
+} from "@/app/(settings)/settings/security/passkey-settings.actions";
 import { startAuthentication } from "@simplewebauthn/browser";
 
 interface SignInClientProps {
@@ -30,25 +39,38 @@ interface PasskeyAuthenticationButtonProps {
   redirectPath: string;
 }
 
-function PasskeyAuthenticationButton({ className, disabled, children, redirectPath }: PasskeyAuthenticationButtonProps) {
-  const { execute: generateOptions } = useServerAction(generateAuthenticationOptionsAction, {
-    onError: (error) => {
-      toast.dismiss();
-      toast.error(error.err?.message || "Failed to get authentication options");
+function PasskeyAuthenticationButton({
+  className,
+  disabled,
+  children,
+  redirectPath,
+}: PasskeyAuthenticationButtonProps) {
+  const { execute: generateOptions } = useServerAction(
+    generateAuthenticationOptionsAction,
+    {
+      onError: (error) => {
+        toast.dismiss();
+        toast.error(
+          error.err?.message || "Failed to get authentication options",
+        );
+      },
     },
-  });
+  );
 
-  const { execute: verifyAuthentication } = useServerAction(verifyAuthenticationAction, {
-    onError: (error) => {
-      toast.dismiss();
-      toast.error(error.err?.message || "Authentication failed");
+  const { execute: verifyAuthentication } = useServerAction(
+    verifyAuthenticationAction,
+    {
+      onError: (error) => {
+        toast.dismiss();
+        toast.error(error.err?.message || "Authentication failed");
+      },
+      onSuccess: () => {
+        toast.dismiss();
+        toast.success("Authentication successful");
+        window.location.href = redirectPath;
+      },
     },
-    onSuccess: () => {
-      toast.dismiss();
-      toast.success("Authentication successful");
-      window.location.href = redirectPath;
-    },
-  });
+  );
 
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
@@ -89,7 +111,9 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
       disabled={isAuthenticating || disabled}
       className={className}
     >
-      {isAuthenticating ? "Authenticating..." : children || "Sign in with a Passkey"}
+      {isAuthenticating
+        ? "Authenticating..."
+        : children || "Sign in with a Passkey"}
     </Button>
   );
 }
@@ -97,25 +121,25 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
 const SignInPage = ({ redirectPath }: SignInClientProps) => {
   const { execute: signIn } = useServerAction(signInAction, {
     onError: (error) => {
-      toast.dismiss()
-      toast.error(error.err?.message)
+      toast.dismiss();
+      toast.error(error.err?.message);
     },
     onStart: () => {
-      toast.loading("Signing you in...")
+      toast.loading("Signing you in...");
     },
     onSuccess: () => {
-      toast.dismiss()
-      toast.success("Signed in successfully")
+      toast.dismiss();
+      toast.success("Signed in successfully");
       window.location.href = redirectPath;
-    }
-  })
+    },
+  });
   const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
   });
 
   const onSubmit = async (data: SignInSchema) => {
-    signIn(data)
-  }
+    signIn(data);
+  };
 
   return (
     <div className="min-h-[90vh] flex flex-col items-center px-4 justify-center bg-background my-6 md:my-10">
@@ -126,7 +150,10 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
           </h2>
           <p className="mt-2 text-muted-foreground">
             Or{" "}
-            <Link href={`/sign-up?redirect=${encodeURIComponent(redirectPath)}`} className="font-medium text-primary hover:text-primary/90 underline">
+            <Link
+              href={`/sign-up?redirect=${encodeURIComponent(redirectPath)}`}
+              className="font-medium text-primary hover:text-primary/90 underline"
+            >
               create a new account
             </Link>
           </p>
@@ -135,7 +162,10 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
         <div className="space-y-4">
           <SSOButtons isSignIn />
 
-          <PasskeyAuthenticationButton className="w-full" redirectPath={redirectPath}>
+          <PasskeyAuthenticationButton
+            className="w-full"
+            redirectPath={redirectPath}
+          >
             <KeyIcon className="w-5 h-5 mr-2" />
             Sign in with a Passkey
           </PasskeyAuthenticationButton>
@@ -146,7 +176,10 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
         </SeparatorWithText>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-6">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mt-8 space-y-6"
+          >
             <FormField
               control={form.control}
               name="email"
@@ -183,10 +216,7 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
               )}
             />
 
-            <Button
-              type="submit"
-              className="w-full flex justify-center py-2.5"
-            >
+            <Button type="submit" className="w-full flex justify-center py-2.5">
               Sign In with Password
             </Button>
           </form>
@@ -195,7 +225,10 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
 
       <div className="mt-6">
         <p className="text-center text-sm text-muted-foreground">
-          <Link href="/forgot-password" className="font-medium text-primary hover:text-primary/90">
+          <Link
+            href="/forgot-password"
+            className="font-medium text-primary hover:text-primary/90"
+          >
             Forgot your password?
           </Link>
         </p>

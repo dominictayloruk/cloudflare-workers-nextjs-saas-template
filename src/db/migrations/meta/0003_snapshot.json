@@ -96,30 +96,22 @@
       "indexes": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "email_idx": {
           "name": "email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         },
         "google_account_id_idx": {
           "name": "google_account_id_idx",
-          "columns": [
-            "googleAccountId"
-          ],
+          "columns": ["googleAccountId"],
           "isUnique": false
         },
         "role_idx": {
           "name": "role_idx",
-          "columns": [
-            "role"
-          ],
+          "columns": ["role"],
           "isUnique": false
         }
       },

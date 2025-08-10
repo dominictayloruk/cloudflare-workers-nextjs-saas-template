@@ -22,12 +22,12 @@ export default async function CreateTeamPage() {
         items={[
           {
             href: "/dashboard/teams",
-            label: "Teams"
+            label: "Teams",
           },
           {
             href: "/dashboard/teams/create",
-            label: "Create Team"
-          }
+            label: "Create Team",
+          },
         ]}
       />
       <div className="container mx-auto px-5 pb-12">
@@ -35,7 +35,8 @@ export default async function CreateTeamPage() {
           <div className="mb-8">
             <h1 className="text-4xl font-bold mt-4">Create a new team</h1>
             <p className="text-muted-foreground mt-2">
-              Create a team to collaborate with others on projects and share resources.
+              Create a team to collaborate with others on projects and share
+              resources.
             </p>
           </div>
 

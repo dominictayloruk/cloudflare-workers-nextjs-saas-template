@@ -18,7 +18,7 @@ export async function getTeamRoles(teamId: string) {
     where: eq(teamRoleTable.teamId, teamId),
   });
 
-  return roles.map(role => ({
+  return roles.map((role) => ({
     id: role.id,
     name: role.name,
     description: role.description,
@@ -36,7 +36,7 @@ export async function createTeamRole({
   name,
   description,
   permissions,
-  metadata
+  metadata,
 }: {
   teamId: string;
   name: string;
@@ -51,24 +51,24 @@ export async function createTeamRole({
 
   // Check if a role with the same name already exists
   const existingRole = await db.query.teamRoleTable.findFirst({
-    where: and(
-      eq(teamRoleTable.teamId, teamId),
-      eq(teamRoleTable.name, name)
-    ),
+    where: and(eq(teamRoleTable.teamId, teamId), eq(teamRoleTable.name, name)),
   });
 
   if (existingRole) {
     throw new ZSAError("CONFLICT", "A role with this name already exists");
   }
 
-  const newRole = await db.insert(teamRoleTable).values({
-    teamId,
-    name,
-    description,
-    permissions,
-    metadata: metadata ? JSON.stringify(metadata) : null,
-    isEditable: 1,
-  }).returning();
+  const newRole = await db
+    .insert(teamRoleTable)
+    .values({
+      teamId,
+      name,
+      description,
+      permissions,
+      metadata: metadata ? JSON.stringify(metadata) : null,
+      isEditable: 1,
+    })
+    .returning();
 
   const role = newRole?.[0];
 
@@ -92,7 +92,7 @@ export async function createTeamRole({
 export async function updateTeamRole({
   teamId,
   roleId,
-  data
+  data,
 }: {
   teamId: string;
   roleId: string;
@@ -110,10 +110,7 @@ export async function updateTeamRole({
 
   // Find the role to update
   const role = await db.query.teamRoleTable.findFirst({
-    where: and(
-      eq(teamRoleTable.id, roleId),
-      eq(teamRoleTable.teamId, teamId)
-    ),
+    where: and(eq(teamRoleTable.id, roleId), eq(teamRoleTable.teamId, teamId)),
   });
 
   if (!role) {
@@ -131,7 +128,7 @@ export async function updateTeamRole({
       where: and(
         eq(teamRoleTable.teamId, teamId),
         eq(teamRoleTable.name, data.name),
-        not(eq(teamRoleTable.id, roleId))
+        not(eq(teamRoleTable.id, roleId)),
       ),
     });
 
@@ -150,7 +147,8 @@ export async function updateTeamRole({
     updateData.metadata = data.metadata ? JSON.stringify(data.metadata) : null;
   }
 
-  await db.update(teamRoleTable)
+  await db
+    .update(teamRoleTable)
     .set({
       ...updateData,
       updatedAt: new Date(),
@@ -160,7 +158,8 @@ export async function updateTeamRole({
   return {
     id: roleId,
     name: data.name || role.name,
-    description: data.description !== undefined ? data.description : role.description,
+    description:
+      data.description !== undefined ? data.description : role.description,
     permissions: data.permissions || role.permissions,
     isEditable: Boolean(role.isEditable),
     metadata: data.metadata !== undefined ? data.metadata : role.metadata,
@@ -172,7 +171,7 @@ export async function updateTeamRole({
  */
 export async function deleteTeamRole({
   teamId,
-  roleId
+  roleId,
 }: {
   teamId: string;
   roleId: string;
@@ -184,10 +183,7 @@ export async function deleteTeamRole({
 
   // Find the role to delete
   const role = await db.query.teamRoleTable.findFirst({
-    where: and(
-      eq(teamRoleTable.id, roleId),
-      eq(teamRoleTable.teamId, teamId)
-    ),
+    where: and(eq(teamRoleTable.id, roleId), eq(teamRoleTable.teamId, teamId)),
   });
 
   if (!role) {
@@ -200,8 +196,7 @@ export async function deleteTeamRole({
   }
 
   // Delete the role
-  await db.delete(teamRoleTable)
-    .where(eq(teamRoleTable.id, roleId));
+  await db.delete(teamRoleTable).where(eq(teamRoleTable.id, roleId));
 
   return { success: true };
 }

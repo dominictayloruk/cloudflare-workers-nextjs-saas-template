@@ -14,7 +14,7 @@ interface CacheOptions {
 
 export async function withKVCache<T>(
   fn: () => Promise<T>,
-  { key, ttl }: CacheOptions
+  { key, ttl }: CacheOptions,
 ): Promise<T> {
   // In development mode, always bypass the cache
   if (!isProd) {

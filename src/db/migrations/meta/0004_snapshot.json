@@ -88,23 +88,17 @@
       "indexes": {
         "passkey_credential_credentialId_unique": {
           "name": "passkey_credential_credentialId_unique",
-          "columns": [
-            "credentialId"
-          ],
+          "columns": ["credentialId"],
           "isUnique": true
         },
         "user_id_idx": {
           "name": "user_id_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         },
         "credential_id_idx": {
           "name": "credential_id_idx",
-          "columns": [
-            "credentialId"
-          ],
+          "columns": ["credentialId"],
           "isUnique": false
         }
       },
@@ -113,12 +107,8 @@
           "name": "passkey_credential_userId_user_id_fk",
           "tableFrom": "passkey_credential",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -219,30 +209,22 @@
       "indexes": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "email_idx": {
           "name": "email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         },
         "google_account_id_idx": {
           "name": "google_account_id_idx",
-          "columns": [
-            "googleAccountId"
-          ],
+          "columns": ["googleAccountId"],
           "isUnique": false
         },
         "role_idx": {
           "name": "role_idx",
-          "columns": [
-            "role"
-          ],
+          "columns": ["role"],
           "isUnique": false
         }
       },

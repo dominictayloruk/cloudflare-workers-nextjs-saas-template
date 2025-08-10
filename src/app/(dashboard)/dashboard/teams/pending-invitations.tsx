@@ -3,11 +3,17 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Users, CheckCircle } from "lucide-react";
 import {
   getPendingInvitationsForCurrentUserAction,
-  acceptInvitationAction
+  acceptInvitationAction,
 } from "@/actions/team-membership-actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -36,7 +42,9 @@ interface PendingInvitation {
 }
 
 export function PendingInvitations() {
-  const [pendingInvitations, setPendingInvitations] = useState<PendingInvitation[]>([]);
+  const [pendingInvitations, setPendingInvitations] = useState<
+    PendingInvitation[]
+  >([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAccepting, setIsAccepting] = useState<Record<string, boolean>>({});
   const router = useRouter();
@@ -61,7 +69,7 @@ export function PendingInvitations() {
   }, []);
 
   const handleAccept = async (token: string) => {
-    setIsAccepting(prev => ({ ...prev, [token]: true }));
+    setIsAccepting((prev) => ({ ...prev, [token]: true }));
 
     try {
       const [result] = await acceptInvitationAction({ token });
@@ -70,7 +78,9 @@ export function PendingInvitations() {
         toast.success("You have successfully joined the team");
 
         // Remove from pending list
-        setPendingInvitations(prev => prev.filter(inv => inv.token !== token));
+        setPendingInvitations((prev) =>
+          prev.filter((inv) => inv.token !== token),
+        );
 
         // Refresh the page to show the new team
         router.refresh();
@@ -78,7 +88,7 @@ export function PendingInvitations() {
     } catch {
       toast.error("Failed to accept invitation");
     } finally {
-      setIsAccepting(prev => ({ ...prev, [token]: false }));
+      setIsAccepting((prev) => ({ ...prev, [token]: false }));
     }
   };
 
@@ -100,7 +110,10 @@ export function PendingInvitations() {
       </CardHeader>
       <CardContent className="space-y-4">
         {pendingInvitations.map((invitation) => (
-          <div key={invitation.id} className="flex items-center justify-between p-3 bg-background rounded-md border">
+          <div
+            key={invitation.id}
+            className="flex items-center justify-between p-3 bg-background rounded-md border"
+          >
             <div className="flex items-center gap-3">
               {invitation.team.avatarUrl ? (
                 <div className="h-10 w-10 rounded-md overflow-hidden">
@@ -120,7 +133,8 @@ export function PendingInvitations() {
               <div>
                 <h3 className="font-medium">{invitation.team.name}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Invited by {invitation.invitedBy.firstName || ''} {invitation.invitedBy.lastName || ''}
+                  Invited by {invitation.invitedBy.firstName || ""}{" "}
+                  {invitation.invitedBy.lastName || ""}
                 </p>
               </div>
             </div>

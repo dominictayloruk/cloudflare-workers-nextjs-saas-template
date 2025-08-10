@@ -22,7 +22,7 @@ export default async function VerifyEmailPage({
   }
 
   if (!token) {
-    return redirect('/sign-in');
+    return redirect("/sign-in");
   }
 
   return <VerifyEmailClientComponent />;

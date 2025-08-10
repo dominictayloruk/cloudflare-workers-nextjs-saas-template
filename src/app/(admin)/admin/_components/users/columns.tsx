@@ -1,32 +1,32 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
-import { formatDistanceToNow, format } from "date-fns"
+import { ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
+import { formatDistanceToNow, format } from "date-fns";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 export type User = {
-  id: string
-  email: string | null
-  name: string | null
-  role: string
-  status: "active" | "inactive"
-  createdAt: Date
-}
+  id: string;
+  email: string | null;
+  name: string | null;
+  role: string;
+  status: "active" | "inactive";
+  createdAt: Date;
+};
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -41,32 +41,32 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "role",
     header: "Role",
     cell: ({ row }) => {
-      const role = row.getValue("role") as string
+      const role = row.getValue("role") as string;
       return (
         <Badge variant={role === "admin" ? "default" : "secondary"}>
           {role}
         </Badge>
-      )
+      );
     },
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as string
+      const status = row.getValue("status") as string;
       return (
         <Badge variant={status === "active" ? "default" : "destructive"}>
           {status}
         </Badge>
-      )
+      );
     },
   },
   {
     accessorKey: "createdAt",
     header: "Created",
     cell: ({ row }) => {
-      const date = row.getValue("createdAt") as Date
-      const formattedDate = format(new Date(date), "PPpp")
+      const date = row.getValue("createdAt") as Date;
+      const formattedDate = format(new Date(date), "PPpp");
       return (
         <Tooltip>
           <TooltipTrigger>
@@ -76,13 +76,13 @@ export const columns: ColumnDef<User>[] = [
             <p>{formattedDate}</p>
           </TooltipContent>
         </Tooltip>
-      )
+      );
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original
+      const user = row.original;
 
       return (
         <DropdownMenu>
@@ -106,7 +106,7 @@ export const columns: ColumnDef<User>[] = [
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

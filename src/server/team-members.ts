@@ -1,6 +1,13 @@
 import "server-only";
 import { getDB } from "@/db";
-import { SYSTEM_ROLES_ENUM, teamInvitationTable, teamMembershipTable, userTable, teamRoleTable, teamTable } from "@/db/schema";
+import {
+  SYSTEM_ROLES_ENUM,
+  teamInvitationTable,
+  teamMembershipTable,
+  userTable,
+  teamRoleTable,
+  teamTable,
+} from "@/db/schema";
 import { getSessionFromCookie } from "@/utils/auth";
 import { ZSAError } from "zsa";
 import { createId } from "@paralleldrive/cuid2";
@@ -31,8 +38,8 @@ export async function getTeamMembers(teamId: string) {
           lastName: true,
           email: true,
           avatar: true,
-        }
-      }
+        },
+      },
     },
   });
 
@@ -42,37 +49,40 @@ export async function getTeamMembers(teamId: string) {
   });
 
   // Map roles by ID for easy lookup
-  const roleMap = new Map(teamRoles.map(role => [role.id, role.name]));
+  const roleMap = new Map(teamRoles.map((role) => [role.id, role.name]));
 
-  return Promise.all(members.map(async member => {
-    let roleName = "Unknown";
+  return Promise.all(
+    members.map(async (member) => {
+      let roleName = "Unknown";
 
-    // For system roles, use the roleId directly as the name
-    if (member.isSystemRole) {
-      // Capitalize the first letter for display
-      roleName = member.roleId.charAt(0).toUpperCase() + member.roleId.slice(1);
-    } else {
-      // For custom roles, look up the name in our roleMap
-      roleName = roleMap.get(member.roleId) || "Custom Role";
-    }
-
-    return {
-      id: member.id,
-      userId: member.userId,
-      roleId: member.roleId,
-      roleName,
-      isSystemRole: Boolean(member.isSystemRole),
-      isActive: Boolean(member.isActive),
-      joinedAt: member.joinedAt ? new Date(member.joinedAt) : null,
-      user: {
-        id: member.user.id,
-        firstName: member.user.firstName,
-        lastName: member.user.lastName,
-        email: member.user.email,
-        avatar: member.user.avatar,
+      // For system roles, use the roleId directly as the name
+      if (member.isSystemRole) {
+        // Capitalize the first letter for display
+        roleName =
+          member.roleId.charAt(0).toUpperCase() + member.roleId.slice(1);
+      } else {
+        // For custom roles, look up the name in our roleMap
+        roleName = roleMap.get(member.roleId) || "Custom Role";
       }
-    };
-  }));
+
+      return {
+        id: member.id,
+        userId: member.userId,
+        roleId: member.roleId,
+        roleName,
+        isSystemRole: Boolean(member.isSystemRole),
+        isActive: Boolean(member.isActive),
+        joinedAt: member.joinedAt ? new Date(member.joinedAt) : null,
+        user: {
+          id: member.user.id,
+          firstName: member.user.firstName,
+          lastName: member.user.lastName,
+          email: member.user.email,
+          avatar: member.user.avatar,
+        },
+      };
+    }),
+  );
 }
 
 /**
@@ -82,7 +92,7 @@ export async function updateTeamMemberRole({
   teamId,
   userId,
   roleId,
-  isSystemRole = false
+  isSystemRole = false,
 }: {
   teamId: string;
   userId: string;
@@ -98,7 +108,7 @@ export async function updateTeamMemberRole({
   const membership = await db.query.teamMembershipTable.findFirst({
     where: and(
       eq(teamMembershipTable.teamId, teamId),
-      eq(teamMembershipTable.userId, userId)
+      eq(teamMembershipTable.userId, userId),
     ),
   });
 
@@ -107,7 +117,8 @@ export async function updateTeamMemberRole({
   }
 
   // Update the role
-  await db.update(teamMembershipTable)
+  await db
+    .update(teamMembershipTable)
     .set({
       roleId,
       isSystemRole: isSystemRole ? 1 : 0,
@@ -116,8 +127,8 @@ export async function updateTeamMemberRole({
     .where(
       and(
         eq(teamMembershipTable.teamId, teamId),
-        eq(teamMembershipTable.userId, userId)
-      )
+        eq(teamMembershipTable.userId, userId),
+      ),
     );
 
   // Update the user's session to reflect the new role
@@ -131,7 +142,7 @@ export async function updateTeamMemberRole({
  */
 export async function removeTeamMember({
   teamId,
-  userId
+  userId,
 }: {
   teamId: string;
   userId: string;
@@ -145,7 +156,7 @@ export async function removeTeamMember({
   const membership = await db.query.teamMembershipTable.findFirst({
     where: and(
       eq(teamMembershipTable.teamId, teamId),
-      eq(teamMembershipTable.userId, userId)
+      eq(teamMembershipTable.userId, userId),
     ),
   });
 
@@ -154,17 +165,21 @@ export async function removeTeamMember({
   }
 
   // Don't allow removing an owner
-  if (membership.roleId === SYSTEM_ROLES_ENUM.OWNER && membership.isSystemRole) {
+  if (
+    membership.roleId === SYSTEM_ROLES_ENUM.OWNER &&
+    membership.isSystemRole
+  ) {
     throw new ZSAError("FORBIDDEN", "Cannot remove the team owner");
   }
 
   // Delete the membership
-  await db.delete(teamMembershipTable)
+  await db
+    .delete(teamMembershipTable)
     .where(
       and(
         eq(teamMembershipTable.teamId, teamId),
-        eq(teamMembershipTable.userId, userId)
-      )
+        eq(teamMembershipTable.userId, userId),
+      ),
     );
 
   // Update the user's session to remove this team
@@ -180,7 +195,7 @@ export async function inviteUserToTeam({
   teamId,
   email,
   roleId,
-  isSystemRole = true
+  isSystemRole = true,
 }: {
   teamId: string;
   email: string;
@@ -217,13 +232,15 @@ export async function inviteUserToTeam({
     throw new ZSAError("NOT_FOUND", "Team not found");
   }
 
-  const teamName = team.name as string || "Team";
+  const teamName = (team.name as string) || "Team";
 
   // Get inviter's name for email
   const inviter = {
     firstName: session.user.firstName || "",
     lastName: session.user.lastName || "",
-    fullName: `${session.user.firstName || ""} ${session.user.lastName || ""}`.trim() || session.user.email,
+    fullName:
+      `${session.user.firstName || ""} ${session.user.lastName || ""}`.trim() ||
+      session.user.email,
   };
 
   // Check if user is already a member
@@ -235,7 +252,7 @@ export async function inviteUserToTeam({
     const existingMembership = await db.query.teamMembershipTable.findFirst({
       where: and(
         eq(teamMembershipTable.teamId, teamId),
-        eq(teamMembershipTable.userId, existingUser.id)
+        eq(teamMembershipTable.userId, existingUser.id),
       ),
     });
 
@@ -244,14 +261,18 @@ export async function inviteUserToTeam({
     }
 
     // Check if user has reached their team joining limit
-    const teamsCountResult = await db.select({ value: count() })
+    const teamsCountResult = await db
+      .select({ value: count() })
       .from(teamMembershipTable)
       .where(eq(teamMembershipTable.userId, existingUser.id));
 
     const teamsJoined = teamsCountResult[0]?.value || 0;
 
     if (teamsJoined >= MAX_TEAMS_JOINED_PER_USER) {
-      throw new ZSAError("FORBIDDEN", `This user has reached the limit of ${MAX_TEAMS_JOINED_PER_USER} teams they can join.`);
+      throw new ZSAError(
+        "FORBIDDEN",
+        `This user has reached the limit of ${MAX_TEAMS_JOINED_PER_USER} teams they can join.`,
+      );
     }
 
     // User exists but is not a member, add them directly
@@ -285,13 +306,14 @@ export async function inviteUserToTeam({
   const existingInvitation = await db.query.teamInvitationTable.findFirst({
     where: and(
       eq(teamInvitationTable.teamId, teamId),
-      eq(teamInvitationTable.email, email)
+      eq(teamInvitationTable.email, email),
     ),
   });
 
   if (existingInvitation) {
     // Update the existing invitation
-    await db.update(teamInvitationTable)
+    await db
+      .update(teamInvitationTable)
       .set({
         roleId,
         isSystemRole: isSystemRole ? 1 : 0,
@@ -319,15 +341,18 @@ export async function inviteUserToTeam({
     };
   }
 
-  const newInvitation = await db.insert(teamInvitationTable).values({
-    teamId,
-    email,
-    roleId,
-    isSystemRole: isSystemRole ? 1 : 0,
-    token,
-    invitedBy: session.userId,
-    expiresAt,
-  }).returning();
+  const newInvitation = await db
+    .insert(teamInvitationTable)
+    .values({
+      teamId,
+      email,
+      roleId,
+      isSystemRole: isSystemRole ? 1 : 0,
+      token,
+      invitedBy: session.userId,
+      expiresAt,
+    })
+    .returning();
 
   const invitation = newInvitation?.[0];
 
@@ -383,20 +408,24 @@ export async function acceptTeamInvitation(token: string) {
 
   // Check if user's email matches the invitation email
   if (session.user.email !== invitation.email) {
-    throw new ZSAError("FORBIDDEN", "This invitation is for a different email address");
+    throw new ZSAError(
+      "FORBIDDEN",
+      "This invitation is for a different email address",
+    );
   }
 
   // Check if user is already a member
   const existingMembership = await db.query.teamMembershipTable.findFirst({
     where: and(
       eq(teamMembershipTable.teamId, invitation.teamId),
-      eq(teamMembershipTable.userId, session.userId)
+      eq(teamMembershipTable.userId, session.userId),
     ),
   });
 
   if (existingMembership) {
     // Mark invitation as accepted
-    await db.update(teamInvitationTable)
+    await db
+      .update(teamInvitationTable)
       .set({
         acceptedAt: new Date(),
         acceptedBy: session.userId,
@@ -408,14 +437,18 @@ export async function acceptTeamInvitation(token: string) {
   }
 
   // Check if user has reached their team joining limit
-  const teamsCountResult = await db.select({ value: count() })
+  const teamsCountResult = await db
+    .select({ value: count() })
     .from(teamMembershipTable)
     .where(eq(teamMembershipTable.userId, session.userId));
 
   const teamsJoined = teamsCountResult[0]?.value || 0;
 
   if (teamsJoined >= MAX_TEAMS_JOINED_PER_USER) {
-    throw new ZSAError("FORBIDDEN", `You have reached the limit of ${MAX_TEAMS_JOINED_PER_USER} teams you can join.`);
+    throw new ZSAError(
+      "FORBIDDEN",
+      `You have reached the limit of ${MAX_TEAMS_JOINED_PER_USER} teams you can join.`,
+    );
   }
 
   // Add user to the team
@@ -425,13 +458,16 @@ export async function acceptTeamInvitation(token: string) {
     roleId: invitation.roleId,
     isSystemRole: Number(invitation.isSystemRole),
     invitedBy: invitation.invitedBy,
-    invitedAt: invitation.createdAt ? new Date(invitation.createdAt) : new Date(),
+    invitedAt: invitation.createdAt
+      ? new Date(invitation.createdAt)
+      : new Date(),
     joinedAt: new Date(),
     isActive: 1,
   });
 
   // Mark invitation as accepted
-  await db.update(teamInvitationTable)
+  await db
+    .update(teamInvitationTable)
     .set({
       acceptedAt: new Date(),
       acceptedBy: session.userId,
@@ -461,7 +497,7 @@ export async function getTeamInvitations(teamId: string) {
   const invitations = await db.query.teamInvitationTable.findMany({
     where: and(
       eq(teamInvitationTable.teamId, teamId),
-      isNull(teamInvitationTable.acceptedAt)
+      isNull(teamInvitationTable.acceptedAt),
     ),
     with: {
       invitedByUser: {
@@ -471,12 +507,12 @@ export async function getTeamInvitations(teamId: string) {
           lastName: true,
           email: true,
           avatar: true,
-        }
-      }
+        },
+      },
     },
   });
 
-  return invitations.map(invitation => ({
+  return invitations.map((invitation) => ({
     id: invitation.id,
     email: invitation.email,
     roleId: invitation.roleId,
@@ -489,7 +525,7 @@ export async function getTeamInvitations(teamId: string) {
       lastName: invitation.invitedByUser.lastName,
       email: invitation.invitedByUser.email,
       avatar: invitation.invitedByUser.avatar,
-    }
+    },
   }));
 }
 
@@ -509,10 +545,14 @@ export async function cancelTeamInvitation(invitationId: string) {
   }
 
   // Check if user has permission to cancel invitations for this team
-  await requireTeamPermission(invitation.teamId, TEAM_PERMISSIONS.INVITE_MEMBERS);
+  await requireTeamPermission(
+    invitation.teamId,
+    TEAM_PERMISSIONS.INVITE_MEMBERS,
+  );
 
   // Delete the invitation
-  await db.delete(teamInvitationTable)
+  await db
+    .delete(teamInvitationTable)
     .where(eq(teamInvitationTable.id, invitationId));
 
   return { success: true };
@@ -533,8 +573,10 @@ export async function getPendingInvitationsForCurrentUser() {
   // Get invitations for the user's email that have not been accepted
   const invitations = await db.query.teamInvitationTable.findMany({
     where: and(
-      session.user.email ? eq(teamInvitationTable.email, session.user.email) : undefined,
-      isNull(teamInvitationTable.acceptedAt)
+      session.user.email
+        ? eq(teamInvitationTable.email, session.user.email)
+        : undefined,
+      isNull(teamInvitationTable.acceptedAt),
     ),
     with: {
       team: {
@@ -543,7 +585,7 @@ export async function getPendingInvitationsForCurrentUser() {
           name: true,
           slug: true,
           avatarUrl: true,
-        }
+        },
       },
       invitedByUser: {
         columns: {
@@ -552,12 +594,12 @@ export async function getPendingInvitationsForCurrentUser() {
           lastName: true,
           email: true,
           avatar: true,
-        }
-      }
+        },
+      },
     },
   });
 
-  return invitations.map(invitation => ({
+  return invitations.map((invitation) => ({
     id: invitation.id,
     token: invitation.token,
     teamId: invitation.teamId,
@@ -577,6 +619,6 @@ export async function getPendingInvitationsForCurrentUser() {
       lastName: invitation.invitedByUser.lastName,
       email: invitation.invitedByUser.email,
       avatar: invitation.invitedByUser.avatar,
-    }
+    },
   }));
 }

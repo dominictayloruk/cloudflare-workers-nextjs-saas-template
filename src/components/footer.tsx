@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { SiX as XIcon, SiGithub as GithubIcon } from '@icons-pack/react-simple-icons'
+import {
+  SiX as XIcon,
+  SiGithub as GithubIcon,
+} from "@icons-pack/react-simple-icons";
 import ThemeSwitch from "@/components/theme-switch";
 import { GITHUB_REPO_URL, SITE_NAME } from "@/constants";
 import { Button } from "./ui/button";
@@ -16,15 +19,23 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
             {/* Legal Links */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Legal</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">
+                Legal
+              </h3>
               <ul className="space-y-2 flex flex-col items-center md:items-start">
                 <li>
-                  <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
+                  <Link
+                    href="/terms"
+                    className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left"
+                  >
                     Terms of Service
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
+                  <Link
+                    href="/privacy"
+                    className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left"
+                  >
                     Privacy Policy
                   </Link>
                 </li>
@@ -33,10 +44,15 @@ export function Footer() {
 
             {/* Company Info */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Company</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">
+                Company
+              </h3>
               <ul className="space-y-2 flex flex-col items-center md:items-start">
                 <li>
-                  <Link href="/" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
+                  <Link
+                    href="/"
+                    className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left"
+                  >
                     Home
                   </Link>
                 </li>
@@ -45,7 +61,9 @@ export function Footer() {
 
             {/* Social Links and Theme Switch */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Social</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">
+                Social
+              </h3>
               <div className="flex items-center space-x-4">
                 <a
                   href="https://github.com/LubomirGeorgiev"
@@ -110,7 +128,12 @@ async function GithubButton() {
   const starsCount = await getGithubStars();
 
   return (
-    <Button variant="outline" size="sm" className="w-full md:w-auto h-9" asChild>
+    <Button
+      variant="outline"
+      size="sm"
+      className="w-full md:w-auto h-9"
+      asChild
+    >
       <a
         href={GITHUB_REPO_URL!}
         target="_blank"
@@ -119,7 +142,9 @@ async function GithubButton() {
       >
         <GithubIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">
-          {starsCount ? `Fork on Github (${starsCount} Stars)` : "Fork on Github"}
+          {starsCount
+            ? `Fork on Github (${starsCount} Stars)`
+            : "Fork on Github"}
         </span>
       </a>
     </Button>
@@ -129,7 +154,12 @@ async function GithubButton() {
 // Fallback while loading stars count
 function GithubButtonFallback() {
   return (
-    <Button variant="outline" size="sm" className="w-full md:w-auto h-9" asChild>
+    <Button
+      variant="outline"
+      size="sm"
+      className="w-full md:w-auto h-9"
+      asChild
+    >
       <a
         href={GITHUB_REPO_URL!}
         target="_blank"

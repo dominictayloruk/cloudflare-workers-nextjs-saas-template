@@ -18,10 +18,14 @@ import { format, isPast } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { useTransactionStore } from "@/state/transaction";
 
-type TransactionData = Awaited<ReturnType<typeof getTransactions>>
+type TransactionData = Awaited<ReturnType<typeof getTransactions>>;
 
-function isTransactionExpired(transaction: TransactionData["transactions"][number]): boolean {
-  return transaction.expirationDate ? isPast(new Date(transaction.expirationDate)) : false;
+function isTransactionExpired(
+  transaction: TransactionData["transactions"][number],
+): boolean {
+  return transaction.expirationDate
+    ? isPast(new Date(transaction.expirationDate))
+    : false;
 }
 
 export function TransactionHistory() {
@@ -84,45 +88,58 @@ export function TransactionHistory() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Boolean(data?.transactions.length && data?.transactions.length > 0) ? data?.transactions.map((transaction) => (
-                  <TableRow key={transaction.id}>
-                    <TableCell>
-                      {format(new Date(transaction.createdAt), "MMM d, yyyy")}
-                    </TableCell>
-                    <TableCell className="capitalize">
-                      {transaction.type.toLowerCase().replace("_", " ")}
-                    </TableCell>
-                    <TableCell
-                      className={
-                        transaction.type === "USAGE"
-                          ? "text-red-500"
-                          : isTransactionExpired(transaction)
-                            ? "text-orange-500"
-                            : "text-green-500"
-                      }
-                    >
-                      {transaction.type === "USAGE" ? "-" : "+"}
-                      {Math.abs(transaction.amount)}
-                    </TableCell>
-                    <TableCell>
-                      {transaction.description}
-                      {transaction.type !== "USAGE" && transaction.expirationDate && (
-                        <Badge
-                          variant="secondary"
-                          className={`mt-1 ml-3 font-normal text-[0.75rem] leading-[1rem] ${isTransactionExpired(transaction)
-                            ? "bg-orange-500 hover:bg-orange-600 text-white"
-                            : "bg-muted"
-                            }`}
-                        >
-                          {isTransactionExpired(transaction) ? "Expired: " : "Expires: "}
-                          {format(new Date(transaction.expirationDate), "MMM d, yyyy")}
-                        </Badge>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                )) : (
+                {Boolean(
+                  data?.transactions.length && data?.transactions.length > 0,
+                ) ? (
+                  data?.transactions.map((transaction) => (
+                    <TableRow key={transaction.id}>
+                      <TableCell>
+                        {format(new Date(transaction.createdAt), "MMM d, yyyy")}
+                      </TableCell>
+                      <TableCell className="capitalize">
+                        {transaction.type.toLowerCase().replace("_", " ")}
+                      </TableCell>
+                      <TableCell
+                        className={
+                          transaction.type === "USAGE"
+                            ? "text-red-500"
+                            : isTransactionExpired(transaction)
+                              ? "text-orange-500"
+                              : "text-green-500"
+                        }
+                      >
+                        {transaction.type === "USAGE" ? "-" : "+"}
+                        {Math.abs(transaction.amount)}
+                      </TableCell>
+                      <TableCell>
+                        {transaction.description}
+                        {transaction.type !== "USAGE" &&
+                          transaction.expirationDate && (
+                            <Badge
+                              variant="secondary"
+                              className={`mt-1 ml-3 font-normal text-[0.75rem] leading-[1rem] ${
+                                isTransactionExpired(transaction)
+                                  ? "bg-orange-500 hover:bg-orange-600 text-white"
+                                  : "bg-muted"
+                              }`}
+                            >
+                              {isTransactionExpired(transaction)
+                                ? "Expired: "
+                                : "Expires: "}
+                              {format(
+                                new Date(transaction.expirationDate),
+                                "MMM d, yyyy",
+                              )}
+                            </Badge>
+                          )}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
                   <TableRow>
-                    <TableCell colSpan={4} className="h-24 text-center">No transactions found</TableCell>
+                    <TableCell colSpan={4} className="h-24 text-center">
+                      No transactions found
+                    </TableCell>
                   </TableRow>
                 )}
               </TableBody>
@@ -132,50 +149,58 @@ export function TransactionHistory() {
 
         {/* Mobile Card View */}
         <div className="md:hidden space-y-4">
-          {Boolean(data?.transactions.length && data?.transactions.length > 0) ? data?.transactions.map((transaction) => (
-            <div
-              key={transaction.id}
-              className="flex flex-col space-y-2 rounded-lg border p-4"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">
-                  {format(new Date(transaction.createdAt), "MMM d, yyyy")}
-                </span>
-                <span className="capitalize text-sm">
-                  {transaction.type.toLowerCase().replace("_", " ")}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-medium">
-                  {transaction.description}
-                </span>
-                <span
-                  className={
-                    transaction.type === "USAGE"
-                      ? "text-red-500"
-                      : isTransactionExpired(transaction)
-                        ? "text-orange-500"
-                        : "text-green-500"
-                  }
-                >
-                  {transaction.type === "USAGE" ? "-" : "+"}
-                  {Math.abs(transaction.amount)}
-                </span>
-              </div>
-              {transaction.type !== "USAGE" && transaction.expirationDate && (
-                <Badge
-                  variant="secondary"
-                  className={`self-start font-normal text-[0.75rem] leading-[1rem] ${isTransactionExpired(transaction)
-                    ? "bg-orange-500 hover:bg-orange-600 text-white"
-                    : "bg-muted"
+          {Boolean(
+            data?.transactions.length && data?.transactions.length > 0,
+          ) ? (
+            data?.transactions.map((transaction) => (
+              <div
+                key={transaction.id}
+                className="flex flex-col space-y-2 rounded-lg border p-4"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    {format(new Date(transaction.createdAt), "MMM d, yyyy")}
+                  </span>
+                  <span className="capitalize text-sm">
+                    {transaction.type.toLowerCase().replace("_", " ")}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">{transaction.description}</span>
+                  <span
+                    className={
+                      transaction.type === "USAGE"
+                        ? "text-red-500"
+                        : isTransactionExpired(transaction)
+                          ? "text-orange-500"
+                          : "text-green-500"
+                    }
+                  >
+                    {transaction.type === "USAGE" ? "-" : "+"}
+                    {Math.abs(transaction.amount)}
+                  </span>
+                </div>
+                {transaction.type !== "USAGE" && transaction.expirationDate && (
+                  <Badge
+                    variant="secondary"
+                    className={`self-start font-normal text-[0.75rem] leading-[1rem] ${
+                      isTransactionExpired(transaction)
+                        ? "bg-orange-500 hover:bg-orange-600 text-white"
+                        : "bg-muted"
                     }`}
-                >
-                  {isTransactionExpired(transaction) ? "Expired: " : "Expires: "}
-                  {format(new Date(transaction.expirationDate), "MMM d, yyyy")}
-                </Badge>
-              )}
-            </div>
-          )) : (
+                  >
+                    {isTransactionExpired(transaction)
+                      ? "Expired: "
+                      : "Expires: "}
+                    {format(
+                      new Date(transaction.expirationDate),
+                      "MMM d, yyyy",
+                    )}
+                  </Badge>
+                )}
+              </div>
+            ))
+          ) : (
             <div className="text-center py-8 text-muted-foreground">
               No transactions found
             </div>
@@ -198,7 +223,9 @@ export function TransactionHistory() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPage((p) => Math.min(data?.pagination.pages ?? 1, p + 1))}
+              onClick={() =>
+                setPage((p) => Math.min(data?.pagination.pages ?? 1, p + 1))
+              }
               disabled={page === (data?.pagination.pages ?? 1)}
             >
               <ChevronRight className="h-4 w-4" />

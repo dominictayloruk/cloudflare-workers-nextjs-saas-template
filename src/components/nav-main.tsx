@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,18 +16,16 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import type { Route } from "next"
-import type { NavMainItem } from "./app-sidebar"
+} from "@/components/ui/sidebar";
+import Link from "next/link";
+import type { Route } from "next";
+import type { NavMainItem } from "./app-sidebar";
 
 type Props = {
-  items: NavMainItem[]
-}
+  items: NavMainItem[];
+};
 
-export function NavMain({
-  items,
-}: Props) {
+export function NavMain({ items }: Props) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -44,7 +42,7 @@ export function NavMain({
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-            )
+            );
           }
 
           // Otherwise render the collapsible menu
@@ -68,7 +66,7 @@ export function NavMain({
                     {item.items?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
                         <SidebarMenuSubButton asChild>
-                          {subItem.url.startsWith('/') ? (
+                          {subItem.url.startsWith("/") ? (
                             <Link href={subItem.url as Route}>
                               <span>{subItem.title}</span>
                             </Link>
@@ -84,9 +82,9 @@ export function NavMain({
                 </CollapsibleContent>
               </SidebarMenuItem>
             </Collapsible>
-          )
+          );
         })}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

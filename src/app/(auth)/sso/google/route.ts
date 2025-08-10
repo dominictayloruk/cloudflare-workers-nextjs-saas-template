@@ -18,23 +18,23 @@ const cookieOptions: Partial<ResponseCookie> = {
   httpOnly: true,
   secure: isProd,
   maxAge: Math.floor(ms("10 minutes") / 1000),
-  sameSite: "lax"
-}
+  sameSite: "lax",
+};
 
 export async function GET() {
   return withRateLimit(async () => {
     if (!(await isGoogleSSOEnabled())) {
-      console.error("Google client ID or secret is not set")
-      return redirect('/')
+      console.error("Google client ID or secret is not set");
+      return redirect("/");
     }
 
-    const session = await getSessionFromCookie()
+    const session = await getSessionFromCookie();
 
     if (session) {
-      return redirect(REDIRECT_AFTER_SIGN_IN)
+      return redirect(REDIRECT_AFTER_SIGN_IN);
     }
 
-    let ssoRedirectUrl: null | URL = null
+    let ssoRedirectUrl: null | URL = null;
 
     try {
       const state = generateState();
@@ -42,21 +42,32 @@ export async function GET() {
 
       const google = getGoogleSSOClient();
 
-      ssoRedirectUrl = google.createAuthorizationURL(state, codeVerifier, ["openid", "profile", "email"]);
+      ssoRedirectUrl = google.createAuthorizationURL(state, codeVerifier, [
+        "openid",
+        "profile",
+        "email",
+      ]);
 
-      const cookieStore = await cookies()
-      cookieStore.set(GOOGLE_OAUTH_STATE_COOKIE_NAME, state, cookieOptions)
-      cookieStore.set(GOOGLE_OAUTH_CODE_VERIFIER_COOKIE_NAME, codeVerifier, cookieOptions)
+      const cookieStore = await cookies();
+      cookieStore.set(GOOGLE_OAUTH_STATE_COOKIE_NAME, state, cookieOptions);
+      cookieStore.set(
+        GOOGLE_OAUTH_CODE_VERIFIER_COOKIE_NAME,
+        codeVerifier,
+        cookieOptions,
+      );
     } catch (error) {
-      console.error('Error generating Google OAuth state and code verifier', error)
-      return redirect('/')
+      console.error(
+        "Error generating Google OAuth state and code verifier",
+        error,
+      );
+      return redirect("/");
     }
 
     return new Response(null, {
       status: 307,
       headers: {
-        Location: ssoRedirectUrl.toString()
-      }
+        Location: ssoRedirectUrl.toString(),
+      },
     });
-  }, RATE_LIMITS.GOOGLE_SSO_REQUEST)
+  }, RATE_LIMITS.GOOGLE_SSO_REQUEST);
 }

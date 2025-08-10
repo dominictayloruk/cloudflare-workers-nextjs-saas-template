@@ -29,10 +29,13 @@ export const TeamInviteEmail = ({
       <Head />
       <Body style={main}>
         <Container style={container}>
-          <Heading style={preheader}>You&apos;ve been invited to join a team on {SITE_DOMAIN}</Heading>
+          <Heading style={preheader}>
+            You&apos;ve been invited to join a team on {SITE_DOMAIN}
+          </Heading>
           <Text style={paragraph}>Hello,</Text>
           <Text style={paragraph}>
-            {inviterName} has invited you to join the &quot;{teamName}&quot; team on {SITE_DOMAIN}.
+            {inviterName} has invited you to join the &quot;{teamName}&quot;
+            team on {SITE_DOMAIN}.
           </Text>
           <Section style={buttonContainer}>
             <Link style={button} href={inviteLink}>
@@ -40,22 +43,27 @@ export const TeamInviteEmail = ({
             </Link>
           </Section>
           <Text style={paragraph}>
-            This invitation was sent to {recipientEmail}. If you don&apos;t have an account yet, you&apos;ll be able to create one when you accept the invitation.
+            This invitation was sent to {recipientEmail}. If you don&apos;t have
+            an account yet, you&apos;ll be able to create one when you accept
+            the invitation.
           </Text>
           <Text style={paragraph}>
-            If you&apos;re having trouble with the button above, copy and paste this URL into your browser:
+            If you&apos;re having trouble with the button above, copy and paste
+            this URL into your browser:
           </Text>
           <Text style={link}>{inviteLink}</Text>
           <Text style={paragraph}>
-            If you didn&apos;t expect to receive an invitation to this team, you can safely ignore this email.
+            If you didn&apos;t expect to receive an invitation to this team, you
+            can safely ignore this email.
           </Text>
         </Container>
         <Text style={footer}>
-          This is an automated message from {SITE_DOMAIN}. Please do not reply to this email.
+          This is an automated message from {SITE_DOMAIN}. Please do not reply
+          to this email.
         </Text>
       </Body>
     </Html>
-  )
+  );
 };
 
 TeamInviteEmail.PreviewProps = {

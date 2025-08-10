@@ -1,6 +1,11 @@
 import "server-only";
 
-import { generateAuthenticationOptions, generateRegistrationOptions, verifyAuthenticationResponse, verifyRegistrationResponse } from "@simplewebauthn/server";
+import {
+  generateAuthenticationOptions,
+  generateRegistrationOptions,
+  verifyAuthenticationResponse,
+  verifyRegistrationResponse,
+} from "@simplewebauthn/server";
 import type {
   AuthenticationResponseJSON,
   AuthenticatorTransport,
@@ -16,7 +21,10 @@ const rpName = SITE_NAME;
 const rpID = isProd ? SITE_DOMAIN : "localhost";
 const origin = SITE_URL;
 
-export async function generatePasskeyRegistrationOptions(userId: string, email: string) {
+export async function generatePasskeyRegistrationOptions(
+  userId: string,
+  email: string,
+) {
   const db = getDB();
   const existingCredentials = await db.query.passKeyCredentialTable.findMany({
     where: eq(passKeyCredentialTable.userId, userId),
@@ -28,10 +36,12 @@ export async function generatePasskeyRegistrationOptions(userId: string, email: 
     userID: Buffer.from(userId),
     userName: email,
     attestationType: "none",
-    excludeCredentials: existingCredentials.map(cred => ({
+    excludeCredentials: existingCredentials.map((cred) => ({
       id: cred.credentialId,
       type: "public-key",
-      transports: cred.transports ? JSON.parse(cred.transports) as AuthenticatorTransport[] : undefined,
+      transports: cred.transports
+        ? (JSON.parse(cred.transports) as AuthenticatorTransport[])
+        : undefined,
     })),
   });
 
@@ -68,9 +78,13 @@ export async function verifyPasskeyRegistration({
   await db.insert(passKeyCredentialTable).values({
     userId,
     credentialId: credential.id,
-    credentialPublicKey: Buffer.from(credential.publicKey).toString("base64url"),
+    credentialPublicKey: Buffer.from(credential.publicKey).toString(
+      "base64url",
+    ),
     counter: 0, // Initial counter value for new registrations
-    transports: response.response.transports ? JSON.stringify(response.response.transports) : null,
+    transports: response.response.transports
+      ? JSON.stringify(response.response.transports)
+      : null,
     aaguid: aaguid || null,
     userAgent,
     ipAddress,
@@ -85,10 +99,12 @@ export async function generatePasskeyAuthenticationOptions() {
 
   const options = await generateAuthenticationOptions({
     rpID,
-    allowCredentials: credentials.map(cred => ({
+    allowCredentials: credentials.map((cred) => ({
       id: cred.credentialId,
       type: "public-key",
-      transports: cred.transports ? JSON.parse(cred.transports) as AuthenticatorTransport[] : undefined,
+      transports: cred.transports
+        ? (JSON.parse(cred.transports) as AuthenticatorTransport[])
+        : undefined,
     })),
   });
 
@@ -97,7 +113,7 @@ export async function generatePasskeyAuthenticationOptions() {
 
 export async function verifyPasskeyAuthentication(
   response: AuthenticationResponseJSON,
-  challenge: string
+  challenge: string,
 ) {
   const credentialId = response.id;
 
@@ -120,7 +136,9 @@ export async function verifyPasskeyAuthentication(
       id: credential.credentialId,
       publicKey: Buffer.from(credential.credentialPublicKey, "base64url"),
       counter: credential.counter,
-      transports: credential.transports ? JSON.parse(credential.transports) : undefined,
+      transports: credential.transports
+        ? JSON.parse(credential.transports)
+        : undefined,
     },
   });
 

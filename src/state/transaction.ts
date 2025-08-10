@@ -7,5 +7,6 @@ interface TransactionStore {
 
 export const useTransactionStore = create<TransactionStore>((set) => ({
   refreshTrigger: 0,
-  triggerRefresh: () => set((state) => ({ refreshTrigger: state.refreshTrigger + 1 })),
+  triggerRefresh: () =>
+    set((state) => ({ refreshTrigger: state.refreshTrigger + 1 })),
 }));

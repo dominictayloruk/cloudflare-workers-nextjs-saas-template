@@ -7,16 +7,32 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import { createTeamAction } from "@/actions/team-actions";
 
 const formSchema = z.object({
-  name: z.string().min(1, "Team name is required").max(100, "Team name is too long"),
+  name: z
+    .string()
+    .min(1, "Team name is required")
+    .max(100, "Team name is too long"),
   description: z.string().max(1000, "Description is too long").optional(),
-  avatarUrl: z.string().url("Invalid URL").max(600, "URL is too long").optional().or(z.literal("")),
+  avatarUrl: z
+    .string()
+    .url("Invalid URL")
+    .max(600, "URL is too long")
+    .optional()
+    .or(z.literal("")),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -37,7 +53,7 @@ export function CreateTeamForm() {
       toast.success("Team created successfully");
       router.push(`/dashboard/teams/${result.data.data.slug}` as Route);
       router.refresh();
-    }
+    },
   });
 
   const form = useForm<FormValues>({
@@ -53,7 +69,7 @@ export function CreateTeamForm() {
     // Clean up empty string in avatarUrl if present
     const formData = {
       ...data,
-      avatarUrl: data.avatarUrl || undefined
+      avatarUrl: data.avatarUrl || undefined,
     };
 
     createTeam(formData);
@@ -71,9 +87,7 @@ export function CreateTeamForm() {
               <FormControl>
                 <Input placeholder="Enter team name" {...field} />
               </FormControl>
-              <FormDescription>
-                A unique name for your team
-              </FormDescription>
+              <FormDescription>A unique name for your team</FormDescription>
               <FormMessage />
             </FormItem>
           )}

@@ -1,5 +1,5 @@
-import { create } from 'zustand'
-import { combine } from 'zustand/middleware'
+import { create } from "zustand";
+import { combine } from "zustand/middleware";
 
 export const useNavStore = create(
   combine(
@@ -8,6 +8,6 @@ export const useNavStore = create(
     },
     (set) => ({
       setIsOpen: (isOpen: boolean) => set({ isOpen }),
-    })
-  )
-)
+    }),
+  ),
+);

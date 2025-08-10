@@ -1,4 +1,4 @@
-import { useMediaQuery as useMediaQueryHook } from "usehooks-ts"
+import { useMediaQuery as useMediaQueryHook } from "usehooks-ts";
 
 const tailwindBreakpoints = {
   sm: 640,
@@ -47,5 +47,5 @@ const MEDIA_QUERIES = {
 type MediaQuery = keyof typeof MEDIA_QUERIES;
 
 export const useMediaQuery = (query: MediaQuery) => {
-  return useMediaQueryHook(MEDIA_QUERIES[query])
-}
+  return useMediaQueryHook(MEDIA_QUERIES[query]);
+};

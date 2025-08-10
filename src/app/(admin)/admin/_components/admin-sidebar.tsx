@@ -1,14 +1,11 @@
-"use client"
+"use client";
 
-import { type ComponentType } from "react"
-import type { Route } from 'next'
-import {
-  Users,
-  Shield,
-} from "lucide-react"
+import { type ComponentType } from "react";
+import type { Route } from "next";
+import { Users, Shield } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -18,18 +15,18 @@ import {
   SidebarMenuItem,
   SidebarRail,
   SidebarGroup,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export type NavItem = {
-  title: string
-  url: Route
-  icon?: ComponentType
-}
+  title: string;
+  url: Route;
+  icon?: ComponentType;
+};
 
 export type NavMainItem = NavItem & {
-  isActive?: boolean
-  items?: NavItem[]
-}
+  isActive?: boolean;
+  items?: NavItem[];
+};
 
 const adminNavItems: NavMainItem[] = [
   {
@@ -38,9 +35,11 @@ const adminNavItems: NavMainItem[] = [
     icon: Users,
     isActive: true,
   },
-]
+];
 
-export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AdminSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarContent>
@@ -64,5 +63,5 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

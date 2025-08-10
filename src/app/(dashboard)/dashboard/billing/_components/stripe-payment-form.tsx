@@ -25,7 +25,14 @@ interface StripePaymentFormProps {
   price: number;
 }
 
-function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, price }: StripePaymentFormProps) {
+function PaymentForm({
+  packageId,
+  clientSecret,
+  onSuccess,
+  onCancel,
+  credits,
+  price,
+}: StripePaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -88,20 +95,22 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
                   </div>
                 </div>
               </div>
-              <div className="text-2xl font-bold text-primary">
-                ${price}
-              </div>
+              <div className="text-2xl font-bold text-primary">${price}</div>
             </div>
             <div className="h-px bg-border" />
             <div className="text-xs text-muted-foreground space-y-2">
               <p>
-                Your payment is secure and encrypted. We use Stripe, a trusted global payment provider, to process your payment.
+                Your payment is secure and encrypted. We use Stripe, a trusted
+                global payment provider, to process your payment.
               </p>
               <p>
-                For your security, your payment details are handled directly by Stripe and never touch our servers.
+                For your security, your payment details are handled directly by
+                Stripe and never touch our servers.
               </p>
               <p>
-                Credits will be added to your account immediately after successful payment and will be valid for {CREDITS_EXPIRATION_YEARS} years from the purchase date.
+                Credits will be added to your account immediately after
+                successful payment and will be valid for{" "}
+                {CREDITS_EXPIRATION_YEARS} years from the purchase date.
               </p>
             </div>
           </div>
@@ -134,7 +143,13 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
 
 export function StripePaymentForm(props: StripePaymentFormProps) {
   const { resolvedTheme: theme } = useTheme();
-  const stripePromise = useMemo(() => process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) : null, []);
+  const stripePromise = useMemo(
+    () =>
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+        : null,
+    [],
+  );
 
   return (
     <Elements

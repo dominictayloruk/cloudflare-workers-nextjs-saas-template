@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import AgenticDevStudioLogo from "./agenticdev-studio-logo";
 import { ChevronLeft, X } from "lucide-react";
 
-const STORAGE_KEY = 'agenticdev-studio-banner-collapsed';
+const STORAGE_KEY = "agenticdev-studio-banner-collapsed";
 
 export function AgenticDevStudioStickyBanner() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -32,13 +32,15 @@ export function AgenticDevStudioStickyBanner() {
     <div
       className={cn(
         "fixed bottom-4 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-4 z-[100] print:hidden",
-        isCollapsed && "pointer-events-none" // Make entire container click-through when collapsed
+        isCollapsed && "pointer-events-none", // Make entire container click-through when collapsed
       )}
     >
       <div
         className={cn(
           "transition-all duration-300 ease-in-out transform",
-          isCollapsed ? "translate-x-[calc(100%+1rem)] md:translate-x-[calc(100%+1rem)]" : "translate-x-0"
+          isCollapsed
+            ? "translate-x-[calc(100%+1rem)] md:translate-x-[calc(100%+1rem)]"
+            : "translate-x-0",
         )}
       >
         <div className="relative flex items-center w-[90vw] md:max-w-[400px]">
@@ -49,7 +51,7 @@ export function AgenticDevStudioStickyBanner() {
               "absolute left-0 h-8 w-8 rounded-full shadow-lg -translate-x-full",
               "bg-background hover:bg-background",
               "border-2 hover:border-border",
-              isCollapsed ? "opacity-100 pointer-events-auto" : "opacity-0" // Ensure button is clickable when collapsed
+              isCollapsed ? "opacity-100 pointer-events-auto" : "opacity-0", // Ensure button is clickable when collapsed
             )}
             onClick={() => toggleCollapsed(false)}
           >
@@ -77,11 +79,20 @@ export function AgenticDevStudioStickyBanner() {
                 </div>
 
                 <div className="text-tiny text-muted-foreground mt-3">
-                Transform operations with AI solutions that adapt to your actual needs—automating routine tasks or solving complex challenges through customized systems. Focus on growth while we handle the tech specifics that matter most to your business.
+                  Transform operations with AI solutions that adapt to your
+                  actual needs—automating routine tasks or solving complex
+                  challenges through customized systems. Focus on growth while
+                  we handle the tech specifics that matter most to your
+                  business.
                 </div>
               </a>
               <Button size="sm" className="mt-4" asChild>
-                <a href="https://agenticdev.agency?ref=saas-template-sticky-banner" target="_blank">Book a free consultation</a>
+                <a
+                  href="https://agenticdev.agency?ref=saas-template-sticky-banner"
+                  target="_blank"
+                >
+                  Book a free consultation
+                </a>
               </Button>
             </div>
           </div>

@@ -26,9 +26,8 @@ interface RateLimitConfig {
 
 export async function withRateLimit<T>(
   action: () => Promise<T>,
-  config: RateLimitConfig
+  config: RateLimitConfig,
 ): Promise<T> {
-
   if (!isProd) {
     return action();
   }
@@ -47,8 +46,8 @@ export async function withRateLimit<T>(
   if (!rateLimitResult.success) {
     throw new Error(
       `Rate limit exceeded. Try again in ${Math.ceil(
-        (rateLimitResult.reset - Date.now() / 1000) / 60
-      )} minutes.`
+        (rateLimitResult.reset - Date.now() / 1000) / 60,
+      )} minutes.`,
     );
   }
 

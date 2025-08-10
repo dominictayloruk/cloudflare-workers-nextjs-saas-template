@@ -1,4 +1,4 @@
-import { PageHeader } from "@/components/page-header"
+import { PageHeader } from "@/components/page-header";
 
 export default function Page() {
   return (
@@ -7,8 +7,8 @@ export default function Page() {
         items={[
           {
             href: "/dashboard",
-            label: "Dashboard"
-          }
+            label: "Dashboard",
+          },
         ]}
       />
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -28,5 +28,5 @@ export default function Page() {
         </div>
       </div>
     </>
-  )
+  );
 }

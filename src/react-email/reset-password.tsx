@@ -27,7 +27,9 @@ export const ResetPasswordEmail = ({
         <Heading style={preheader}>Reset your {SITE_DOMAIN} password</Heading>
         <Text style={paragraph}>Hi {username},</Text>
         <Text style={paragraph}>
-          We received a request to reset your password for your {SITE_DOMAIN} account. Click the button below to choose a new password. For security reasons, this link will expire in 1 hour.
+          We received a request to reset your password for your {SITE_DOMAIN}{" "}
+          account. Click the button below to choose a new password. For security
+          reasons, this link will expire in 1 hour.
         </Text>
         <Section style={buttonContainer}>
           <Link style={button} href={resetLink}>
@@ -35,15 +37,18 @@ export const ResetPasswordEmail = ({
           </Link>
         </Section>
         <Text style={paragraph}>
-          If you didn&apos;t request this password reset, you can safely ignore this email. Your {SITE_DOMAIN} account password will remain unchanged.
+          If you didn&apos;t request this password reset, you can safely ignore
+          this email. Your {SITE_DOMAIN} account password will remain unchanged.
         </Text>
         <Text style={paragraph}>
-          If you&apos;re having trouble with the button above, copy and paste this URL into your browser:
+          If you&apos;re having trouble with the button above, copy and paste
+          this URL into your browser:
         </Text>
         <Text style={link}>{resetLink}</Text>
       </Container>
       <Text style={footer}>
-        This is an automated message from {SITE_DOMAIN}. If you did not request this email, please ignore it or contact support if you have concerns.
+        This is an automated message from {SITE_DOMAIN}. If you did not request
+        this email, please ignore it or contact support if you have concerns.
       </Text>
     </Body>
   </Html>

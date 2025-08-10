@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { type ComponentType, useEffect, useState } from "react"
-import type { Route } from 'next'
+import { type ComponentType, useEffect, useState } from "react";
+import type { Route } from "next";
 
 import {
   Building2,
@@ -13,62 +13,62 @@ import {
   SquareTerminal,
   CreditCard,
   Users,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import { useSessionStore } from "@/state/session"
+} from "@/components/ui/sidebar";
+import { useSessionStore } from "@/state/session";
 
 export type NavItem = {
-  title: string
-  url: Route
-  icon?: ComponentType
-}
+  title: string;
+  url: Route;
+  icon?: ComponentType;
+};
 
 export type NavMainItem = NavItem & {
-  isActive?: boolean
-  items?: NavItem[]
-}
+  isActive?: boolean;
+  items?: NavItem[];
+};
 
 type Data = {
   user: {
-    name: string
-    email: string
-  }
+    name: string;
+    email: string;
+  };
   teams: {
-    name: string
-    logo: ComponentType
-    plan: string
-  }[]
-  navMain: NavMainItem[]
-  projects: NavItem[]
-}
+    name: string;
+    logo: ComponentType;
+    plan: string;
+  }[];
+  navMain: NavMainItem[];
+  projects: NavItem[];
+};
 
 // TODO Add a theme switcher
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { session } = useSessionStore();
-  const [formattedTeams, setFormattedTeams] = useState<Data['teams']>([]);
+  const [formattedTeams, setFormattedTeams] = useState<Data["teams"]>([]);
 
   // Map session teams to the format expected by TeamSwitcher
   useEffect(() => {
     if (session?.teams && session.teams.length > 0) {
       // Map teams from session to the format expected by TeamSwitcher
-      const teamData = session.teams.map(team => {
+      const teamData = session.teams.map((team) => {
         return {
           name: team.name,
           // TODO Get the actual logo when we implement team avatars
           logo: Building2,
           // Default plan - you might want to add plan data to your team structure
-          plan: team.role.name || "Member"
+          plan: team.role.name || "Member",
         };
       });
 
@@ -145,7 +145,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Map,
       },
     ],
-  }
+  };
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -164,5 +164,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

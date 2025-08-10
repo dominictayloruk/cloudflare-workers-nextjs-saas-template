@@ -1,4 +1,4 @@
-import { defineConfig } from 'drizzle-kit';
+import { defineConfig } from "drizzle-kit";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -16,28 +16,28 @@ function getLocalD1DB() {
     const url = path.resolve(basePath, dbFile);
     return url;
   } catch (err) {
-    console.error(err)
+    console.error(err);
 
     return null;
   }
 }
 
 export default defineConfig({
-  out: './src/db/migrations',
-  schema: './src/db/schema.ts',
-  dialect: 'sqlite',
+  out: "./src/db/migrations",
+  schema: "./src/db/schema.ts",
+  dialect: "sqlite",
   ...(process.env.NODE_ENV === "production"
     ? {
-      driver: "d1-http",
-      dbCredentials: {
-        accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
-        databaseId: process.env.DATABASE_ID,
-        token: process.env.CLOUDFLARE_API_TOKEN,
-      },
-    }
+        driver: "d1-http",
+        dbCredentials: {
+          accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+          databaseId: process.env.DATABASE_ID,
+          token: process.env.CLOUDFLARE_API_TOKEN,
+        },
+      }
     : {
-      dbCredentials: {
-        url: getLocalD1DB(),
-      },
-    }),
+        dbCredentials: {
+          url: getLocalD1DB(),
+        },
+      }),
 });

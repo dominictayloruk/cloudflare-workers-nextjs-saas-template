@@ -3,7 +3,13 @@
 import { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useServerAction } from "zsa-react";
 import { acceptTeamInviteAction } from "./team-invite.action";
@@ -16,7 +22,11 @@ export default function TeamInviteClientComponent() {
   const token = searchParams.get("token");
   const hasCalledAcceptInvite = useRef(false);
 
-  const { execute: handleAcceptInvite, isPending, error } = useServerAction(acceptTeamInviteAction, {
+  const {
+    execute: handleAcceptInvite,
+    isPending,
+    error,
+  } = useServerAction(acceptTeamInviteAction, {
     onError: ({ err }) => {
       toast.dismiss();
       toast.error(err.message || "Failed to accept team invitation");
@@ -32,13 +42,18 @@ export default function TeamInviteClientComponent() {
 
       // Redirect to the team dashboard, with fallback to general dashboard
       setTimeout(() => {
-        if (data && typeof data === 'object' && 'teamId' in data) {
+        if (data && typeof data === "object" && "teamId" in data) {
           router.push(`/dashboard/teams/${data.teamId}`);
-        } else if (data && typeof data === 'object' && data.data && 'teamId' in data.data) {
+        } else if (
+          data &&
+          typeof data === "object" &&
+          data.data &&
+          "teamId" in data.data
+        ) {
           router.push(`/dashboard/teams/${data.data.teamId}`);
         } else {
           // Fallback to dashboard if teamId is not found
-          router.push('/dashboard');
+          router.push("/dashboard");
         }
       }, 500);
     },
@@ -90,9 +105,10 @@ export default function TeamInviteClientComponent() {
             <p className="text-sm text-muted-foreground">
               {error?.code === "CONFLICT"
                 ? "You are already a member of this team."
-                : error?.code === "FORBIDDEN" && error?.message.includes("limit")
-                ? "You've reached the maximum number of teams you can join."
-                : "The invitation may have expired or been revoked."}
+                : error?.code === "FORBIDDEN" &&
+                    error?.message.includes("limit")
+                  ? "You've reached the maximum number of teams you can join."
+                  : "The invitation may have expired or been revoked."}
             </p>
             <Button
               variant="outline"

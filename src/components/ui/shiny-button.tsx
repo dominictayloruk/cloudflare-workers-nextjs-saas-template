@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  motion,
-  type HTMLMotionProps,
-} from "motion/react";
+import { motion, type HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const animationProps = {
@@ -36,7 +33,7 @@ interface ShinyButtonProps extends HTMLMotionProps<"button"> {
 
 /**
  * https://magicui.design/docs/components/shiny-button
-*/
+ */
 const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>(
   ({ children, className, ...props }, ref) => {
     return (

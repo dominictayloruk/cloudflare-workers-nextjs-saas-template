@@ -9,7 +9,10 @@ import {
   Text,
 } from "@react-email/components";
 import * as React from "react";
-import { EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS, SITE_DOMAIN } from "@/constants";
+import {
+  EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS,
+  SITE_DOMAIN,
+} from "@/constants";
 
 interface VerifyEmailProps {
   verificationLink?: string;
@@ -20,7 +23,7 @@ export const VerifyEmail = ({
   verificationLink = "https://example.com/verify-email",
   username = "User",
 }: VerifyEmailProps) => {
-  const expirationHours = EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS / 60 / 60
+  const expirationHours = EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS / 60 / 60;
 
   return (
     <Html>
@@ -30,7 +33,9 @@ export const VerifyEmail = ({
           <Heading style={preheader}>Verify your {SITE_DOMAIN} email</Heading>
           <Text style={paragraph}>Hi {username},</Text>
           <Text style={paragraph}>
-            Thanks for signing up for {SITE_DOMAIN}! We need to verify your email address to complete your registration. Please click the button below to verify your email address.
+            Thanks for signing up for {SITE_DOMAIN}! We need to verify your
+            email address to complete your registration. Please click the button
+            below to verify your email address.
           </Text>
           <Section style={buttonContainer}>
             <Link style={button} href={verificationLink}>
@@ -38,22 +43,27 @@ export const VerifyEmail = ({
             </Link>
           </Section>
           <Text style={paragraph}>
-            This verification link will expire in {expirationHours} hour{expirationHours > 1 ? "s" : ""}. After that, you&apos;ll need to request a new verification email.
+            This verification link will expire in {expirationHours} hour
+            {expirationHours > 1 ? "s" : ""}. After that, you&apos;ll need to
+            request a new verification email.
           </Text>
           <Text style={paragraph}>
-            If you&apos;re having trouble with the button above, copy and paste this URL into your browser:
+            If you&apos;re having trouble with the button above, copy and paste
+            this URL into your browser:
           </Text>
           <Text style={link}>{verificationLink}</Text>
           <Text style={paragraph}>
-            If you didn&apos;t create an account on {SITE_DOMAIN}, you can safely ignore this email.
+            If you didn&apos;t create an account on {SITE_DOMAIN}, you can
+            safely ignore this email.
           </Text>
         </Container>
         <Text style={footer}>
-          This is an automated message from {SITE_DOMAIN}. Please do not reply to this email.
+          This is an automated message from {SITE_DOMAIN}. Please do not reply
+          to this email.
         </Text>
       </Body>
     </Html>
-  )
+  );
 };
 
 VerifyEmail.PreviewProps = {

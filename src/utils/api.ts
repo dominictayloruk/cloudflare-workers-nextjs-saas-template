@@ -1,13 +1,13 @@
 export interface JsonResponseOptions {
-  status?: number
-  headers?: Record<string, string>
+  status?: number;
+  headers?: Record<string, string>;
 }
 
 export function jsonResponse(
   data: Record<string, unknown>,
-  options: JsonResponseOptions = {}
+  options: JsonResponseOptions = {},
 ) {
-  const { status = 200, headers = {} } = options
+  const { status = 200, headers = {} } = options;
 
   return new Response(JSON.stringify(data), {
     status,
@@ -15,5 +15,5 @@ export function jsonResponse(
       "Content-Type": "application/json",
       ...headers,
     },
-  })
+  });
 }

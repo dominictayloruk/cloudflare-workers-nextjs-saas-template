@@ -1,10 +1,17 @@
 import "server-only";
 
-import { ROLES_ENUM, userTable, teamMembershipTable, SYSTEM_ROLES_ENUM, teamRoleTable, TEAM_PERMISSIONS } from "@/db/schema";
+import {
+  ROLES_ENUM,
+  userTable,
+  teamMembershipTable,
+  SYSTEM_ROLES_ENUM,
+  teamRoleTable,
+  TEAM_PERMISSIONS,
+} from "@/db/schema";
 import { init } from "@paralleldrive/cuid2";
-import { encodeHexLowerCase } from "@oslojs/encoding"
-import { sha256 } from "@oslojs/crypto/sha2"
-import ms from "ms"
+import { encodeHexLowerCase } from "@oslojs/encoding";
+import { sha256 } from "@oslojs/crypto/sha2";
+import ms from "ms";
 import { getDB } from "@/db";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
@@ -16,9 +23,9 @@ import {
   type CreateKVSessionParams,
   getKVSession,
   updateKVSession,
-  CURRENT_SESSION_VERSION
+  CURRENT_SESSION_VERSION,
 } from "./kv-session";
-import { cache } from "react"
+import { cache } from "react";
 import type { SessionValidationResult } from "@/types";
 import { SESSION_COOKIE_NAME } from "@/constants";
 import { ZSAError } from "zsa";
@@ -27,7 +34,7 @@ import { getInitials } from "./name-initials";
 
 const getSessionLength = () => {
   return ms("30d");
-}
+};
 
 /**
  * This file is based on https://lucia-auth.com
@@ -65,13 +72,19 @@ function encodeSessionCookie(userId: string, token: string): string {
   return `${userId}:${token}`;
 }
 
-function decodeSessionCookie(cookie: string): { userId: string; token: string } | null {
-  const parts = cookie.split(':');
+function decodeSessionCookie(
+  cookie: string,
+): { userId: string; token: string } | null {
+  const parts = cookie.split(":");
   if (parts.length !== 2) return null;
   return { userId: parts[0], token: parts[1] };
 }
 
-interface CreateSessionParams extends Pick<CreateKVSessionParams, "authenticationType" | "passkeyCredentialId" | "userId"> {
+interface CreateSessionParams
+  extends Pick<
+    CreateKVSessionParams,
+    "authenticationType" | "passkeyCredentialId" | "userId"
+  > {
   token: string;
 }
 
@@ -89,7 +102,7 @@ export async function getUserTeamsWithPermissions(userId: string) {
   // Fetch permissions for each membership
   return Promise.all(
     userTeamMemberships.map(async (membership) => {
-      let roleName = '';
+      let roleName = "";
       let permissions: string[] = [];
 
       // Handle system roles
@@ -97,7 +110,10 @@ export async function getUserTeamsWithPermissions(userId: string) {
         roleName = membership.roleId; // For system roles, roleId contains the role name
 
         // For system roles, get permissions based on role
-        if (membership.roleId === SYSTEM_ROLES_ENUM.OWNER || membership.roleId === SYSTEM_ROLES_ENUM.ADMIN) {
+        if (
+          membership.roleId === SYSTEM_ROLES_ENUM.OWNER ||
+          membership.roleId === SYSTEM_ROLES_ENUM.ADMIN
+        ) {
           // Owners and admins have all permissions
           permissions = Object.values(TEAM_PERMISSIONS);
         } else if (membership.roleId === SYSTEM_ROLES_ENUM.MEMBER) {
@@ -109,9 +125,7 @@ export async function getUserTeamsWithPermissions(userId: string) {
           ];
         } else if (membership.roleId === SYSTEM_ROLES_ENUM.GUEST) {
           // Guest permissions are limited
-          permissions = [
-            TEAM_PERMISSIONS.ACCESS_DASHBOARD,
-          ];
+          permissions = [TEAM_PERMISSIONS.ACCESS_DASHBOARD];
         }
       } else {
         // Handle custom roles
@@ -137,7 +151,7 @@ export async function getUserTeamsWithPermissions(userId: string) {
         },
         permissions,
       };
-    })
+    }),
   );
 }
 
@@ -145,7 +159,7 @@ export async function createSession({
   token,
   userId,
   authenticationType,
-  passkeyCredentialId
+  passkeyCredentialId,
 }: CreateSessionParams): Promise<KVSession> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
   const expiresAt = new Date(Date.now() + getSessionLength());
@@ -165,30 +179,33 @@ export async function createSession({
     user,
     authenticationType,
     passkeyCredentialId,
-    teams: teamsWithPermissions
+    teams: teamsWithPermissions,
   });
 }
 
 export async function createAndStoreSession(
   userId: string,
   authenticationType?: CreateKVSessionParams["authenticationType"],
-  passkeyCredentialId?: CreateKVSessionParams["passkeyCredentialId"]
+  passkeyCredentialId?: CreateKVSessionParams["passkeyCredentialId"],
 ) {
   const sessionToken = generateSessionToken();
   const session = await createSession({
     token: sessionToken,
     userId,
     authenticationType,
-    passkeyCredentialId
+    passkeyCredentialId,
   });
   await setSessionTokenCookie({
     token: sessionToken,
     userId,
-    expiresAt: new Date(session.expiresAt)
+    expiresAt: new Date(session.expiresAt),
   });
 }
 
-async function validateSessionToken(token: string, userId: string): Promise<SessionValidationResult | null> {
+async function validateSessionToken(
+  token: string,
+  userId: string,
+): Promise<SessionValidationResult | null> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 
   const session = await getKVSession(sessionId, userId);
@@ -203,14 +220,20 @@ async function validateSessionToken(token: string, userId: string): Promise<Sess
 
   // Check if session version needs to be updated
   if (!session.version || session.version !== CURRENT_SESSION_VERSION) {
-    const updatedSession = await updateKVSession(sessionId, userId, new Date(session.expiresAt));
+    const updatedSession = await updateKVSession(
+      sessionId,
+      userId,
+      new Date(session.expiresAt),
+    );
 
     if (!updatedSession) {
       return null;
     }
 
     // Update the user initials
-    updatedSession.user.initials = getInitials(`${updatedSession.user.firstName} ${updatedSession.user.lastName}`);
+    updatedSession.user.initials = getInitials(
+      `${updatedSession.user.firstName} ${updatedSession.user.lastName}`,
+    );
 
     return updatedSession;
   }
@@ -227,13 +250,18 @@ async function validateSessionToken(token: string, userId: string): Promise<Sess
   }
 
   // Update the user initials
-  session.user.initials = getInitials(`${session.user.firstName} ${session.user.lastName}`);
+  session.user.initials = getInitials(
+    `${session.user.firstName} ${session.user.lastName}`,
+  );
 
   // Return the user data directly from the session
   return session;
 }
 
-export async function invalidateSession(sessionId: string, userId: string): Promise<void> {
+export async function invalidateSession(
+  sessionId: string,
+  userId: string,
+): Promise<void> {
   await deleteKVSession(sessionId, userId);
 }
 
@@ -243,7 +271,11 @@ interface SetSessionTokenCookieParams {
   expiresAt: Date;
 }
 
-export async function setSessionTokenCookie({ token, userId, expiresAt }: SetSessionTokenCookieParams): Promise<void> {
+export async function setSessionTokenCookie({
+  token,
+  userId,
+  expiresAt,
+}: SetSessionTokenCookieParams): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE_NAME, encodeSessionCookie(userId, token), {
     httpOnly: true,
@@ -262,66 +294,72 @@ export async function deleteSessionTokenCookie(): Promise<void> {
 /**
  * This function can only be called in a Server Components, Server Action or Route Handler
  */
-export const getSessionFromCookie = cache(async (): Promise<SessionValidationResult | null> => {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+export const getSessionFromCookie = cache(
+  async (): Promise<SessionValidationResult | null> => {
+    const cookieStore = await cookies();
+    const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME)?.value;
 
-  if (!sessionCookie) {
-    return null;
-  }
-
-  const decoded = decodeSessionCookie(sessionCookie);
-
-  if (!decoded || !decoded.token || !decoded.userId) {
-    return null;
-  }
-
-  return validateSessionToken(decoded.token, decoded.userId);
-})
-
-export const requireVerifiedEmail = cache(async ({
-  doNotThrowError = false,
-}: {
-  doNotThrowError?: boolean;
-} = {}) => {
-  const session = await getSessionFromCookie();
-
-  if (!session) {
-    throw new ZSAError("NOT_AUTHORIZED", "Not authenticated");
-  }
-
-  if (!session?.user?.emailVerified) {
-    if (doNotThrowError) {
+    if (!sessionCookie) {
       return null;
     }
 
-    throw new ZSAError("FORBIDDEN", "Please verify your email first");
-  }
+    const decoded = decodeSessionCookie(sessionCookie);
 
-  return session;
-});
-
-export const requireAdmin = cache(async ({
-  doNotThrowError = false,
-}: {
-  doNotThrowError?: boolean;
-} = {}) => {
-  const session = await getSessionFromCookie();
-
-  if (!session) {
-    throw new ZSAError("NOT_AUTHORIZED", "Not authenticated");
-  }
-
-  if (session.user.role !== ROLES_ENUM.ADMIN) {
-    if (doNotThrowError) {
+    if (!decoded || !decoded.token || !decoded.userId) {
       return null;
     }
 
-    throw new ZSAError("FORBIDDEN", "Not authorized");
-  }
+    return validateSessionToken(decoded.token, decoded.userId);
+  },
+);
 
-  return session;
-});
+export const requireVerifiedEmail = cache(
+  async ({
+    doNotThrowError = false,
+  }: {
+    doNotThrowError?: boolean;
+  } = {}) => {
+    const session = await getSessionFromCookie();
+
+    if (!session) {
+      throw new ZSAError("NOT_AUTHORIZED", "Not authenticated");
+    }
+
+    if (!session?.user?.emailVerified) {
+      if (doNotThrowError) {
+        return null;
+      }
+
+      throw new ZSAError("FORBIDDEN", "Please verify your email first");
+    }
+
+    return session;
+  },
+);
+
+export const requireAdmin = cache(
+  async ({
+    doNotThrowError = false,
+  }: {
+    doNotThrowError?: boolean;
+  } = {}) => {
+    const session = await getSessionFromCookie();
+
+    if (!session) {
+      throw new ZSAError("NOT_AUTHORIZED", "Not authenticated");
+    }
+
+    if (session.user.role !== ROLES_ENUM.ADMIN) {
+      if (doNotThrowError) {
+        return null;
+      }
+
+      throw new ZSAError("FORBIDDEN", "Not authorized");
+    }
+
+    return session;
+  },
+);
 
 interface DisposableEmailResponse {
   disposable: string;
@@ -350,14 +388,16 @@ type ValidatorResult = {
  */
 async function checkWithDebounce(email: string): Promise<ValidatorResult> {
   try {
-    const response = await fetch(`https://disposable.debounce.io/?email=${encodeURIComponent(email)}`);
+    const response = await fetch(
+      `https://disposable.debounce.io/?email=${encodeURIComponent(email)}`,
+    );
 
     if (!response.ok) {
       console.error("Debounce.io API error:", response.status);
       return { success: false, isDisposable: false };
     }
 
-    const data = await response.json() as DisposableEmailResponse;
+    const data = (await response.json()) as DisposableEmailResponse;
 
     return { success: true, isDisposable: data.disposable === "true" };
   } catch (error) {
@@ -371,21 +411,22 @@ async function checkWithDebounce(email: string): Promise<ValidatorResult> {
  */
 async function checkWithMailcheck(email: string): Promise<ValidatorResult> {
   try {
-    const response = await fetch(`https://api.mailcheck.ai/email/${encodeURIComponent(email)}`);
+    const response = await fetch(
+      `https://api.mailcheck.ai/email/${encodeURIComponent(email)}`,
+    );
 
     if (!response.ok) {
       console.error("Mailcheck.ai API error:", response.status);
       return { success: false, isDisposable: false };
     }
 
-    const data = await response.json() as MailcheckResponse;
+    const data = (await response.json()) as MailcheckResponse;
     return { success: true, isDisposable: data.disposable };
   } catch (error) {
     console.error("Failed to check disposable email with mailcheck.ai:", error);
     return { success: false, isDisposable: false };
   }
 }
-
 
 /**
  * Checks if an email is allowed for sign up by verifying it's not a disposable email
@@ -399,10 +440,7 @@ export async function canSignUp({ email }: { email: string }): Promise<void> {
     return;
   }
 
-  const validators = [
-    checkWithDebounce,
-    checkWithMailcheck,
-  ];
+  const validators = [checkWithDebounce, checkWithMailcheck];
 
   for (const validator of validators) {
     const result = await validator(email);
@@ -416,7 +454,7 @@ export async function canSignUp({ email }: { email: string }): Promise<void> {
     if (result.isDisposable) {
       throw new ZSAError(
         "PRECONDITION_FAILED",
-        "Disposable email addresses are not allowed"
+        "Disposable email addresses are not allowed",
       );
     }
 
@@ -427,6 +465,6 @@ export async function canSignUp({ email }: { email: string }): Promise<void> {
   // If all validators failed, we can't verify the email
   throw new ZSAError(
     "PRECONDITION_FAILED",
-    "Unable to verify email address at this time. Please try again later."
+    "Unable to verify email address at this time. Please try again later.",
   );
 }

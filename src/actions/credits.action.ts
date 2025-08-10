@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { requireVerifiedEmail } from "@/utils/auth";
 import {
@@ -9,7 +9,10 @@ import {
 } from "@/utils/credits";
 import { CREDIT_TRANSACTION_TYPE } from "@/db/schema";
 import { getStripe } from "@/lib/stripe";
-import { MAX_TRANSACTIONS_PER_PAGE, CREDITS_EXPIRATION_YEARS } from "@/constants";
+import {
+  MAX_TRANSACTIONS_PER_PAGE,
+  CREDITS_EXPIRATION_YEARS,
+} from "@/constants";
 import ms from "ms";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";
 
@@ -28,14 +31,19 @@ type PurchaseCreditsInput = {
   paymentIntentId: string;
 };
 
-export async function getTransactions({ page, limit = MAX_TRANSACTIONS_PER_PAGE }: GetTransactionsInput) {
+export async function getTransactions({
+  page,
+  limit = MAX_TRANSACTIONS_PER_PAGE,
+}: GetTransactionsInput) {
   return withRateLimit(async () => {
     if (page < 1 || limit < 1) {
       throw new Error("Invalid page or limit");
     }
 
     if (limit > MAX_TRANSACTIONS_PER_PAGE) {
-      throw new Error(`Limit cannot be greater than ${MAX_TRANSACTIONS_PER_PAGE}`);
+      throw new Error(
+        `Limit cannot be greater than ${MAX_TRANSACTIONS_PER_PAGE}`,
+      );
     }
 
     if (!limit) {
@@ -60,12 +68,14 @@ export async function getTransactions({ page, limit = MAX_TRANSACTIONS_PER_PAGE 
         total: result.pagination.total,
         pages: result.pagination.pages,
         current: result.pagination.current,
-      }
+      },
     };
   }, RATE_LIMITS.PURCHASE);
 }
 
-export async function createPaymentIntent({ packageId }: CreatePaymentIntentInput) {
+export async function createPaymentIntent({
+  packageId,
+}: CreatePaymentIntentInput) {
   return withRateLimit(async () => {
     const session = await requireVerifiedEmail();
     if (!session) {
@@ -80,10 +90,10 @@ export async function createPaymentIntent({ packageId }: CreatePaymentIntentInpu
 
       const paymentIntent = await getStripe().paymentIntents.create({
         amount: creditPackage.price * 100,
-        currency: 'usd',
+        currency: "usd",
         automatic_payment_methods: {
           enabled: true,
-          allow_redirects: 'never',
+          allow_redirects: "never",
         },
         metadata: {
           userId: session.user.id,
@@ -100,7 +110,10 @@ export async function createPaymentIntent({ packageId }: CreatePaymentIntentInpu
   }, RATE_LIMITS.PURCHASE);
 }
 
-export async function confirmPayment({ packageId, paymentIntentId }: PurchaseCreditsInput) {
+export async function confirmPayment({
+  packageId,
+  paymentIntentId,
+}: PurchaseCreditsInput) {
   return withRateLimit(async () => {
     const session = await requireVerifiedEmail();
     if (!session) {
@@ -114,9 +127,10 @@ export async function confirmPayment({ packageId, paymentIntentId }: PurchaseCre
       }
 
       // Verify the payment intent
-      const paymentIntent = await getStripe().paymentIntents.retrieve(paymentIntentId);
+      const paymentIntent =
+        await getStripe().paymentIntents.retrieve(paymentIntentId);
 
-      if (paymentIntent.status !== 'succeeded') {
+      if (paymentIntent.status !== "succeeded") {
         throw new Error("Payment not completed");
       }
 
@@ -136,8 +150,10 @@ export async function confirmPayment({ packageId, paymentIntentId }: PurchaseCre
         amount: creditPackage.credits,
         description: `Purchased ${creditPackage.credits} credits`,
         type: CREDIT_TRANSACTION_TYPE.PURCHASE,
-        expirationDate: new Date(Date.now() + ms(`${CREDITS_EXPIRATION_YEARS} years`)),
-        paymentIntentId: paymentIntent?.id
+        expirationDate: new Date(
+          Date.now() + ms(`${CREDITS_EXPIRATION_YEARS} years`),
+        ),
+        paymentIntentId: paymentIntent?.id,
       });
 
       return { success: true };

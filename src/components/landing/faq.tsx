@@ -11,7 +11,13 @@ const faqs = [
     question: "Is this template really free?",
     answer: (
       <>
-        Yes, this template is completely free and <a href={GITHUB_REPO_URL} target="_blank">open source</a>! You can use it for both personal and commercial projects without any licensing fees. You can fork, copy, modify, and distribute it as you see fit without any restrictions and attribution.
+        Yes, this template is completely free and{" "}
+        <a href={GITHUB_REPO_URL} target="_blank">
+          open source
+        </a>
+        ! You can use it for both personal and commercial projects without any
+        licensing fees. You can fork, copy, modify, and distribute it as you see
+        fit without any restrictions and attribution.
       </>
     ),
   },
@@ -67,7 +73,13 @@ const faqs = [
           <li>Add your Cloudflare API token to GitHub secrets</li>
           <li>Push to the main branch</li>
         </ol>
-        <p className="mt-2">The deployment process is fully documented in the <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">GitHub repository</a>.</p>
+        <p className="mt-2">
+          The deployment process is fully documented in the{" "}
+          <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">
+            GitHub repository
+          </a>
+          .
+        </p>
       </>
     ),
   },
@@ -75,8 +87,19 @@ const faqs = [
     question: "What do I need to get started?",
     answer: (
       <>
-        <p>You&apos;ll need a Cloudflare account (free tier is fine), Node.js installed locally, and basic knowledge of React and TypeScript. The template includes detailed documentation to guide you through the setup.</p>
-        <p>You can also check out the <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">documentation</a> for more information.</p>
+        <p>
+          You&apos;ll need a Cloudflare account (free tier is fine), Node.js
+          installed locally, and basic knowledge of React and TypeScript. The
+          template includes detailed documentation to guide you through the
+          setup.
+        </p>
+        <p>
+          You can also check out the{" "}
+          <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">
+            documentation
+          </a>{" "}
+          for more information.
+        </p>
       </>
     ),
   },
@@ -103,7 +126,12 @@ const faqs = [
     question: "Can I preview the email templates?",
     answer: (
       <>
-        Yes! Run <code>pnpm email:dev</code> and open <a href="http://localhost:3001" target="_blank">http://localhost:3001</a> to preview and edit the email templates. They&apos;re built with React Email for a great developer experience.
+        Yes! Run <code>pnpm email:dev</code> and open{" "}
+        <a href="http://localhost:3001" target="_blank">
+          http://localhost:3001
+        </a>{" "}
+        to preview and edit the email templates. They&apos;re built with React
+        Email for a great developer experience.
       </>
     ),
   },
@@ -113,10 +141,19 @@ const faqs = [
       <>
         <p>Before deploying to production, you should:</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">
-          <li>Update project details in <code>src/constants.ts</code></li>
-          <li>Customize the documentation in <code>./cursor-docs</code></li>
-          <li>Modify the footer in <code>src/components/footer.tsx</code></li>
-          <li>Optionally update the color palette in <code>src/app/globals.css</code></li>
+          <li>
+            Update project details in <code>src/constants.ts</code>
+          </li>
+          <li>
+            Customize the documentation in <code>./cursor-docs</code>
+          </li>
+          <li>
+            Modify the footer in <code>src/components/footer.tsx</code>
+          </li>
+          <li>
+            Optionally update the color palette in{" "}
+            <code>src/app/globals.css</code>
+          </li>
         </ul>
       </>
     ),
@@ -125,7 +162,12 @@ const faqs = [
     question: "How can I contribute?",
     answer: (
       <>
-        Contributions are welcome! Feel free to open issues, submit pull requests, or help improve the documentation on <a href={GITHUB_REPO_URL} target="_blank">GitHub</a>. The project follows standard open source contribution guidelines.
+        Contributions are welcome! Feel free to open issues, submit pull
+        requests, or help improve the documentation on{" "}
+        <a href={GITHUB_REPO_URL} target="_blank">
+          GitHub
+        </a>
+        . The project follows standard open source contribution guidelines.
       </>
     ),
   },

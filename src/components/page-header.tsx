@@ -4,18 +4,18 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import React from "react"
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import React from "react";
 
 interface BreadcrumbItem {
-  href: string
-  label: string
+  href: string;
+  label: string;
 }
 
 interface PageHeaderProps {
-  items: BreadcrumbItem[]
+  items: BreadcrumbItem[];
 }
 
 export function PageHeader({ items }: PageHeaderProps) {
@@ -29,9 +29,7 @@ export function PageHeader({ items }: PageHeaderProps) {
             {items.map((item, index) => (
               <React.Fragment key={item.href}>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href={item.href}>
-                    {item.label}
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
                 </BreadcrumbItem>
                 {index < items.length - 1 && (
                   <BreadcrumbSeparator className="hidden md:block" />
@@ -42,5 +40,5 @@ export function PageHeader({ items }: PageHeaderProps) {
         </Breadcrumb>
       </div>
     </header>
-  )
+  );
 }

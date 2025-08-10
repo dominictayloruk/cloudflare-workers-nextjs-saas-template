@@ -37,22 +37,25 @@ export function RemoveMemberButton({
   userId,
   memberName,
   isDisabled = false,
-  tooltipText = "You cannot remove this member"
+  tooltipText = "You cannot remove this member",
 }: RemoveMemberButtonProps) {
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
 
-  const { execute: removeMember, isPending } = useServerAction(removeTeamMemberAction, {
-    onError: (error) => {
-      toast.error(error.err?.message || "Failed to remove team member");
-      dialogCloseRef.current?.click();
+  const { execute: removeMember, isPending } = useServerAction(
+    removeTeamMemberAction,
+    {
+      onError: (error) => {
+        toast.error(error.err?.message || "Failed to remove team member");
+        dialogCloseRef.current?.click();
+      },
+      onSuccess: () => {
+        toast.success("Team member removed successfully");
+        router.refresh();
+        dialogCloseRef.current?.click();
+      },
     },
-    onSuccess: () => {
-      toast.success("Team member removed successfully");
-      router.refresh();
-      dialogCloseRef.current?.click();
-    }
-  });
+  );
 
   const handleRemoveMember = () => {
     removeMember({ teamId, userId });
@@ -70,13 +73,17 @@ export function RemoveMemberButton({
                 size="icon"
                 className="h-8 w-8 text-muted-foreground cursor-not-allowed opacity-50"
                 disabled
-            >
-              <TrashIcon className="h-4 w-4" />
-              <span className="sr-only">Cannot remove member</span>
+              >
+                <TrashIcon className="h-4 w-4" />
+                <span className="sr-only">Cannot remove member</span>
               </Button>
             </div>
           </TooltipTrigger>
-          <TooltipContent side="left" sideOffset={5} className="text-sm font-medium">
+          <TooltipContent
+            side="left"
+            sideOffset={5}
+            className="text-sm font-medium"
+          >
             {tooltipText}
           </TooltipContent>
         </Tooltip>
@@ -100,12 +107,15 @@ export function RemoveMemberButton({
         <DialogHeader>
           <DialogTitle>Remove team member</DialogTitle>
           <DialogDescription>
-            Are you sure you want to remove {memberName} from this team? This action cannot be undone.
+            Are you sure you want to remove {memberName} from this team? This
+            action cannot be undone.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mt-4 flex flex-col gap-4 sm:flex-row">
           <DialogClose ref={dialogCloseRef} asChild>
-            <Button variant="outline" className="sm:w-auto w-full">Cancel</Button>
+            <Button variant="outline" className="sm:w-auto w-full">
+              Cancel
+            </Button>
           </DialogClose>
           <Button
             variant="destructive"

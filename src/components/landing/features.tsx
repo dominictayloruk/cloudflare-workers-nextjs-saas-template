@@ -72,8 +72,8 @@ export function Features() {
             Everything you need to build a SaaS
           </p>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Start with a complete foundation. All the essential features are built-in,
-            so you can focus on what makes your SaaS unique.
+            Start with a complete foundation. All the essential features are
+            built-in, so you can focus on what makes your SaaS unique.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

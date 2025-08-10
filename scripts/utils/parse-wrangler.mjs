@@ -1,6 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -10,15 +10,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * @throws {Error} If the file cannot be read or parsed
  */
 export function parseWranglerConfig() {
-  const wranglerPath = path.join(__dirname, '..', '..', 'wrangler.jsonc');
-  const wranglerContent = fs.readFileSync(wranglerPath, 'utf8');
+  const wranglerPath = path.join(__dirname, "..", "..", "wrangler.jsonc");
+  const wranglerContent = fs.readFileSync(wranglerPath, "utf8");
 
   // Remove comments from the JSONC content
-  const jsonContent = wranglerContent.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
+  const jsonContent = wranglerContent.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
 
   // Fix trailing commas in objects and arrays (which are valid in JSONC but not in JSON)
-  const fixedJsonContent = jsonContent
-    .replace(/,\s*([}\]])/g, '$1'); // Replace trailing commas before closing brackets
+  const fixedJsonContent = jsonContent.replace(/,\s*([}\]])/g, "$1"); // Replace trailing commas before closing brackets
 
   try {
     return JSON.parse(fixedJsonContent);
@@ -41,6 +40,6 @@ export function getD1Database() {
 
   return {
     name: d1Config.database_name,
-    id: d1Config.database_id
+    id: d1Config.database_id,
   };
 }

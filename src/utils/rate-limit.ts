@@ -24,7 +24,7 @@ function normalizeIP(ip: string): string {
   try {
     const addr = ipaddr.parse(ip);
 
-    if (addr.kind() === 'ipv6') {
+    if (addr.kind() === "ipv6") {
       // Get the first 64 bits for IPv6
       const ipv6 = addr as ipaddr.IPv6;
       const bytes = ipv6.toByteArray();
@@ -61,12 +61,15 @@ export async function checkRateLimit({
   const normalizedKey = ipaddr.isValid(key) ? normalizeIP(key) : key;
 
   const windowKey = `rate-limit:${options.identifier}:${normalizedKey}:${Math.floor(
-    now / options.windowInSeconds
+    now / options.windowInSeconds,
   )}`;
 
   // Get the current count from KV
-  const currentCount = parseInt((await env.NEXT_INC_CACHE_KV.get(windowKey)) || "0");
-  const reset = (Math.floor(now / options.windowInSeconds) + 1) * options.windowInSeconds;
+  const currentCount = parseInt(
+    (await env.NEXT_INC_CACHE_KV.get(windowKey)) || "0",
+  );
+  const reset =
+    (Math.floor(now / options.windowInSeconds) + 1) * options.windowInSeconds;
 
   if (currentCount >= options.limit) {
     return {

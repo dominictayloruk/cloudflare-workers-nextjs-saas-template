@@ -1,17 +1,35 @@
 "use server";
 
 import { z } from "zod";
-import { createTeam, deleteTeam, getTeam, getUserTeams, updateTeam } from "@/server/teams";
+import {
+  createTeam,
+  deleteTeam,
+  getTeam,
+  getUserTeams,
+  updateTeam,
+} from "@/server/teams";
 import { ZSAError, createServerAction } from "zsa";
 
 // Update team schema
 const updateTeamSchema = z.object({
   teamId: z.string().min(1, "Team ID is required"),
   data: z.object({
-    name: z.string().min(1, "Name is required").max(100, "Name is too long").optional(),
+    name: z
+      .string()
+      .min(1, "Name is required")
+      .max(100, "Name is too long")
+      .optional(),
     description: z.string().max(1000, "Description is too long").optional(),
-    avatarUrl: z.string().url("Invalid avatar URL").max(600, "URL is too long").optional(),
-    billingEmail: z.string().email("Invalid email").max(255, "Email is too long").optional(),
+    avatarUrl: z
+      .string()
+      .url("Invalid avatar URL")
+      .max(600, "URL is too long")
+      .optional(),
+    billingEmail: z
+      .string()
+      .email("Invalid email")
+      .max(255, "Email is too long")
+      .optional(),
     settings: z.string().max(10000, "Settings are too large").optional(),
   }),
 });
@@ -42,10 +60,7 @@ export const createTeamAction = createServerAction()
         throw error;
       }
 
-      throw new ZSAError(
-        "INTERNAL_SERVER_ERROR",
-        "Failed to create team"
-      );
+      throw new ZSAError("INTERNAL_SERVER_ERROR", "Failed to create team");
     }
   });
 
@@ -65,10 +80,7 @@ export const updateTeamAction = createServerAction()
         throw error;
       }
 
-      throw new ZSAError(
-        "INTERNAL_SERVER_ERROR",
-        "Failed to update team"
-      );
+      throw new ZSAError("INTERNAL_SERVER_ERROR", "Failed to update team");
     }
   });
 
@@ -88,34 +100,27 @@ export const deleteTeamAction = createServerAction()
         throw error;
       }
 
-      throw new ZSAError(
-        "INTERNAL_SERVER_ERROR",
-        "Failed to delete team"
-      );
+      throw new ZSAError("INTERNAL_SERVER_ERROR", "Failed to delete team");
     }
   });
 
 /**
  * Get all teams for the current user
  */
-export const getUserTeamsAction = createServerAction()
-  .handler(async () => {
-    try {
-      const teams = await getUserTeams();
-      return { success: true, data: teams };
-    } catch (error) {
-      console.error("Failed to get user teams:", error);
+export const getUserTeamsAction = createServerAction().handler(async () => {
+  try {
+    const teams = await getUserTeams();
+    return { success: true, data: teams };
+  } catch (error) {
+    console.error("Failed to get user teams:", error);
 
-      if (error instanceof ZSAError) {
-        throw error;
-      }
-
-      throw new ZSAError(
-        "INTERNAL_SERVER_ERROR",
-        "Failed to get user teams"
-      );
+    if (error instanceof ZSAError) {
+      throw error;
     }
-  });
+
+    throw new ZSAError("INTERNAL_SERVER_ERROR", "Failed to get user teams");
+  }
+});
 
 /**
  * Get a team by ID
@@ -133,9 +138,6 @@ export const getTeamAction = createServerAction()
         throw error;
       }
 
-      throw new ZSAError(
-        "INTERNAL_SERVER_ERROR",
-        "Failed to get team"
-      );
+      throw new ZSAError("INTERNAL_SERVER_ERROR", "Failed to get team");
     }
   });

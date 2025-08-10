@@ -37,13 +37,10 @@ export default async function SettingsLayout({
             <aside className="lg:w-1/5">
               <SettingsSidebar />
             </aside>
-            <div className="flex-1">
-              {children}
-            </div>
+            <div className="flex-1">{children}</div>
           </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
   );
 }
-

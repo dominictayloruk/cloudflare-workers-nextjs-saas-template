@@ -14,7 +14,7 @@ import { resendVerificationAction } from "@/app/(auth)/resend-verification.actio
 import { toast } from "sonner";
 import { useState } from "react";
 import { EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS } from "@/constants";
-import { Alert } from "@heroui/react"
+import { Alert } from "@heroui/react";
 import isProd from "@/utils/is-prod";
 import { usePathname } from "next/navigation";
 import { Route } from "next";
@@ -27,7 +27,7 @@ const pagesToBypass: Route[] = [
   "/privacy",
   "/terms",
   "/reset-password",
-  "/forgot-password"
+  "/forgot-password",
 ];
 
 export function EmailVerificationDialog() {
@@ -35,27 +35,30 @@ export function EmailVerificationDialog() {
   const [lastResendTime, setLastResendTime] = useState<number | null>(null);
   const pathname = usePathname();
 
-  const { execute: resendVerification, status } = useServerAction(resendVerificationAction, {
-    onError: (error) => {
-      toast.dismiss();
-      toast.error(error.err?.message);
+  const { execute: resendVerification, status } = useServerAction(
+    resendVerificationAction,
+    {
+      onError: (error) => {
+        toast.dismiss();
+        toast.error(error.err?.message);
+      },
+      onStart: () => {
+        toast.loading("Sending verification email...");
+      },
+      onSuccess: () => {
+        toast.dismiss();
+        toast.success("Verification email sent");
+        setLastResendTime(Date.now());
+      },
     },
-    onStart: () => {
-      toast.loading("Sending verification email...");
-    },
-    onSuccess: () => {
-      toast.dismiss();
-      toast.success("Verification email sent");
-      setLastResendTime(Date.now());
-    },
-  });
+  );
 
   // Don't show the dialog if the user is not logged in, if their email is already verified,
   // or if we're on the verify-email page
   if (
-    !session
-    || session.user.emailVerified
-    || pagesToBypass.includes(pathname as Route)
+    !session ||
+    session.user.emailVerified ||
+    pagesToBypass.includes(pathname as Route)
   ) {
     return null;
   }
@@ -64,18 +67,24 @@ export function EmailVerificationDialog() {
   const isLoading = status === "pending";
 
   return (
-    <Dialog open modal onOpenChange={(newState) => {
-      if (newState === false) {
-        toast.warning("Please verify your email before you continue");
-      }
-    }}>
+    <Dialog
+      open
+      modal
+      onOpenChange={(newState) => {
+        if (newState === false) {
+          toast.warning("Please verify your email before you continue");
+        }
+      }}
+    >
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Verify your email</DialogTitle>
           <DialogDescription>
-            Please verify your email address to access all features. We sent a verification link to {session.user.email}.
-            The verification link will expire in {Math.floor(EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS / 3600)} hours.
-
+            Please verify your email address to access all features. We sent a
+            verification link to {session.user.email}. The verification link
+            will expire in{" "}
+            {Math.floor(EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS / 3600)}{" "}
+            hours.
             {!isProd && (
               <Alert
                 color="warning"
@@ -102,4 +111,3 @@ export function EmailVerificationDialog() {
     </Dialog>
   );
 }
-

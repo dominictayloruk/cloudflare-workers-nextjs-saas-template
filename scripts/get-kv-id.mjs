@@ -1,11 +1,11 @@
-import { parseWranglerConfig } from './utils/parse-wrangler.mjs';
+import { parseWranglerConfig } from "./utils/parse-wrangler.mjs";
 
 try {
   const config = parseWranglerConfig();
   const kvId = config.kv_namespaces?.[0]?.id;
 
   if (!kvId) {
-    console.error('KV namespace ID not found in wrangler.jsonc');
+    console.error("KV namespace ID not found in wrangler.jsonc");
     process.exit(1);
   }
 

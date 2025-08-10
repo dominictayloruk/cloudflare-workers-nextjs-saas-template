@@ -4,7 +4,14 @@ import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { PlusIcon, Users } from "lucide-react";
 import type { Route } from "next";
 import { PageHeader } from "@/components/page-header";
@@ -56,15 +63,17 @@ export default async function TeamsIndexPage() {
         items={[
           {
             href: "/dashboard/teams",
-            label: "Teams"
-          }
+            label: "Teams",
+          },
         ]}
       />
       <div className="container mx-auto px-5 pb-12">
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold">My Teams</h1>
-            <p className="text-muted-foreground mt-2">Manage your teams and collaborations</p>
+            <p className="text-muted-foreground mt-2">
+              Manage your teams and collaborations
+            </p>
           </div>
           <Button asChild>
             <Link href={"/dashboard/teams/create" as Route}>
@@ -80,9 +89,12 @@ export default async function TeamsIndexPage() {
         {teams.length === 0 ? (
           <Card className="border-dashed border-2">
             <CardHeader>
-              <CardTitle className="text-xl">You don&apos;t have any teams yet</CardTitle>
+              <CardTitle className="text-xl">
+                You don&apos;t have any teams yet
+              </CardTitle>
               <CardDescription>
-                Teams let you collaborate with others on projects and share resources.
+                Teams let you collaborate with others on projects and share
+                resources.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-center py-8">
@@ -100,7 +112,10 @@ export default async function TeamsIndexPage() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teams.map((team) => (
-              <Link key={team.id} href={`/dashboard/teams/${team.slug}` as Route}>
+              <Link
+                key={team.id}
+                href={`/dashboard/teams/${team.slug}` as Route}
+              >
                 <Card className="h-full transition-all hover:border-primary hover:shadow-md">
                   <CardHeader className="flex flex-row items-start gap-4">
                     {team.avatarUrl ? (
@@ -122,7 +137,8 @@ export default async function TeamsIndexPage() {
                       <CardTitle>{team.name}</CardTitle>
                       {team.role && (
                         <CardDescription>
-                          Your role: <span className="capitalize">{team.role.name}</span>
+                          Your role:{" "}
+                          <span className="capitalize">{team.role.name}</span>
                         </CardDescription>
                       )}
                     </div>

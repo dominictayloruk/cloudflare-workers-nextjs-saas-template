@@ -1,6 +1,12 @@
 import "server-only";
 import { getDB } from "@/db";
-import { SYSTEM_ROLES_ENUM, TEAM_PERMISSIONS, teamMembershipTable, teamRoleTable, teamTable } from "@/db/schema";
+import {
+  SYSTEM_ROLES_ENUM,
+  TEAM_PERMISSIONS,
+  teamMembershipTable,
+  teamRoleTable,
+  teamTable,
+} from "@/db/schema";
 import { requireVerifiedEmail } from "@/utils/auth";
 import { generateSlug } from "@/utils/slugify";
 import { ZSAError } from "zsa";
@@ -8,7 +14,10 @@ import { createId } from "@paralleldrive/cuid2";
 import { eq, and, not, count } from "drizzle-orm";
 import { requireTeamPermission } from "@/utils/team-auth";
 import { updateAllSessionsOfUser } from "@/utils/kv-session";
-import { MAX_TEAMS_CREATED_PER_USER, MAX_TEAMS_JOINED_PER_USER } from "@/constants";
+import {
+  MAX_TEAMS_CREATED_PER_USER,
+  MAX_TEAMS_JOINED_PER_USER,
+} from "@/constants";
 
 /**
  * Create a new team with the current user as owner
@@ -16,7 +25,7 @@ import { MAX_TEAMS_CREATED_PER_USER, MAX_TEAMS_JOINED_PER_USER } from "@/constan
 export async function createTeam({
   name,
   description,
-  avatarUrl
+  avatarUrl,
 }: {
   name: string;
   description?: string;
@@ -32,20 +41,24 @@ export async function createTeam({
   const db = getDB();
 
   // Check if user has reached their team creation limit
-  const ownedTeamsCount = await db.select({ value: count() })
+  const ownedTeamsCount = await db
+    .select({ value: count() })
     .from(teamMembershipTable)
     .where(
       and(
         eq(teamMembershipTable.userId, userId),
         eq(teamMembershipTable.roleId, SYSTEM_ROLES_ENUM.OWNER),
-        eq(teamMembershipTable.isSystemRole, 1)
-      )
+        eq(teamMembershipTable.isSystemRole, 1),
+      ),
     );
 
   const teamsOwned = ownedTeamsCount[0]?.value || 0;
 
   if (teamsOwned >= MAX_TEAMS_CREATED_PER_USER) {
-    throw new ZSAError("FORBIDDEN", `You have reached the limit of ${MAX_TEAMS_CREATED_PER_USER} teams you can create.`);
+    throw new ZSAError(
+      "FORBIDDEN",
+      `You have reached the limit of ${MAX_TEAMS_CREATED_PER_USER} teams you can create.`,
+    );
   }
 
   // Generate unique slug for the team
@@ -69,17 +82,23 @@ export async function createTeam({
   }
 
   if (!slugIsUnique) {
-    throw new ZSAError("ERROR", "Could not generate a unique slug for the team");
+    throw new ZSAError(
+      "ERROR",
+      "Could not generate a unique slug for the team",
+    );
   }
 
   // Insert the team
-  const newTeam = await db.insert(teamTable).values({
-    name,
-    slug,
-    description,
-    avatarUrl,
-    creditBalance: 0,
-  }).returning();
+  const newTeam = await db
+    .insert(teamTable)
+    .values({
+      name,
+      slug,
+      description,
+      avatarUrl,
+      creditBalance: 0,
+    })
+    .returning();
 
   const team = newTeam?.[0];
 
@@ -129,7 +148,7 @@ export async function createTeam({
  */
 export async function updateTeam({
   teamId,
-  data
+  data,
 }: {
   teamId: string;
   data: {
@@ -162,7 +181,7 @@ export async function updateTeam({
           where: and(
             eq(teamTable.slug, newSlug),
             // Make sure we don't check against our own team
-            not(eq(teamTable.id, teamId))
+            not(eq(teamTable.id, teamId)),
           ),
         });
 
@@ -176,11 +195,15 @@ export async function updateTeam({
       }
 
       if (!slugIsUnique) {
-        throw new ZSAError("ERROR", "Could not generate a unique slug for the team");
+        throw new ZSAError(
+          "ERROR",
+          "Could not generate a unique slug for the team",
+        );
       }
 
       // Update team with new slug
-      await db.update(teamTable)
+      await db
+        .update(teamTable)
         .set({
           ...data,
           slug: newSlug,
@@ -192,9 +215,7 @@ export async function updateTeam({
   }
 
   // Update team without changing slug
-  await db.update(teamTable)
-    .set(data)
-    .where(eq(teamTable.id, teamId));
+  await db.update(teamTable).set(data).where(eq(teamTable.id, teamId));
 
   return data;
 }
@@ -216,7 +237,7 @@ export async function deleteTeam(teamId: string) {
     },
   });
 
-  const userIds = [...new Set(memberships.map(m => m.userId))];
+  const userIds = [...new Set(memberships.map((m) => m.userId))];
 
   // Delete team and related data
   // Note: In a real implementation, we might want to archive the team instead of deleting it
@@ -273,8 +294,10 @@ export async function getUserTeams() {
   // since it's just retrieving teams, but we use the constant here to show that
   // we're aware of the limit in the system
   if (userTeams.length > MAX_TEAMS_JOINED_PER_USER) {
-    console.warn(`User ${session.userId} has exceeded the maximum teams limit: ${userTeams.length}/${MAX_TEAMS_JOINED_PER_USER}`);
+    console.warn(
+      `User ${session.userId} has exceeded the maximum teams limit: ${userTeams.length}/${MAX_TEAMS_JOINED_PER_USER}`,
+    );
   }
 
-  return userTeams.map(membership => membership.team);
+  return userTeams.map((membership) => membership.team);
 }
