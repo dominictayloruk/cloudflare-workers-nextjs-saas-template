@@ -92,7 +92,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.0.0",
     "react-email": "4.2.8",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2",
     "wrangler": "^4.28.1"
   },
