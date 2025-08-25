@@ -34,7 +34,7 @@ import ThemeSwitch from "./theme-switch";
 export function NavUser() {
   const { session, isLoading } = useSessionStore();
   const { signOut } = useSignOut();
-  const { isMobile } = useSidebar();
+  const { isMobile, setOpenMobile } = useSidebar();
   const router = useRouter();
 
   if (isLoading) {
@@ -91,7 +91,10 @@ export function NavUser() {
                 <Badge
                   variant="secondary"
                   className="w-fit text-[10px]"
-                  onClick={() => router.push("/dashboard/billing")}
+                  onClick={() => {
+                    setOpenMobile(false);
+                    router.push("/dashboard/billing");
+                  }}
                 >
                   {user.currentCredits} credits
                 </Badge>
@@ -100,7 +103,7 @@ export function NavUser() {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
@@ -131,14 +134,20 @@ export function NavUser() {
             <DropdownMenuGroup>
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => router.push("/settings")}
+                onClick={() => {
+                  setOpenMobile(false);
+                  router.push("/settings");
+                }}
               >
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => router.push("/dashboard/billing")}
+                onClick={() => {
+                  setOpenMobile(false);
+                  router.push("/dashboard/billing");
+                }}
               >
                 <CreditCard />
                 Billing
@@ -151,6 +160,7 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
+                setOpenMobile(false);
                 signOut().then(() => {
                   router.push("/");
                 });

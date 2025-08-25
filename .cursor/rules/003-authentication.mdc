@@ -1,0 +1,30 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Authentication Patterns
+
+## Session Management
+- Use KV-based sessions with Lucia Auth
+- Sessions are stored in Cloudflare KV with user ID as key
+- Always validate sessions on protected routes
+- Use `getSessionFromCookie()` for session retrieval
+
+## Authentication Flow
+- Email/password authentication with verification
+- WebAuthn/Passkey support for passwordless auth
+- Google OAuth integration
+- Password reset with secure tokens
+
+## Security Best Practices
+- Always hash passwords before storage
+- Use CUID2 for secure ID generation
+- Implement rate limiting on auth endpoints
+- Validate email addresses and prevent disposable emails
+- Use Turnstile captcha for bot protection
+
+## Team-based Authorization
+- Multi-tenant architecture with team-based access
+- Role-based permissions within teams
+- Proper tenant isolation for data access

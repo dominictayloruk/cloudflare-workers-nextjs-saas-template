@@ -1,0 +1,42 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Next.js Patterns
+
+## App Router Usage
+- Use Next.js 15 App Router for all routing
+- Leverage React Server Components for server-side rendering
+- Implement proper loading.tsx and error.tsx files
+- Use route groups for logical organization
+
+## Server Components vs Client Components
+- Default to Server Components when possible
+- Use 'use client' directive only when necessary
+- Implement proper data fetching in Server Components
+- Handle client-side interactivity appropriately
+
+## Data Fetching Patterns
+- Use async/await in Server Components for data fetching
+- Implement proper error handling and loading states
+- Cache data appropriately with React's cache function
+- Use Suspense boundaries for progressive loading
+
+## API Routes
+- Create API routes in the `app/api/` directory
+- Use proper HTTP methods and status codes
+- Implement request validation with Zod schemas
+- Handle errors consistently across all endpoints
+
+## Performance Optimization
+- Use Next.js Image component for optimized images
+- Implement proper metadata for SEO
+- Leverage static generation where appropriate
+- Use dynamic imports for code splitting
+
+## Cloudflare Workers Integration
+- Use OpenNext for deployment to Cloudflare Workers
+- Leverage edge runtime capabilities
+- Implement proper environment variable handling
+- Use Cloudflare bindings (D1, KV, R2) effectively

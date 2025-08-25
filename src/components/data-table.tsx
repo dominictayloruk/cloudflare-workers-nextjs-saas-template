@@ -11,6 +11,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { useRouter } from "next/navigation";
+
 import {
   Table,
   TableBody,
@@ -53,6 +55,7 @@ interface DataTableProps<TData, TValue> {
   itemNameSingular: string;
   itemNamePlural: string;
   pageSizeOptions?: number[];
+  getRowHref?: (row: TData) => string;
 }
 
 export function DataTable<TData, TValue>({
@@ -67,7 +70,10 @@ export function DataTable<TData, TValue>({
   itemNameSingular,
   itemNamePlural,
   pageSizeOptions = [10, 20, 100],
+  getRowHref,
 }: DataTableProps<TData, TValue>) {
+  const router = useRouter();
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -153,7 +159,10 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className="bg-muted/50 font-medium"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -168,21 +177,29 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table.getRowModel().rows.map((row) => {
+                const href = getRowHref?.(row.original);
+
+                console.log("---href", href);
+
+                return (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                    className={href ? "cursor-pointer hover:bg-muted/50" : ""}
+                    onClick={href ? () => router.push(href as any) : undefined} // eslint-disable-line @typescript-eslint/no-explicit-any
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })
             ) : (
               <TableRow>
                 <TableCell

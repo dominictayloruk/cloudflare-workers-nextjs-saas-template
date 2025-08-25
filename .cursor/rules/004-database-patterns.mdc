@@ -1,0 +1,29 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Database Patterns
+
+## DrizzleORM Usage
+- Use DrizzleORM for all database operations
+- Define schemas in `src/db/schema.ts`
+- Use type-safe queries with proper TypeScript inference
+- Leverage Drizzle's relational queries for complex data fetching
+
+## Migration Management
+- Never write SQL migrations manually
+- Use `pnpm db:generate [MIGRATION_NAME]` after schema changes
+- Apply migrations with `pnpm db:migrate:dev` for local development
+
+## Cloudflare D1 Best Practices
+- Use prepared statements for performance
+- Implement proper error handling for database operations
+- Use transactions for multi-table operations
+- Consider D1's eventual consistency model
+
+## Schema Design
+- Use CUID2 for primary keys
+- Implement proper foreign key relationships
+- Add appropriate indexes for query performance
+- Use enums for constrained values

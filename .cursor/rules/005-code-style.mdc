@@ -1,0 +1,40 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Code Style Guidelines
+
+## General Principles
+- Write clean, readable, and maintainable code
+- Use descriptive variable and function names
+- Keep functions small and focused on single responsibilities
+- Add comments for complex business logic
+
+## File Organization
+- Group related functionality in appropriate directories
+- Use barrel exports (index.ts) for clean imports
+- Separate concerns: components, utilities, types, etc.
+- Follow the established project structure
+
+## Error Handling
+- Use proper error boundaries in React components
+- Implement graceful error handling in API routes
+- Use ZSAError for consistent error responses
+- Log errors appropriately for debugging
+
+## Performance Considerations
+- Use React Server Components where appropriate
+- Implement proper loading states
+- Optimize database queries
+- Use caching strategies with KV storage
+
+## Package Management
+- Before adding any new packages, always check if we already have them in `package.json` to avoid duplicates.
+- Use `pnpm` for all package management operations.
+
+## Code Quality
+- Follow ESLint and Prettier configurations
+- Write type-safe code with proper TypeScript usage
+- Use Zod for runtime validation
+- Implement proper testing strategies

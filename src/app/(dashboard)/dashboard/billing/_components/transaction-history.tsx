@@ -4,34 +4,94 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTransactions } from "@/actions/credits.action";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DataTable } from "@/components/data-table";
 import { format, isPast } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { useTransactionStore } from "@/state/transaction";
+import { ColumnDef } from "@tanstack/react-table";
 
 type TransactionData = Awaited<ReturnType<typeof getTransactions>>;
+type Transaction = TransactionData["transactions"][number];
 
-function isTransactionExpired(
-  transaction: TransactionData["transactions"][number],
-): boolean {
+function isTransactionExpired(transaction: Transaction): boolean {
   return transaction.expirationDate
     ? isPast(new Date(transaction.expirationDate))
     : false;
 }
 
+const columns: ColumnDef<Transaction>[] = [
+  {
+    accessorKey: "createdAt",
+    header: "Date",
+    cell: ({ row }) => {
+      return format(new Date(row.getValue("createdAt")), "MMM d, yyyy");
+    },
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
+    cell: ({ row }) => {
+      const type = row.getValue("type") as string;
+      return (
+        <span className="capitalize">
+          {type.toLowerCase().replace("_", " ")}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+    cell: ({ row }) => {
+      const transaction = row.original;
+      return (
+        <span
+          className={
+            transaction.type === "USAGE"
+              ? "text-red-500"
+              : isTransactionExpired(transaction)
+                ? "text-orange-500"
+                : "text-green-500"
+          }
+        >
+          {transaction.type === "USAGE" ? "-" : "+"}
+          {Math.abs(transaction.amount)}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
+    cell: ({ row }) => {
+      const transaction = row.original;
+      return (
+        <div>
+          {transaction.description}
+          {transaction.type !== "USAGE" && transaction.expirationDate && (
+            <Badge
+              variant="secondary"
+              className={`mt-1 ml-3 font-normal text-[0.75rem] leading-4 ${
+                isTransactionExpired(transaction)
+                  ? "bg-orange-500 hover:bg-orange-600 text-white"
+                  : "bg-muted"
+              }`}
+            >
+              {isTransactionExpired(transaction) ? "Expired: " : "Expires: "}
+              {format(new Date(transaction.expirationDate), "MMM d, yyyy")}
+            </Badge>
+          )}
+        </div>
+      );
+    },
+  },
+];
+
 export function TransactionHistory() {
   const [data, setData] = useState<TransactionData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const refreshTrigger = useTransactionStore((state) => state.refreshTrigger);
 
   useEffect(() => {
@@ -75,163 +135,18 @@ export function TransactionHistory() {
         <CardTitle>Transaction History</CardTitle>
       </CardHeader>
       <CardContent>
-        {/* Desktop Table View */}
-        <div className="hidden md:block">
-          <div className="relative overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Description</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {Boolean(
-                  data?.transactions.length && data?.transactions.length > 0,
-                ) ? (
-                  data?.transactions.map((transaction) => (
-                    <TableRow key={transaction.id}>
-                      <TableCell>
-                        {format(new Date(transaction.createdAt), "MMM d, yyyy")}
-                      </TableCell>
-                      <TableCell className="capitalize">
-                        {transaction.type.toLowerCase().replace("_", " ")}
-                      </TableCell>
-                      <TableCell
-                        className={
-                          transaction.type === "USAGE"
-                            ? "text-red-500"
-                            : isTransactionExpired(transaction)
-                              ? "text-orange-500"
-                              : "text-green-500"
-                        }
-                      >
-                        {transaction.type === "USAGE" ? "-" : "+"}
-                        {Math.abs(transaction.amount)}
-                      </TableCell>
-                      <TableCell>
-                        {transaction.description}
-                        {transaction.type !== "USAGE" &&
-                          transaction.expirationDate && (
-                            <Badge
-                              variant="secondary"
-                              className={`mt-1 ml-3 font-normal text-[0.75rem] leading-[1rem] ${
-                                isTransactionExpired(transaction)
-                                  ? "bg-orange-500 hover:bg-orange-600 text-white"
-                                  : "bg-muted"
-                              }`}
-                            >
-                              {isTransactionExpired(transaction)
-                                ? "Expired: "
-                                : "Expires: "}
-                              {format(
-                                new Date(transaction.expirationDate),
-                                "MMM d, yyyy",
-                              )}
-                            </Badge>
-                          )}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={4} className="h-24 text-center">
-                      No transactions found
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
-
-        {/* Mobile Card View */}
-        <div className="md:hidden space-y-4">
-          {Boolean(
-            data?.transactions.length && data?.transactions.length > 0,
-          ) ? (
-            data?.transactions.map((transaction) => (
-              <div
-                key={transaction.id}
-                className="flex flex-col space-y-2 rounded-lg border p-4"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    {format(new Date(transaction.createdAt), "MMM d, yyyy")}
-                  </span>
-                  <span className="capitalize text-sm">
-                    {transaction.type.toLowerCase().replace("_", " ")}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">{transaction.description}</span>
-                  <span
-                    className={
-                      transaction.type === "USAGE"
-                        ? "text-red-500"
-                        : isTransactionExpired(transaction)
-                          ? "text-orange-500"
-                          : "text-green-500"
-                    }
-                  >
-                    {transaction.type === "USAGE" ? "-" : "+"}
-                    {Math.abs(transaction.amount)}
-                  </span>
-                </div>
-                {transaction.type !== "USAGE" && transaction.expirationDate && (
-                  <Badge
-                    variant="secondary"
-                    className={`self-start font-normal text-[0.75rem] leading-[1rem] ${
-                      isTransactionExpired(transaction)
-                        ? "bg-orange-500 hover:bg-orange-600 text-white"
-                        : "bg-muted"
-                    }`}
-                  >
-                    {isTransactionExpired(transaction)
-                      ? "Expired: "
-                      : "Expires: "}
-                    {format(
-                      new Date(transaction.expirationDate),
-                      "MMM d, yyyy",
-                    )}
-                  </Badge>
-                )}
-              </div>
-            ))
-          ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              No transactions found
-            </div>
-          )}
-        </div>
-
-        {Boolean(data?.pagination.pages && data.pagination.pages > 1) && (
-          <div className="mt-4 flex items-center justify-between">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page === 1}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <span className="text-sm text-muted-foreground">
-              Page {page} of {data?.pagination.pages ?? 1}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                setPage((p) => Math.min(data?.pagination.pages ?? 1, p + 1))
-              }
-              disabled={page === (data?.pagination.pages ?? 1)}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        )}
+        <DataTable
+          columns={columns}
+          data={data?.transactions || []}
+          pageCount={data?.pagination.pages || 1}
+          pageIndex={page - 1}
+          pageSize={pageSize}
+          onPageChange={(newPage) => setPage(newPage + 1)}
+          onPageSizeChange={setPageSize}
+          totalCount={data?.pagination.total || 0}
+          itemNameSingular="transaction"
+          itemNamePlural="transactions"
+        />
       </CardContent>
     </Card>
   );

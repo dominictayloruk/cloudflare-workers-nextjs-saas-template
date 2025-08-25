@@ -1,0 +1,35 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# TypeScript Conventions
+
+## Type Definitions
+- Define interfaces for all data structures
+- Use type unions for constrained values
+- Leverage TypeScript's strict mode features
+- Create reusable type definitions in appropriate files
+
+## Import/Export Patterns
+- Use named exports over default exports
+- Group imports: external libraries, internal modules, relative imports
+- Use type-only imports when importing only types
+- Prefer absolute imports with path aliases
+
+## Generic Usage
+- Use generics for reusable components and functions
+- Provide proper type constraints
+- Use meaningful generic parameter names
+- Avoid `any` type - use `unknown` when necessary
+
+## Utility Types
+- Leverage TypeScript utility types (Pick, Omit, Partial, etc.)
+- Create custom utility types for common patterns
+- Use conditional types for advanced type manipulation
+- Implement proper type guards for runtime type checking
+
+## Environment Types
+- Use Cloudflare's generated types for Workers environment
+- Run `pnpm cf-typegen` after wrangler.jsonc changes
+- Properly type environment variables and bindings

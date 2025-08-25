@@ -1,0 +1,36 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# UI & Styling Patterns
+
+## Component Library
+- Use Shadcn UI components as the foundation
+- Built on Radix UI primitives for accessibility
+- Customize components through CSS variables and Tailwind
+- Maintain consistent design system across the application
+
+## Tailwind CSS Usage
+- Use utility-first approach for styling
+- Leverage Tailwind's design tokens for consistency
+- Use responsive design patterns with mobile-first approach
+- Implement dark/light mode support
+
+## Component Structure
+- Create reusable UI components in `src/components/ui/`
+- Use compound component patterns for complex UI elements
+- Implement proper prop interfaces with TypeScript
+- Follow accessibility best practices (ARIA labels, keyboard navigation)
+
+## Styling Best Practices
+- Use CSS variables for theme customization
+- Implement consistent spacing and typography scales
+- Use Lucide icons for consistent iconography
+- Optimize for performance with CSS-in-JS considerations
+
+## Responsive Design
+- Mobile-first responsive design approach
+- Use Tailwind's responsive prefixes consistently
+- Test across different screen sizes and devices
+- Implement proper touch targets for mobile interfaces
