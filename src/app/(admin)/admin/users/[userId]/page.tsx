@@ -14,15 +14,16 @@ import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 
 interface UserDetailPageProps {
-  params: {
+  params: Promise<{
     userId: string;
-  };
+  }>;
 }
 
 export default async function UserDetailPage({ params }: UserDetailPageProps) {
+  const resolvedParams = await params;
   try {
     const { user, transactions, passkeys } = await getUserData({
-      input: { userId: params.userId },
+      input: { userId: resolvedParams.userId },
     });
 
     if (!user) {
@@ -218,9 +219,10 @@ export default async function UserDetailPage({ params }: UserDetailPageProps) {
   }
 }
 
-export function generateMetadata({ params }: UserDetailPageProps) {
+export async function generateMetadata({ params }: UserDetailPageProps) {
+  const resolvedParams = await params;
   return {
-    title: `User ${params.userId} - Admin Dashboard`,
-    description: "View and manage user details",
+    title: `User ${resolvedParams.userId} - Admin Dashboard`,
+    description: `View and manage user ${resolvedParams.userId} details`,
   };
 }
