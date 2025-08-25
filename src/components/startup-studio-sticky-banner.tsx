@@ -75,7 +75,7 @@ export function AgenticDevStudioStickyBanner() {
                 <div className="flex items-center">
                   <span className="whitespace-nowrap">Built by</span>
                   <AgenticDevStudioLogo className="h-7 w-7 mx-1.5" />
-                  <span className="whitespace-nowrap">AgenticDev</span>
+                  <span className="whitespace-nowrap">Dominic Taylor</span>
                 </div>
 
                 <div className="text-tiny text-muted-foreground mt-3">

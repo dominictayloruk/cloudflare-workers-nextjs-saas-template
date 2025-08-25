@@ -66,7 +66,7 @@ export function Footer() {
               </h3>
               <div className="flex items-center space-x-4">
                 <a
-                  href="https://github.com/LubomirGeorgiev"
+                  href="https://github.com/dominictayloruk"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground"
@@ -75,7 +75,7 @@ export function Footer() {
                   <span className="sr-only">GitHub</span>
                 </a>
                 <a
-                  href="https://x.com/LubomirGeorg"
+                  href="https://x.com/dominictayloruk"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground"
@@ -111,7 +111,7 @@ export function Footer() {
                   >
                     <span className="whitespace-nowrap">Built by</span>
                     <AgenticDevStudioLogo className="h-7 w-7 mx-1.5" />
-                    <span className="whitespace-nowrap">AgenticDev</span>
+                    <span className="whitespace-nowrap">Dominic Taylor</span>
                   </a>
                 </div>
               </div>

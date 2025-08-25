@@ -8,7 +8,7 @@ export const SITE_URL =
     ? "http://localhost:3000"
     : "https://saas-stack.startupstudio.dev";
 export const GITHUB_REPO_URL =
-  "https://github.com/LubomirGeorgiev/cloudflare-workers-nextjs-saas-template";
+  "https://github.com/dominictayloruk/cloudflare-workers-nextjs-saas-template";
 
 export const SITE_DOMAIN = new URL(SITE_URL).hostname;
 export const PASSWORD_RESET_TOKEN_EXPIRATION_SECONDS = 24 * 60 * 60; // 24 hours
