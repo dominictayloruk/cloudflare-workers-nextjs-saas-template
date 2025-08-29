@@ -85,7 +85,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "@types/ms": "^2.1.0",
     "@types/node": "^22.17.2",
-    "@types/react": "^19.1.11",
+    "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.7",
     "drizzle-kit": "^0.31.4",
     "eslint": "^9.34.0",
