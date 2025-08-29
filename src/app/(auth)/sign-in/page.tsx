@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import type { Route } from "next";
 import { getSessionFromCookie } from "@/utils/auth";
 import { redirect } from "next/navigation";
 import SignInClientPage from "./sign-in.client";
@@ -16,11 +17,10 @@ const SignInPage = async ({
 }) => {
   const { redirect: redirectParam } = await searchParams;
   const session = await getSessionFromCookie();
-  const redirectPath =
-    redirectParam ?? (REDIRECT_AFTER_SIGN_IN as unknown as string);
+  const redirectPath = redirectParam ?? REDIRECT_AFTER_SIGN_IN;
 
   if (session) {
-    return redirect(redirectPath);
+    return redirect(redirectParam ? (redirectParam as Route) : REDIRECT_AFTER_SIGN_IN);
   }
 
   return <SignInClientPage redirectPath={redirectPath} />;

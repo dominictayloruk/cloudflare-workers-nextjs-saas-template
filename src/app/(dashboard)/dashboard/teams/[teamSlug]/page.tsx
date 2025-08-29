@@ -1,6 +1,7 @@
 import { getDB } from "@/db";
 import { teamTable } from "@/db/schema";
 import { notFound, redirect } from "next/navigation";
+import type { Route } from "next";
 import { eq } from "drizzle-orm";
 import { hasTeamMembership, hasTeamPermission } from "@/utils/team-auth";
 import { TEAM_PERMISSIONS } from "@/db/schema";
@@ -68,7 +69,7 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
   const session = await getSessionFromCookie();
   if (!session) {
     redirect(
-      "/sign-in?returnTo=" + encodeURIComponent(`/dashboard/teams/${teamSlug}`),
+      ("/sign-in?returnTo=" + encodeURIComponent(`/dashboard/teams/${teamSlug}`)) as Route,
     );
   }
 
