@@ -145,7 +145,7 @@ importers:
         version: 2.0.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       stripe:
         specifier: ^18.5.0
-        version: 18.5.0(@types/node@22.18.0)
+        version: 18.5.0(@types/node@22.18.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -190,8 +190,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       '@types/node':
-        specifier: ^22.18.0
-        version: 22.18.0
+        specifier: ^22.18.1
+        version: 22.18.1
       '@types/react':
         specifier: ^19.1.12
         version: 19.1.12
@@ -3782,8 +3782,8 @@ packages:
   '@types/node@18.19.123':
     resolution: {integrity: sha512-K7DIaHnh0mzVxreCR9qwgNxp3MH9dltPNIEddW9MYUlcKAzm+3grKNSTe2vCJHI1FaLpvpL5JGJrz1UZDKYvDg==}
 
-  '@types/node@22.18.0':
-    resolution: {integrity: sha512-m5ObIqwsUp6BZzyiy4RdZpzWGub9bqLJMvZDD0QMXhxjqMHMENlj+SqF5QxoUwaQNFe+8kz8XM8ZQhqkQPTgMQ==}
+  '@types/node@22.18.1':
+    resolution: {integrity: sha512-rzSDyhn4cYznVG+PCzGe1lwuMYJrcBS1fc3JqSa2PvtABwWo+dZ1ij5OVok3tqfpEBCBoaR4d7upFJk73HRJDw==}
 
   '@types/react-dom@19.1.9':
     resolution: {integrity: sha512-qXRuZaOsAdXKFyOhRBg6Lqqc0yay13vN7KrIg4L7N4aaHN68ma9OK3NE1BoDFgFOTfM7zg+3/8+2n8rLUH3OKQ==}
@@ -11574,7 +11574,7 @@ snapshots:
 
   '@types/cors@2.8.19':
     dependencies:
-      '@types/node': 22.18.0
+      '@types/node': 22.18.1
 
   '@types/estree@1.0.8': {}
 
@@ -11586,14 +11586,14 @@ snapshots:
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 22.18.0
+      '@types/node': 22.18.1
       form-data: 4.0.4
 
   '@types/node@18.19.123':
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.18.0':
+  '@types/node@22.18.1':
     dependencies:
       undici-types: 6.21.0
 
@@ -12230,7 +12230,7 @@ snapshots:
   engine.io@6.6.4:
     dependencies:
       '@types/cors': 2.8.19
-      '@types/node': 22.18.0
+      '@types/node': 22.18.1
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 0.7.2
@@ -14174,11 +14174,11 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  stripe@18.5.0(@types/node@22.18.0):
+  stripe@18.5.0(@types/node@22.18.1):
     dependencies:
       qs: 6.14.0
     optionalDependencies:
-      '@types/node': 22.18.0
+      '@types/node': 22.18.1
 
   strnum@1.1.2: {}
 
