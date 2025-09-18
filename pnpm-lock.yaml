@@ -159,14 +159,14 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.1.1)
       zod:
-        specifier: ^4.1.8
-        version: 4.1.8
+        specifier: ^4.1.9
+        version: 4.1.9
       zsa:
         specifier: ^0.6.0
-        version: 0.6.0(zod@4.1.8)
+        version: 0.6.0(zod@4.1.9)
       zsa-react:
         specifier: ^0.2.3
-        version: 0.2.3(react@19.1.1)(zod@4.1.8)
+        version: 0.2.3(react@19.1.1)(zod@4.1.9)
       zustand:
         specifier: ^5.0.8
         version: 5.0.8(@types/react@19.1.13)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1))
@@ -3257,6 +3257,7 @@ packages:
 
   '@simplewebauthn/types@12.0.0':
     resolution: {integrity: sha512-q6y8MkoV8V8jB4zzp18Uyj2I7oFp2/ONL8c3j8uT06AOWu3cIChc1au71QYHrP2b+xDapkGTiv+9lX7xkTlAsA==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@sindresorhus/is@7.0.2':
     resolution: {integrity: sha512-d9xRovfKNz1SKieM0qJdO+PQonjnnIfSNWfHYnBSJ9hkjm0ZPw6HlxscDXYstp3z+7V2GOFHc+J0CYrYTjqCJw==}
@@ -6574,8 +6575,8 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
-  zod@4.1.8:
-    resolution: {integrity: sha512-5R1P+WwQqmmMIEACyzSvo4JXHY5WiAFHRMg+zBZKgKS+Q1viRa0C1hmUKtHltoIFKtIdki3pRxkmpP74jnNYHQ==}
+  zod@4.1.9:
+    resolution: {integrity: sha512-HI32jTq0AUAC125z30E8bQNz0RQ+9Uc+4J7V97gLYjZVKRjeydPgGt6dvQzFrav7MYOUGFqqOGiHpA/fdbd0cQ==}
 
   zsa-react@0.2.3:
     resolution: {integrity: sha512-THCoIIhtEU3jXTrNBM/PBc0PyHCekizSGEc+fg0LGo1NM1J02LFQN7ICR948X25IjtkZdvxUZmT0+M73GG8eEw==}
@@ -14605,17 +14606,17 @@ snapshots:
 
   zod@3.22.3: {}
 
-  zod@4.1.8: {}
+  zod@4.1.9: {}
 
-  zsa-react@0.2.3(react@19.1.1)(zod@4.1.8):
+  zsa-react@0.2.3(react@19.1.1)(zod@4.1.9):
     dependencies:
       react: 19.1.1
-      zod: 4.1.8
-      zsa: 0.6.0(zod@4.1.8)
+      zod: 4.1.9
+      zsa: 0.6.0(zod@4.1.9)
 
-  zsa@0.6.0(zod@4.1.8):
+  zsa@0.6.0(zod@4.1.9):
     dependencies:
-      zod: 4.1.8
+      zod: 4.1.9
 
   zustand@5.0.8(@types/react@19.1.13)(react@19.1.1)(use-sync-external-store@1.5.0(react@19.1.1)):
     optionalDependencies:
