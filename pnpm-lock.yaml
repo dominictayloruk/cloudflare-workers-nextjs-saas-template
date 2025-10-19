@@ -145,7 +145,7 @@ importers:
         version: 2.0.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       stripe:
         specifier: ^19.1.0
-        version: 19.1.0(@types/node@22.18.8)
+        version: 19.1.0(@types/node@22.18.11)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -190,8 +190,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       '@types/node':
-        specifier: ^22.18.8
-        version: 22.18.8
+        specifier: ^22.18.11
+        version: 22.18.11
       '@types/react':
         specifier: ^19.2.2
         version: 19.2.2
@@ -3780,8 +3780,8 @@ packages:
   '@types/node@18.19.123':
     resolution: {integrity: sha512-K7DIaHnh0mzVxreCR9qwgNxp3MH9dltPNIEddW9MYUlcKAzm+3grKNSTe2vCJHI1FaLpvpL5JGJrz1UZDKYvDg==}
 
-  '@types/node@22.18.8':
-    resolution: {integrity: sha512-pAZSHMiagDR7cARo/cch1f3rXy0AEXwsVsVH09FcyeJVAzCnGgmYis7P3JidtTUjyadhTeSo8TgRPswstghDaw==}
+  '@types/node@22.18.11':
+    resolution: {integrity: sha512-Gd33J2XIrXurb+eT2ktze3rJAfAp9ZNjlBdh4SVgyrKEOADwCbdUDaK7QgJno8Ue4kcajscsKqu6n8OBG3hhCQ==}
 
   '@types/rclone.js@0.6.3':
     resolution: {integrity: sha512-BssKAAVRY//fxGKso8SatyOwiD7X0toDofNnVxZlIXmN7UHrn2UBTxldNAjgUvWA91qJyeEPfKmeJpZVhLugXg==}
@@ -11599,7 +11599,7 @@ snapshots:
 
   '@types/cors@2.8.19':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 22.18.11
 
   '@types/estree@1.0.8': {}
 
@@ -11611,20 +11611,20 @@ snapshots:
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 22.18.11
       form-data: 4.0.4
 
   '@types/node@18.19.123':
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.18.8':
+  '@types/node@22.18.11':
     dependencies:
       undici-types: 6.21.0
 
   '@types/rclone.js@0.6.3':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 22.18.11
 
   '@types/react-dom@19.2.2(@types/react@19.2.2)':
     dependencies:
@@ -12263,7 +12263,7 @@ snapshots:
   engine.io@6.6.4:
     dependencies:
       '@types/cors': 2.8.19
-      '@types/node': 22.18.8
+      '@types/node': 22.18.11
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 0.7.2
@@ -14205,11 +14205,11 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  stripe@19.1.0(@types/node@22.18.8):
+  stripe@19.1.0(@types/node@22.18.11):
     dependencies:
       qs: 6.14.0
     optionalDependencies:
-      '@types/node': 22.18.8
+      '@types/node': 22.18.11
 
   strnum@1.1.2: {}
 
