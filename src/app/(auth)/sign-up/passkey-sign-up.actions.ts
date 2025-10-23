@@ -20,7 +20,7 @@ import {
 import type {
   RegistrationResponseJSON,
   PublicKeyCredentialCreationOptionsJSON,
-} from "@simplewebauthn/types";
+} from "@simplewebauthn/server";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";
 import { getIP } from "@/utils/get-IP";
 import { getCloudflareContext } from "@opennextjs/cloudflare";

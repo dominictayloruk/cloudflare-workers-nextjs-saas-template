@@ -16,7 +16,7 @@ import type { User } from "@/db/schema";
 import type {
   RegistrationResponseJSON,
   AuthenticationResponseJSON,
-} from "@simplewebauthn/types";
+} from "@simplewebauthn/server";
 import { headers } from "next/headers";
 import { getIP } from "@/utils/get-IP";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";

@@ -5,12 +5,10 @@ import {
   generateRegistrationOptions,
   verifyAuthenticationResponse,
   verifyRegistrationResponse,
+  type AuthenticationResponseJSON,
+  type AuthenticatorTransport,
+  type RegistrationResponseJSON,
 } from "@simplewebauthn/server";
-import type {
-  AuthenticationResponseJSON,
-  AuthenticatorTransport,
-  RegistrationResponseJSON,
-} from "@simplewebauthn/types";
 import { getDB } from "@/db";
 import { passKeyCredentialTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
