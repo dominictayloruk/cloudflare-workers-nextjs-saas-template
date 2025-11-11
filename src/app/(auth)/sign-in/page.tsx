@@ -20,7 +20,9 @@ const SignInPage = async ({
   const redirectPath = redirectParam ?? REDIRECT_AFTER_SIGN_IN;
 
   if (session) {
-    return redirect(redirectParam ? (redirectParam as Route) : REDIRECT_AFTER_SIGN_IN);
+    return redirect(
+      redirectParam ? (redirectParam as Route) : REDIRECT_AFTER_SIGN_IN,
+    );
   }
 
   return <SignInClientPage redirectPath={redirectPath} />;
