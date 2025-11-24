@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import AgenticDevStudioLogo from "./agenticdev-studio-logo";
@@ -9,24 +9,16 @@ import { ChevronLeft, X } from "lucide-react";
 const STORAGE_KEY = "agenticdev-studio-banner-collapsed";
 
 export function AgenticDevStudioStickyBanner() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    // Get initial state from localStorage
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored !== null) {
-      setIsCollapsed(JSON.parse(stored));
-    }
-    setIsHydrated(true);
-  }, []);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : false;
+  });
 
   const toggleCollapsed = (value: boolean) => {
     setIsCollapsed(value);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
   };
-
-  if (!isHydrated) return null; // Prevent flash of content
 
   return (
     <div

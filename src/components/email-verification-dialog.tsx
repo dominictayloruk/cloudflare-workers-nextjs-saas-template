@@ -12,9 +12,9 @@ import { useSessionStore } from "@/state/session";
 import { useServerAction } from "zsa-react";
 import { resendVerificationAction } from "@/app/(auth)/resend-verification.action";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS } from "@/constants";
-import { Alert } from "@heroui/react";
+import { Alert } from "@/components/ui/alert";
 import isProd from "@/utils/is-prod";
 import { usePathname } from "next/navigation";
 import { Route } from "next";
@@ -33,6 +33,7 @@ const pagesToBypass: Route[] = [
 export function EmailVerificationDialog() {
   const { session } = useSessionStore();
   const [lastResendTime, setLastResendTime] = useState<number | null>(null);
+  const [now, setNow] = useState(() => Date.now());
   const pathname = usePathname();
 
   const { execute: resendVerification, status } = useServerAction(
@@ -53,6 +54,22 @@ export function EmailVerificationDialog() {
     },
   );
 
+  // Update current time every second to recalculate canResend
+  useEffect(() => {
+    if (!lastResendTime) return;
+
+    const id = setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, [lastResendTime]);
+
+  // Derive canResend from state instead of using setState in effect
+  const canResend = !lastResendTime || now - lastResendTime > 60000;
+
   // Don't show the dialog if the user is not logged in, if their email is already verified,
   // or if we're on the verify-email page
   if (
@@ -63,7 +80,6 @@ export function EmailVerificationDialog() {
     return null;
   }
 
-  const canResend = !lastResendTime || Date.now() - lastResendTime > 60000; // 1 minute cooldown
   const isLoading = status === "pending";
 
   return (

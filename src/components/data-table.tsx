@@ -187,7 +187,7 @@ export function DataTable<TData, TValue>({
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                     className={href ? "cursor-pointer hover:bg-muted/50" : ""}
-                    onClick={href ? () => router.push(href as any) : undefined} // eslint-disable-line @typescript-eslint/no-explicit-any
+                    onClick={href ? () => router.push(href as any) : undefined}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

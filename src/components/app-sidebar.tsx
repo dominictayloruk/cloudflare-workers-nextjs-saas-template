@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentType, useEffect, useState } from "react";
+import { type ComponentType } from "react";
 import type { Route } from "next";
 
 import {
@@ -56,32 +56,21 @@ type Data = {
 // TODO Add a theme switcher
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { session } = useSessionStore();
-  const [formattedTeams, setFormattedTeams] = useState<Data["teams"]>([]);
-
-  // Map session teams to the format expected by TeamSwitcher
-  useEffect(() => {
-    if (session?.teams && session.teams.length > 0) {
-      // Map teams from session to the format expected by TeamSwitcher
-      const teamData = session.teams.map((team) => {
-        return {
-          name: team.name,
-          // TODO Get the actual logo when we implement team avatars
-          logo: Building2,
-          // Default plan - you might want to add plan data to your team structure
-          plan: team.role.name || "Member",
-        };
-      });
-
-      setFormattedTeams(teamData);
-    }
-  }, [session]);
+  const teams: Data["teams"] =
+    session?.teams?.map((team) => ({
+      name: team.name,
+      // TODO Get the actual logo when we implement team avatars
+      logo: Building2,
+      // Default plan - you might want to add plan data to your team structure
+      plan: team.role.name || "Member",
+    })) ?? [];
 
   const data: Data = {
     user: {
       name: session?.user?.firstName || "User",
       email: session?.user?.email || "user@example.com",
     },
-    teams: formattedTeams,
+    teams,
     navMain: [
       {
         title: "Dashboard",

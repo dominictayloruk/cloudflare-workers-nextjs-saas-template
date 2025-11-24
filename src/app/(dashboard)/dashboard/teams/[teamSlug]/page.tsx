@@ -11,7 +11,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getSessionFromCookie } from "@/utils/auth";
 import { InviteMemberModal } from "@/components/teams/invite-member-modal";
-import { Alert } from "@heroui/react";
+import { Alert } from "@/components/ui/alert";
 import { getTeamMembers } from "@/server/team-members";
 import {
   Table,
