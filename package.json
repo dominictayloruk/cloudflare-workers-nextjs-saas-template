@@ -97,7 +97,7 @@
     "react-email": "5.0.4",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
-    "wrangler": "^4.47.0"
+    "wrangler": "^4.50.0"
   },
   "packageManager": "pnpm@10.22.0",
   "pnpm": {
