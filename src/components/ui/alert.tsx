@@ -36,7 +36,8 @@ const iconMap: Record<AlertVariant, typeof Info> = {
 };
 
 export interface AlertProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color" | "title">,
+  extends
+    Omit<React.HTMLAttributes<HTMLDivElement>, "color" | "title">,
     VariantProps<typeof alertVariants> {
   title?: string;
   description?: string;

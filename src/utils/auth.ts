@@ -87,11 +87,10 @@ function decodeSessionCookie(
   return { userId: parts[0], token: parts[1] };
 }
 
-interface CreateSessionParams
-  extends Pick<
-    CreateKVSessionParams,
-    "authenticationType" | "passkeyCredentialId" | "userId"
-  > {
+interface CreateSessionParams extends Pick<
+  CreateKVSessionParams,
+  "authenticationType" | "passkeyCredentialId" | "userId"
+> {
   token: string;
 }
 

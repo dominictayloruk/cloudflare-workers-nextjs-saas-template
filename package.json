@@ -29,7 +29,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@icons-pack/react-simple-icons": "^13.8.0",
     "@marsidev/react-turnstile": "^1.3.1",
-    "@opennextjs/cloudflare": "^1.13.1",
+    "@opennextjs/cloudflare": "^1.14.0",
     "@oslojs/encoding": "^1.1.0",
     "@paralleldrive/cuid2": "^3.1.0",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -54,17 +54,17 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.44.7",
-    "ipaddr.js": "^2.2.0",
-    "lucide-react": "^0.554.0",
+    "ipaddr.js": "^2.3.0",
+    "lucide-react": "^0.555.0",
     "motion": "^12.23.24",
     "ms": "^2.1.3",
-    "next": "16.0.4",
+    "next": "16.0.5",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.9.17",
     "nuqs": "^2.8.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-hook-form": "^7.66.1",
+    "react-hook-form": "^7.67.0",
     "react-turnstile": "^1.1.4",
     "remeda": "^2.32.0",
     "slugify": "^1.6.6",
@@ -81,7 +81,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "16.0.4",
+    "@next/bundle-analyzer": "16.0.5",
     "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/typography": "^0.5.19",
     "@types/ms": "^2.1.0",
@@ -90,21 +90,22 @@
     "@types/react-dom": "19.2.3",
     "drizzle-kit": "^0.31.7",
     "eslint": "^9.39.1",
-    "eslint-config-next": "16.0.4",
+    "eslint-config-next": "16.0.5",
     "postcss": "^8.5.6",
-    "prettier": "^3.6.2",
+    "prettier": "^3.7.3",
     "react-email": "5.0.5",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
-    "wrangler": "^4.50.0"
+    "wrangler": "^4.51.0"
   },
-  "packageManager": "pnpm@10.23.0",
+  "packageManager": "pnpm@10.24.0",
   "pnpm": {
     "overrides": {
       "@types/react": "19.2.7",
       "@types/react-dom": "19.2.3",
       "esbuild@<=0.24.2": ">=0.25.0",
-      "glob@>=11.0.0 <11.1.0": ">=11.1.0"
+      "glob@>=11.0.0 <11.1.0": ">=11.1.0",
+      "body-parser@>=2.2.0 <2.2.1": ">=2.2.1"
     }
   }
 }

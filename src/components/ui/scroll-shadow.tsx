@@ -3,8 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export interface ScrollShadowProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface ScrollShadowProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: "horizontal" | "vertical";
   isEnabled?: boolean;
 }

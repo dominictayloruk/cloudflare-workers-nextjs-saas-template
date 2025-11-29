@@ -73,8 +73,10 @@ export async function getKV() {
   return env.NEXT_INC_CACHE_KV;
 }
 
-export interface CreateKVSessionParams
-  extends Omit<KVSession, "id" | "createdAt" | "expiresAt"> {
+export interface CreateKVSessionParams extends Omit<
+  KVSession,
+  "id" | "createdAt" | "expiresAt"
+> {
   sessionId: string;
   expiresAt: Date;
 }
