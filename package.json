@@ -82,7 +82,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@next/bundle-analyzer": "16.0.7",
-    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
     "@types/ms": "^2.1.0",
     "@types/node": "^24.10.1",
