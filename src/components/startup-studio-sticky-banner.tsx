@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import AgenticDevStudioLogo from "./agenticdev-studio-logo";
@@ -9,15 +9,25 @@ import { ChevronLeft, X } from "lucide-react";
 const STORAGE_KEY = "agenticdev-studio-banner-collapsed";
 
 export function AgenticDevStudioStickyBanner() {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : false;
-  });
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      const nextValue = stored ? JSON.parse(stored) : false;
+      queueMicrotask(() => setIsCollapsed(nextValue));
+    } catch {
+      queueMicrotask(() => setIsCollapsed(false));
+    }
+  }, []);
 
   const toggleCollapsed = (value: boolean) => {
     setIsCollapsed(value);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+    } catch {
+      // ignore
+    }
   };
 
   return (
