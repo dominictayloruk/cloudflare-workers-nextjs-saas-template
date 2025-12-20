@@ -60,7 +60,7 @@
     "bindings": [
       {
         "name": "NEXT_CACHE_DO_QUEUE",
-        "class_name": "DOQueueHandler",
+        "class_name": "DurableObjectQueueHandler",
       },
     ],
   },
@@ -68,7 +68,7 @@
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["DOQueueHandler"],
+      "new_sqlite_classes": ["DurableObjectQueueHandler"],
     },
   ],
 
