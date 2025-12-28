@@ -168,7 +168,7 @@ export function NavUser() {
               className="cursor-pointer"
             >
               <LogOut />
-              Log out
+              Sign out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
