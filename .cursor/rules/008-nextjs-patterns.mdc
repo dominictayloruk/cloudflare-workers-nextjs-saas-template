@@ -6,7 +6,7 @@ alwaysApply: true
 # Next.js Patterns
 
 ## App Router Usage
-- Use Next.js 15 App Router for all routing
+- Use Next.js 16 App Router for all routing
 - Leverage React Server Components for server-side rendering
 - Implement proper loading.tsx and error.tsx files
 - Use route groups for logical organization

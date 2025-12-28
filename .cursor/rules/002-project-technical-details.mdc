@@ -29,7 +29,7 @@ Never generate SQL migration files. Instead after making changes to `./src/db/mi
 ## Tech Stack Overview
 
 ### Frontend
-- Next.js 15 (App Router)
+- Next.js 16 (App Router)
 - React Server Components
 - TypeScript
 - Tailwind CSS

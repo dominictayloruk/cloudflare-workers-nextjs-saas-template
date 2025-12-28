@@ -2,7 +2,7 @@ import type { Route } from "next";
 
 export const SITE_NAME = "SaaS Template";
 export const SITE_DESCRIPTION =
-  "A modern SaaS template built with Next.js 15 and Cloudflare Workers, designed for scalability and performance.";
+  "A modern SaaS template built with Next.js 16 and Cloudflare Workers, designed for scalability and performance.";
 export const SITE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"

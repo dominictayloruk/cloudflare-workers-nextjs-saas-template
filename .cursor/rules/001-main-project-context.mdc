@@ -17,7 +17,7 @@ This is a comprehensive, production-ready Next.js SaaS template designed to run 
 - **Multi-tenancy**: Teams/organizations with role-based permissions and tenant isolation
 - **Billing System**: Credit-based billing with Stripe integration, usage tracking, and transaction history
 - **Admin Dashboard**: User management, credit administration, and analytics
-- **Modern Stack**: Next.js 15, React Server Components, TypeScript, Tailwind CSS, Shadcn UI
+- **Modern Stack**: Next.js 16, React Server Components, TypeScript, Tailwind CSS, Shadcn UI
 - **Edge Computing**: Cloudflare Workers with D1 database, KV storage, and global deployment
 - **Email System**: React Email templates with Resend/Brevo integration
 - **Developer Experience**: Full TypeScript support, Drizzle ORM, automated deployments
