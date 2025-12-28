@@ -51,7 +51,7 @@ export function Hero() {
 async function TotalUsersButton() {
   const totalUsers = await getTotalUsers();
 
-  if (!totalUsers) return null;
+  if (totalUsers == null) return null;
 
   return (
     <ShinyButton className="rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 ring-1 ring-inset ring-purple-500/20">

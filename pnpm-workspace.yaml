@@ -1,7 +1,0 @@
-onlyBuiltDependencies:
-  - "@heroui/shared-utils"
-  - esbuild
-  - rclone.js
-  - sharp
-  - unrs-resolver
-  - workerd

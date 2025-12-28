@@ -98,7 +98,7 @@
     "typescript": "^5.9.3",
     "wrangler": "^4.56.0"
   },
-  "packageManager": "pnpm@10.26.1",
+  "packageManager": "pnpm@10.26.2",
   "pnpm": {
     "overrides": {
       "@types/react": "19.2.7",
@@ -106,6 +106,12 @@
       "esbuild@<=0.24.2": ">=0.25.0",
       "glob@>=11.0.0 <11.1.0": ">=11.1.0",
       "body-parser@>=2.2.0 <2.2.1": ">=2.2.1"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "unrs-resolver",
+      "workerd"
+    ]
   }
 }

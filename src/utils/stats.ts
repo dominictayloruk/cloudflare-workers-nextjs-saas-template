@@ -2,6 +2,7 @@ import "server-only";
 import { getDB } from "@/db";
 import { userTable } from "@/db/schema";
 import { withKVCache, CACHE_KEYS } from "./with-kv-cache";
+import isProd from "./is-prod";
 import { GITHUB_REPO_URL } from "@/constants";
 
 export async function getTotalUsers() {
@@ -9,7 +10,15 @@ export async function getTotalUsers() {
     async () => {
       const db = getDB();
 
-      return await db.$count(userTable);
+      try {
+        return await db.$count(userTable);
+      } catch (err) {
+        if (!isProd) {
+          return null;
+        }
+
+        throw err;
+      }
     },
     {
       key: CACHE_KEYS.TOTAL_USERS,
