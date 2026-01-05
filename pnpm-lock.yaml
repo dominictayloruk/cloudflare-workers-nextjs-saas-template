@@ -163,14 +163,14 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.3)
       zod:
-        specifier: ^4.3.4
-        version: 4.3.4
+        specifier: ^4.3.5
+        version: 4.3.5
       zsa:
         specifier: ^0.6.0
-        version: 0.6.0(zod@4.3.4)
+        version: 0.6.0(zod@4.3.5)
       zsa-react:
         specifier: ^0.2.3
-        version: 0.2.3(react@19.2.3)(zod@4.3.4)
+        version: 0.2.3(react@19.2.3)(zod@4.3.5)
       zustand:
         specifier: ^5.0.9
         version: 5.0.9(@types/react@19.2.7)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))
@@ -5647,8 +5647,8 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
-  zod@4.3.4:
-    resolution: {integrity: sha512-Zw/uYiiyF6pUT1qmKbZziChgNPRu+ZRneAsMUDU6IwmXdWt5JwcUfy2bvLOCUtz5UniaN/Zx5aFttZYbYc7O/A==}
+  zod@4.3.5:
+    resolution: {integrity: sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==}
 
   zsa-react@0.2.3:
     resolution: {integrity: sha512-THCoIIhtEU3jXTrNBM/PBc0PyHCekizSGEc+fg0LGo1NM1J02LFQN7ICR948X25IjtkZdvxUZmT0+M73GG8eEw==}
@@ -9963,8 +9963,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.2(jiti@2.6.1)
       hermes-parser: 0.25.1
-      zod: 4.3.4
-      zod-validation-error: 4.0.2(zod@4.3.4)
+      zod: 4.3.5
+      zod-validation-error: 4.0.2(zod@4.3.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -11962,23 +11962,23 @@ snapshots:
       cookie: 1.1.1
       youch-core: 0.3.3
 
-  zod-validation-error@4.0.2(zod@4.3.4):
+  zod-validation-error@4.0.2(zod@4.3.5):
     dependencies:
-      zod: 4.3.4
+      zod: 4.3.5
 
   zod@3.22.3: {}
 
-  zod@4.3.4: {}
+  zod@4.3.5: {}
 
-  zsa-react@0.2.3(react@19.2.3)(zod@4.3.4):
+  zsa-react@0.2.3(react@19.2.3)(zod@4.3.5):
     dependencies:
       react: 19.2.3
-      zod: 4.3.4
-      zsa: 0.6.0(zod@4.3.4)
+      zod: 4.3.5
+      zsa: 0.6.0(zod@4.3.5)
 
-  zsa@0.6.0(zod@4.3.4):
+  zsa@0.6.0(zod@4.3.5):
     dependencies:
-      zod: 4.3.4
+      zod: 4.3.5
 
   zustand@5.0.9(@types/react@19.2.7)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3)):
     optionalDependencies:
