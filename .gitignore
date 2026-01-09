@@ -49,3 +49,6 @@ dist
 !.dev.vars.example
 !.env*example
 *.log
+
+# Localflare generated files
+.localflare/
