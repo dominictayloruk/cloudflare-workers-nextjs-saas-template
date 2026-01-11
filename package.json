@@ -5,6 +5,22 @@
   "engines": {
     "node": ">=22"
   },
+  "packageManager": "pnpm@10.28.0",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.2.8",
+      "@types/react-dom": "19.2.3",
+      "esbuild@<=0.24.2": ">=0.25.0",
+      "glob@>=11.0.0 <11.1.0": ">=11.1.0",
+      "body-parser@>=2.2.0 <2.2.1": ">=2.2.1"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "unrs-resolver",
+      "workerd"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -64,7 +80,7 @@
     "nuqs": "^2.8.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-hook-form": "^7.70.0",
+    "react-hook-form": "^7.71.0",
     "react-turnstile": "^1.1.4",
     "remeda": "^2.33.1",
     "slugify": "^1.6.6",
@@ -86,7 +102,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "@types/ms": "^2.1.0",
     "@types/node": "^24.10.1",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "drizzle-kit": "^0.31.8",
     "eslint": "^9.39.2",
@@ -97,21 +113,5 @@
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "wrangler": "^4.58.0"
-  },
-  "packageManager": "pnpm@10.27.0",
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.2.7",
-      "@types/react-dom": "19.2.3",
-      "esbuild@<=0.24.2": ">=0.25.0",
-      "glob@>=11.0.0 <11.1.0": ">=11.1.0",
-      "body-parser@>=2.2.0 <2.2.1": ">=2.2.1"
-    },
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp",
-      "unrs-resolver",
-      "workerd"
-    ]
   }
 }
