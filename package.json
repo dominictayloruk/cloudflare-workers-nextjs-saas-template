@@ -85,7 +85,7 @@
     "remeda": "^2.33.4",
     "slugify": "^1.6.6",
     "sonner": "^2.0.7",
-    "stripe": "^20.2.0",
+    "stripe": "^20.3.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "^2.0.8",
