@@ -179,8 +179,8 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
       '@next/bundle-analyzer':
-        specifier: 16.1.4
-        version: 16.1.4
+        specifier: 16.1.6
+        version: 16.1.6
       '@tailwindcss/postcss':
         specifier: ^4.1.18
         version: 4.1.18
@@ -1490,8 +1490,8 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@next/bundle-analyzer@16.1.4':
-    resolution: {integrity: sha512-JpZKyFfPGVb9Vbbry0vhluvqAUbaGrI368Gjl5UZg+LEZhiBLc74Am+VEtjLp5RWxgn2dC1ymtQh+jeVu74WJQ==}
+  '@next/bundle-analyzer@16.1.6':
+    resolution: {integrity: sha512-ee2kagdTaeEWPlotgdTOqFHYcD3e2m2bbE3I9Rq2i6ABYi5OgopmtEUe8NM23viaYxLV2tDH/2nd5+qKoEr6cw==}
 
   '@next/env@16.1.4':
     resolution: {integrity: sha512-gkrXnZyxPUy0Gg6SrPQPccbNVLSP3vmW8LU5dwEttEEC1RwDivk8w4O+sZIjFvPrSICXyhQDCG+y3VmjlJf+9A==}
@@ -7287,7 +7287,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@next/bundle-analyzer@16.1.4':
+  '@next/bundle-analyzer@16.1.6':
     dependencies:
       webpack-bundle-analyzer: 4.10.1
     transitivePeerDependencies:
