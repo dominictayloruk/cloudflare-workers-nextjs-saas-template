@@ -81,7 +81,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.1",
-    "react-turnstile": "^1.1.4",
+    "react-turnstile": "^1.1.5",
     "remeda": "^2.33.4",
     "slugify": "^1.6.6",
     "sonner": "^2.0.7",
