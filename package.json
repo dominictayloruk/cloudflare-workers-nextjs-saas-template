@@ -93,7 +93,7 @@
     "zod": "^4.3.6",
     "zsa": "^0.6.0",
     "zsa-react": "^0.2.3",
-    "zustand": "^5.0.10"
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
