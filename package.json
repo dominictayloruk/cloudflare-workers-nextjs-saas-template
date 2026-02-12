@@ -43,7 +43,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^5.2.2",
-    "@icons-pack/react-simple-icons": "^13.8.0",
+    "@icons-pack/react-simple-icons": "^13.11.2",
     "@marsidev/react-turnstile": "^1.4.2",
     "@opennextjs/cloudflare": "^1.16.3",
     "@oslojs/encoding": "^1.1.0",
