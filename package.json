@@ -45,7 +45,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@icons-pack/react-simple-icons": "^13.11.2",
     "@marsidev/react-turnstile": "^1.4.2",
-    "@opennextjs/cloudflare": "^1.16.4",
+    "@opennextjs/cloudflare": "^1.16.5",
     "@oslojs/encoding": "^1.1.0",
     "@paralleldrive/cuid2": "^3.3.0",
     "@radix-ui/react-accordion": "^1.2.12",
